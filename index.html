@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generator Landing Page Hijab</title>
+    <title>Hijab Landing Generator - Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,183 +13,340 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
             min-height: 100vh;
-            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        .generator-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            z-index: 0;
+            background-image: 
+                radial-gradient(circle at 25% 25%, #3b82f6 2px, transparent 2px),
+                radial-gradient(circle at 75% 75%, #10b981 1px, transparent 1px);
+            background-size: 60px 60px, 40px 40px;
+            animation: bgFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes bgFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            box-shadow: 0 32px 64px rgba(0,0,0,0.08);
             overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.8);
+            animation: containerIn 1s ease-out;
+        }
+
+        @keyframes containerIn {
+            from { opacity: 0; transform: translateY(50px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .header {
-            background: linear-gradient(45deg, #d4a574, #e8c4a0);
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
             color: white;
-            padding: 30px;
+            padding: 60px 40px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: headerGlow 6s ease-in-out infinite;
+        }
+
+        @keyframes headerGlow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .emoji {
+            font-size: 72px;
+            margin-bottom: 24px;
+            display: block;
+            animation: emojiFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes emojiFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
 
         .header h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-            font-weight: 300;
+            font-size: 48px;
+            margin-bottom: 16px;
+            font-weight: 800;
+            letter-spacing: -1px;
         }
 
         .header p {
-            font-size: 16px;
+            font-size: 20px;
             opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
         }
 
-        .content {
+        .main {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            min-height: 600px;
+            grid-template-columns: 1fr 450px;
+            min-height: 800px;
         }
 
         .form-section {
-            padding: 40px;
+            padding: 50px;
             overflow-y: auto;
-            max-height: 80vh;
+            max-height: 90vh;
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
         }
 
         .preview-section {
-            background: #f8f9fa;
-            padding: 20px;
-            border-left: 1px solid #eee;
+            background: linear-gradient(145deg, #f1f5f9, #e2e8f0);
+            padding: 40px;
+            border-left: 1px solid rgba(0,0,0,0.06);
             overflow-y: auto;
-            max-height: 80vh;
+            max-height: 90vh;
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 32px;
+            animation: slideUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #1e293b;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(45deg, #3b82f6, #2563eb);
+            border-radius: 2px;
         }
 
         .form-label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             font-weight: 600;
-            color: #333;
-            font-size: 14px;
+            color: #1e293b;
+            font-size: 15px;
         }
 
         .form-input {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e1e5e9;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: all 0.3s;
+            padding: 16px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: white;
+            font-family: inherit;
         }
 
         .form-input:focus {
             outline: none;
-            border-color: #d4a574;
-            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-input:hover:not(:focus) {
+            border-color: #cbd5e1;
         }
 
         textarea.form-input {
             resize: vertical;
-            min-height: 80px;
+            min-height: 120px;
+            line-height: 1.6;
         }
 
-        .color-inputs {
+        .color-variants {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 20px;
         }
 
         .color-item {
-            display: flex;
-            gap: 10px;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 1.5fr auto;
+            gap: 12px;
             align-items: center;
+            padding: 20px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #f1f5f9;
+            transition: all 0.3s ease;
         }
 
-        .color-item input[type="text"] {
-            flex: 1;
+        .color-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
         }
 
-        .color-item input[type="url"] {
-            flex: 2;
-        }
-
-        .remove-color {
-            background: #ff4757;
+        .remove-btn {
+            background: linear-gradient(45deg, #ef4444, #dc2626);
             color: white;
             border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 4px;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px;
+            transition: all 0.3s ease;
         }
 
-        .add-color {
-            background: #2ed573;
+        .remove-btn:hover {
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        .add-color-btn {
+            background: linear-gradient(45deg, #10b981, #059669);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
+            padding: 16px 32px;
+            border-radius: 12px;
             cursor: pointer;
             font-weight: 600;
-            margin-top: 10px;
+            margin-top: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .add-color-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
         }
 
         .generate-btn {
-            background: linear-gradient(45deg, #d4a574, #e8c4a0);
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
+            padding: 20px 40px;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 700;
             cursor: pointer;
             width: 100%;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .generate-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .generate-btn:hover::before {
+            left: 100%;
         }
 
         .generate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(59, 130, 246, 0.3);
         }
 
-        .preview-phone {
-            width: 300px;
-            height: 600px;
-            background: #333;
-            border-radius: 30px;
-            padding: 20px;
+        .phone-mockup {
+            width: 320px;
+            height: 640px;
+            background: linear-gradient(145deg, #1f2937, #111827);
+            border-radius: 36px;
+            padding: 24px;
             margin: 0 auto;
             position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: phoneFloat 6s ease-in-out infinite;
         }
 
-        .preview-screen {
+        @keyframes phoneFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 6px;
+            background: #374151;
+            border-radius: 3px;
+        }
+
+        .phone-screen {
             width: 100%;
             height: 100%;
             background: white;
-            border-radius: 20px;
+            border-radius: 28px;
             overflow: hidden;
             position: relative;
         }
 
         .preview-header {
-            background: #d4a574;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
             color: white;
-            padding: 15px;
+            padding: 20px;
             text-align: center;
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 16px;
         }
 
         .preview-image {
             width: 100%;
-            height: 200px;
-            background: #f0f0f0;
-            background-image: url('https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=300&h=200&fit=crop');
+            height: 180px;
+            background: #f3f4f6;
+            background-image: url('https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=300&h=180&fit=crop');
             background-size: cover;
             background-position: center;
             position: relative;
@@ -196,126 +354,168 @@
 
         .preview-badges {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 12px;
+            right: 12px;
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 6px;
         }
 
         .preview-badge {
-            background: #d4a574;
+            background: rgba(59, 130, 246, 0.9);
             color: white;
-            padding: 3px 6px;
-            border-radius: 8px;
-            font-size: 8px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 600;
         }
 
         .preview-content {
-            padding: 15px;
+            padding: 20px;
         }
 
         .preview-title {
             font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 5px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #1f2937;
         }
 
         .preview-price {
             font-size: 16px;
-            font-weight: 700;
-            color: #d4a574;
-            margin-bottom: 10px;
+            font-weight: 800;
+            color: #3b82f6;
+            margin-bottom: 16px;
         }
 
         .preview-colors {
             display: flex;
             gap: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
         }
 
         .preview-color {
-            width: 25px;
-            height: 25px;
-            border-radius: 4px;
-            background: #ddd;
-            border: 1px solid #ccc;
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            background: #e5e7eb;
+            border: 2px solid #f3f4f6;
         }
 
         .preview-btn {
-            background: #d4a574;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
             color: white;
-            padding: 8px;
+            padding: 12px;
             text-align: center;
-            border-radius: 6px;
-            font-size: 12px;
-            margin-bottom: 5px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
         }
 
         .code-output {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 20px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
+            background: linear-gradient(145deg, #0f172a, #1e293b);
+            color: #e2e8f0;
+            padding: 30px;
+            border-radius: 16px;
+            font-family: 'Monaco', 'Courier New', monospace;
             font-size: 12px;
-            line-height: 1.4;
-            max-height: 400px;
+            line-height: 1.6;
+            max-height: 500px;
             overflow-y: auto;
-            margin-top: 20px;
+            margin-top: 30px;
             white-space: pre-wrap;
+            display: none;
         }
 
         .copy-btn {
-            background: #3498db;
+            background: linear-gradient(45deg, #3b82f6, #2563eb);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
+            padding: 12px 24px;
+            border-radius: 10px;
             cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .section-title {
-            font-size: 18px;
+            margin-top: 16px;
             font-weight: 600;
-            margin-bottom: 20px;
-            color: #2c3e50;
-            border-bottom: 2px solid #d4a574;
-            padding-bottom: 10px;
+            transition: all 0.3s ease;
         }
 
-        @media (max-width: 768px) {
-            .content {
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .feature-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
+            border: 2px solid rgba(16, 185, 129, 0.2);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .feature-box h4 {
+            color: #059669;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .feature-box p {
+            color: #065f46;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 1024px) {
+            .main {
                 grid-template-columns: 1fr;
             }
             
             .preview-section {
                 border-left: none;
-                border-top: 1px solid #eee;
+                border-top: 1px solid rgba(0,0,0,0.06);
             }
             
             .form-section {
-                padding: 20px;
+                padding: 30px;
+            }
+            
+            .preview-section {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .header h1 {
+                font-size: 32px;
+            }
+            
+            .color-item {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                text-align: center;
+            }
+            
+            .phone-mockup {
+                width: 280px;
+                height: 560px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="background-pattern"></div>
+    <div class="bg-animation"></div>
     
-    <div class="generator-container">
+    <div class="container">
         <div class="header">
             <div class="header-content">
-                <span class="header-emoji">🧕</span>
+                <span class="emoji">🧕</span>
                 <h1>Hijab Landing Generator</h1>
                 <p>Buat landing page hijab yang stunning dan professional dalam hitungan menit! ✨</p>
             </div>
         </div>
 
-        <div class="content">
+        <div class="main">
             <div class="form-section">
-                <div class="feature-highlight">
+                <div class="feature-box">
                     <h4>🚀 Generator Premium</h4>
                     <p>Landing page yang dihasilkan sudah mobile-responsive, modern, dan siap upload ke hosting manapun!</p>
                 </div>
@@ -350,21 +550,21 @@ https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=400&h=600&fit=cro
                 </div>
 
                 <div class="section-title">🎨 Varian Warna</div>
-                <div id="colorVariants">
+                <div id="colorVariants" class="color-variants">
                     <div class="color-item">
-                        <input type="text" placeholder="Nama Warna" value="Rose Smoke">
-                        <input type="url" placeholder="URL Gambar Kecil" value="https://images.unsplash.com/photo-1583391718956-6c10ad0d0edd?w=60&h=60&fit=crop">
-                        <input type="url" placeholder="URL Gambar Besar" value="https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=400&h=600&fit=crop">
-                        <button class="remove-color" onclick="removeColor(this)">×</button>
+                        <input type="text" class="form-input" placeholder="Nama Warna" value="Rose Smoke">
+                        <input type="url" class="form-input" placeholder="URL Gambar Kecil" value="https://images.unsplash.com/photo-1583391718956-6c10ad0d0edd?w=60&h=60&fit=crop">
+                        <input type="url" class="form-input" placeholder="URL Gambar Besar" value="https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=400&h=600&fit=crop">
+                        <button class="remove-btn" onclick="removeColor(this)">×</button>
                     </div>
                     <div class="color-item">
-                        <input type="text" placeholder="Nama Warna" value="Sky Blue">
-                        <input type="url" placeholder="URL Gambar Kecil" value="https://images.unsplash.com/photo-1594736797875-d0ebebaa6726?w=60&h=60&fit=crop">
-                        <input type="url" placeholder="URL Gambar Besar" value="https://images.unsplash.com/photo-1594736797933-d0ebebaa6726?w=400&h=600&fit=crop">
-                        <button class="remove-color" onclick="removeColor(this)">×</button>
+                        <input type="text" class="form-input" placeholder="Nama Warna" value="Sky Blue">
+                        <input type="url" class="form-input" placeholder="URL Gambar Kecil" value="https://images.unsplash.com/photo-1594736797875-d0ebebaa6726?w=60&h=60&fit=crop">
+                        <input type="url" class="form-input" placeholder="URL Gambar Besar" value="https://images.unsplash.com/photo-1594736797933-d0ebebaa6726?w=400&h=600&fit=crop">
+                        <button class="remove-btn" onclick="removeColor(this)">×</button>
                     </div>
                 </div>
-                <button class="add-color" onclick="addColor()">+ Tambah Warna</button>
+                <button class="add-color-btn" onclick="addColor()">+ Tambah Warna</button>
 
                 <div class="section-title">📋 Deskripsi & Spesifikasi</div>
                 
@@ -390,28 +590,26 @@ https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=400&h=600&fit=cro
 
                 <button class="generate-btn" onclick="generateLandingPage()">🚀 Generate Landing Page</button>
 
-                <div id="codeOutput" style="display: none;">
-                    <div class="section-title">💻 Kode HTML (Copy & Save sebagai .html)</div>
-                    <div class="code-output" id="htmlCode"></div>
-                    <button class="copy-btn" onclick="copyToClipboard()">📋 Copy Kode</button>
-                </div>
+                <div id="codeOutput" class="code-output"></div>
+                <button class="copy-btn" onclick="copyToClipboard()" style="display: none;" id="copyBtn">📋 Copy Kode</button>
             </div>
 
             <div class="preview-section">
                 <div class="section-title">📱 Preview Mobile</div>
-                <div class="preview-phone">
-                    <div class="preview-screen">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
                         <div class="preview-header" id="previewBrand">HIJAB PREMIUM</div>
                         <div class="preview-image">
                             <div class="preview-badges">
                                 <span class="preview-badge">Ada Stok</span>
                                 <span class="preview-badge">New</span>
+                                <span class="preview-badge">Premium</span>
                             </div>
                         </div>
                         <div class="preview-content">
                             <div class="preview-title" id="previewTitle">Eliza Scarf - Hijab Segiempat Premium</div>
                             <div class="preview-price" id="previewPrice">Rp 300,000</div>
-                            <div class="preview-colors" id="previewColors">
+                            <div class="preview-colors">
                                 <div class="preview-color"></div>
                                 <div class="preview-color"></div>
                                 <div class="preview-color"></div>
@@ -427,11 +625,22 @@ https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=400&h=600&fit=cro
     <script>
         // Update preview real-time
         function updatePreview() {
-            document.getElementById('previewBrand').textContent = document.getElementById('brandName').value || 'HIJAB PREMIUM';
-            document.getElementById('previewTitle').textContent = document.getElementById('productName').value || 'Nama Produk';
+            const brandElement = document.getElementById('previewBrand');
+            const titleElement = document.getElementById('previewTitle');
+            const priceElement = document.getElementById('previewPrice');
             
-            const price = document.getElementById('productPrice').value;
-            document.getElementById('previewPrice').textContent = price ? `Rp ${parseInt(price).toLocaleString('id-ID')}` : 'Rp 0';
+            if (brandElement) {
+                brandElement.textContent = document.getElementById('brandName').value || 'HIJAB PREMIUM';
+            }
+            
+            if (titleElement) {
+                titleElement.textContent = document.getElementById('productName').value || 'Nama Produk';
+            }
+            
+            if (priceElement) {
+                const price = document.getElementById('productPrice').value;
+                priceElement.textContent = price ? `Rp ${parseInt(price).toLocaleString('id-ID')}` : 'Rp 0';
+            }
         }
 
         // Add color variant
@@ -440,10 +649,10 @@ https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=400&h=600&fit=cro
             const colorItem = document.createElement('div');
             colorItem.className = 'color-item';
             colorItem.innerHTML = `
-                <input type="text" placeholder="Nama Warna">
-                <input type="url" placeholder="URL Gambar Kecil">
-                <input type="url" placeholder="URL Gambar Besar">
-                <button class="remove-color" onclick="removeColor(this)">×</button>
+                <input type="text" class="form-input" placeholder="Nama Warna">
+                <input type="url" class="form-input" placeholder="URL Gambar Kecil">
+                <input type="url" class="form-input" placeholder="URL Gambar Besar">
+                <button class="remove-btn" onclick="removeColor(this)">×</button>
             `;
             container.appendChild(colorItem);
         }
@@ -478,8 +687,9 @@ https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=400&h=600&fit=cro
 
             const html = generateHTML(brandName, productName, productPrice, orderLink, sliderImages, colors, productDescription, material, size, weight);
             
-            document.getElementById('htmlCode').textContent = html;
+            document.getElementById('codeOutput').textContent = html;
             document.getElementById('codeOutput').style.display = 'block';
+            document.getElementById('copyBtn').style.display = 'block';
             document.getElementById('codeOutput').scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -534,10 +744,10 @@ https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=400&h=600&fit=cro
 
         .header h1 {
             font-size: 24px;
-            color: #d4a574;
+            color: #3b82f6;
             text-align: center;
-            font-weight: 300;
-            letter-spacing: 2px;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
 
         .container {
@@ -590,7 +800,7 @@ https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=400&h=600&fit=cro
         }
 
         .dot.active {
-            background: #d4a574;
+            background: #3b82f6;
             transform: scale(1.2);
         }
 
@@ -604,7 +814,7 @@ https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=400&h=600&fit=cro
         }
 
         .badge {
-            background: #d4a574;
+            background: #3b82f6;
             color: white;
             padding: 4px 8px;
             border-radius: 12px;
@@ -626,12 +836,12 @@ https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=400&h=600&fit=cro
         .product-price {
             font-size: 24px;
             font-weight: 700;
-            color: #d4a574;
+            color: #3b82f6;
             margin-bottom: 15px;
         }
 
         .promo-banner {
-            background: linear-gradient(45deg, #d4a574, #e8c4a0);
+            background: linear-gradient(45deg, #3b82f6, #2563eb);
             color: white;
             padding: 12px 15px;
             border-radius: 8px;
@@ -678,7 +888,7 @@ https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=400&h=600&fit=cro
         }
 
         .color-option.active {
-            border-color: #d4a574;
+            border-color: #3b82f6;
             transform: scale(1.05);
         }
 
@@ -713,9 +923,9 @@ https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=400&h=600&fit=cro
         }
 
         .qty-btn:hover {
-            background: #d4a574;
+            background: #3b82f6;
             color: white;
-            border-color: #d4a574;
+            border-color: #3b82f6;
         }
 
         .qty-input {
@@ -748,22 +958,12 @@ https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=400&h=600&fit=cro
         }
 
         .btn-primary {
-            background: #d4a574;
+            background: #3b82f6;
             color: white;
         }
 
         .btn-primary:hover {
-            background: #c19660;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: #25d366;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #22c55e;
+            background: #2563eb;
             transform: translateY(-2px);
         }
 
@@ -810,106 +1010,6 @@ https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=400&h=600&fit=cro
             color: #666;
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
-            padding: 20px;
-        }
-
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            width: 100%;
-            max-width: 400px;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: #2c2c2c;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #999;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 16px;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #d4a574;
-        }
-
-        textarea.form-input {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .order-summary {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-
-        .summary-row.total {
-            font-weight: 700;
-            border-top: 1px solid #ddd;
-            padding-top: 8px;
-            margin-top: 8px;
-            font-size: 18px;
-            color: #d4a574;
-        }
-
         @media (min-width: 768px) {
             .container {
                 max-width: 800px;
@@ -929,10 +1029,6 @@ https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=400&h=600&fit=cro
 
             .order-buttons {
                 flex-direction: row;
-            }
-
-            .modal-content {
-                max-width: 500px;
             }
         }
     </style>
@@ -1020,7 +1116,6 @@ https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=400&h=600&fit=cro
     <script>
         let currentSlide = 0;
         let selectedColor = '${colors[0]?.name || 'Default'}';
-        let basePrice = ${productPrice};
 
         // Slider functionality
         function goToSlide(index) {
@@ -1037,18 +1132,13 @@ https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=400&h=600&fit=cro
 
         // Color selection
         function selectColor(element, colorName, imageUrl) {
-            // Remove active class from all color options
             document.querySelectorAll('.color-option').forEach(option => {
                 option.classList.remove('active');
             });
             
-            // Add active class to selected option
             element.classList.add('active');
-            
-            // Update selected color
             selectedColor = colorName;
             
-            // Update main image
             const mainImage = document.querySelector('#sliderWrapper .slide:first-child img');
             if (mainImage) {
                 mainImage.src = imageUrl;
@@ -1068,40 +1158,42 @@ https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=400&h=600&fit=cro
             }
         }
 
-        // Auto slider (optional)
+        // Auto slider
         setInterval(() => {
             currentSlide = (currentSlide + 1) % ${totalSlides};
             goToSlide(currentSlide);
         }, 5000);
     </script>
 </body>
-</html>\`;
+</html>`;
         }
 
         // Copy to clipboard function
         function copyToClipboard() {
-            const codeText = document.getElementById('htmlCode').textContent;
+            const codeText = document.getElementById('codeOutput').textContent;
             navigator.clipboard.writeText(codeText).then(() => {
-                const btn = document.querySelector('.copy-btn');
+                const btn = document.getElementById('copyBtn');
                 const originalText = btn.textContent;
                 btn.textContent = '✅ Copied!';
-                btn.style.background = '#2ed573';
+                btn.style.background = '#10b981';
                 
                 setTimeout(() => {
                     btn.textContent = originalText;
-                    btn.style.background = '#3498db';
+                    btn.style.background = 'linear-gradient(45deg, #3b82f6, #2563eb)';
                 }, 2000);
             });
         }
 
-        // Real-time preview updates
+        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            // Add event listeners to all inputs
-            document.getElementById('brandName').addEventListener('input', updatePreview);
-            document.getElementById('productName').addEventListener('input', updatePreview);
-            document.getElementById('productPrice').addEventListener('input', updatePreview);
+            const inputs = ['brandName', 'productName', 'productPrice'];
+            inputs.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('input', updatePreview);
+                }
+            });
             
-            // Initialize preview
             updatePreview();
         });
     </script>
