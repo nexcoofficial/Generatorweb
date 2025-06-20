@@ -3,951 +3,1394 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generator Toko Online</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Generator Website Toko Online - Fixed</title>
     <style>
         :root {
             --primary: #2563eb;
-            --success: #10b981;
-            --gray-light: #f3f4f6;
-            --gray-dark: #6b7280;
+            --danger: #dc2626;
+            --success: #059669;
+            --bg: #f8fafc;
+            --shadow: 0 2px 12px rgba(37, 99, 235, 0.06);
+            --card: #ffffff;
+            --border: #e5e7eb;
+            --radius: 14px;
         }
         
-        .gallery-main {
-            aspect-ratio: 4/5;
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
         }
         
-        .thumbnail {
-            aspect-ratio: 1/1;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: #222;
+            min-height: 100vh;
         }
         
-        .slide-enter-active, .slide-leave-active {
-            transition: transform 0.3s ease;
+        h1, h2, h3, h4 { 
+            font-weight: 700; 
+            letter-spacing: -.01em; 
         }
         
-        .slide-enter-from {
-            transform: translateX(100%);
+        .container {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 32px 12px 64px 12px;
         }
         
-        .slide-leave-to {
-            transform: translateX(-100%);
+        header {
+            background: var(--primary);
+            color: #fff;
+            padding: 0;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
         }
         
-        @media (max-width: 768px) {
-            .product-layout {
-                grid-template-columns: 1fr;
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 16px 12px;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -.01em;
+        }
+        
+        .header-info {
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .header-info i {
+            background: #fff;
+            border-radius: 50%;
+            color: var(--primary);
+            width: 28px;
+            height: 28px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-style: normal;
+            font-size: 1.3rem;
+        }
+        
+        .card {
+            background: var(--card);
+            box-shadow: var(--shadow);
+            border-radius: var(--radius);
+            padding: 28px 22px 22px 22px;
+            margin-bottom: 30px;
+        }
+        
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px 32px;
+        }
+        
+        @media (max-width: 850px) {
+            .form-grid { 
+                grid-template-columns: 1fr; 
             }
+        }
+        
+        .form-group {
+            margin-bottom: 14px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #222;
+        }
+        
+        input[type="text"], 
+        input[type="number"], 
+        input[type="tel"], 
+        textarea, 
+        select {
+            padding: 11px 10px;
+            border: 1.5px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+            background: #fff;
+            transition: border 0.2s;
+        }
+        
+        input:focus, 
+        textarea:focus, 
+        select:focus {
+            outline: 2px solid var(--primary);
+            border-color: var(--primary);
+        }
+        
+        textarea {
+            min-height: 56px;
+            resize: vertical;
+        }
+        
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+            margin-top: 7px;
+        }
+        
+        .checkbox-row label {
+            margin-bottom: 0;
+            font-weight: 500;
+            color: #222;
+        }
+        
+        .gen-btn {
+            display: block;
+            width: 100%;
+            font-size: 1.15rem;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 17px 0;
+            font-weight: 700;
+            margin-top: 18px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px 0 rgba(37,99,235,.10);
+            transition: background .15s;
+        }
+        
+        .gen-btn:hover { 
+            background: #1749b4; 
+        }
+        
+        .result-section {
+            margin-top: 26px;
+            display: none;
+        }
+        
+        .result-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+        
+        .result-actions {
+            display: flex;
+            gap: 13px;
+            margin-bottom: 10px;
+        }
+        
+        .result-actions button {
+            background: var(--success);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 9px 17px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background .15s;
+        }
+        
+        .result-actions button:hover { 
+            background: #047857; 
+        }
+        
+        .result-actions .download-btn { 
+            background: var(--primary); 
+        }
+        
+        .result-actions .download-btn:hover { 
+            background: #1749b4; 
+        }
+        
+        .result-box {
+            width: 100%;
+            min-height: 280px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 11px;
+            background: #f3f8fe;
+            font-family: 'Menlo', 'Consolas', monospace;
+            font-size: 0.98rem;
+            color: #222;
+            white-space: pre;
+            resize: vertical;
+        }
+        
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            color: #888;
+            margin: 30px 0 18px 0;
+        }
+        
+        @media (max-width: 600px) {
+            .container { 
+                padding: 10px 2px 50px 2px; 
+            }
+            .header-inner { 
+                flex-direction: column; 
+                gap: 9px; 
+            }
+            .card { 
+                padding: 15px 8px 16px 8px; 
+            }
+        }
+        
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        
+        input[type=number] { 
+            -moz-appearance: textfield; 
+        }
+        
+        input[type="checkbox"] {
+            accent-color: var(--primary);
+            width: 17px; 
+            height: 17px;
+        }
+        
+        .helper-text {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 2px;
         }
     </style>
 </head>
-<body class="bg-gray-100 font-sans">
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Generator Toko Online</h1>
-        
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-            <form id="storeGeneratorForm" class="space-y-6">
-                <!-- Section 1: Informasi Produk -->
-                <div class="border-b pb-6">
-                    <h2 class="text-xl font-semibold mb-4 text-gray-700">1. Informasi Produk</h2>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label for="productName" class="block text-sm font-medium text-gray-700 mb-1">Nama Produk*</label>
-                            <input type="text" id="productName" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        </div>
-                        
-                        <div>
-                            <label for="productPrice" class="block text-sm font-medium text-gray-700 mb-1">Harga (Rp)*</label>
-                            <input type="number" id="productPrice" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        </div>
-                    </div>
-                    
-                    <div class="mt-4">
-                        <label for="productDescription" class="block text-sm font-medium text-gray-700 mb-1">Deskripsi Produk*</label>
-                        <textarea id="productDescription" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                        <div>
-                            <label for="storeName" class="block text-sm font-medium text-gray-700 mb-1">Nama Toko*</label>
-                            <input type="text" id="storeName" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        </div>
-                        
-                        <div>
-                            <label for="whatsappNumber" class="block text-sm font-medium text-gray-700 mb-1">Nomor WhatsApp Toko (62xxx)*</label>
-                            <input type="text" id="whatsappNumber" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="6281234567890">
-                        </div>
-                    </div>
-                    
-                    <div class="mt-4">
-                        <label for="storePhone" class="block text-sm font-medium text-gray-700 mb-1">Nomor Telepon Toko (Opsional)</label>
-                        <input type="text" id="storePhone" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    
-                    <div class="mt-4">
-                        <label for="productFeatures" class="block text-sm font-medium text-gray-700 mb-1">Fitur Produk (Opsional, pisahkan dengan koma)</label>
-                        <input type="text" id="productFeatures" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tahan air, Baterai tahan lama, dsb">
-                    </div>
-                </div>
-                
-                <!-- Section 2: Gambar & Media -->
-                <div class="border-b pb-6">
-                    <h2 class="text-xl font-semibold mb-4 text-gray-700">2. Gambar & Media</h2>
-                    
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="logo">🛍️ Generator Website Toko Online</div>
+            <div class="header-info">
+                <i>📱</i>
+                <span>Powered by <b style="color: #fff;">nexcoAI</b></span>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <form id="generatorForm" autocomplete="off">
+            <div class="card">
+                <div class="card-title">1. Informasi Produk</div>
+                <div class="form-grid">
                     <div>
-                        <label for="productImages" class="block text-sm font-medium text-gray-700 mb-1">URL Gambar Produk* (satu URL per baris, minimal 1)</label>
-                        <textarea id="productImages" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="https://example.com/image1.jpg"></textarea>
-                        <p class="text-xs text-gray-500 mt-1">Gambar pertama akan menjadi gambar utama produk</p>
-                    </div>
-                    
-                    <div class="mt-4">
-                        <label for="productGif" class="block text-sm font-medium text-gray-700 mb-1">URL GIF Produk (Opsional)</label>
-                        <input type="text" id="productGif" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="https://example.com/animation.gif">
-                    </div>
-                </div>
-                
-                <!-- Section 3: Varian Produk -->
-                <div>
-                    <h2 class="text-xl font-semibold mb-4 text-gray-700">3. Varian Produk</h2>
-                    
-                    <div class="flex items-center mb-4">
-                        <input type="checkbox" id="hasVariants" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                        <label for="hasVariants" class="ml-2 block text-sm text-gray-700">Produk punya varian?</label>
-                    </div>
-                    
-                    <div id="variantOptions" class="space-y-4 hidden">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label for="variantColors" class="block text-sm font-medium text-gray-700 mb-1">Warna (pisahkan dengan koma)</label>
-                                <input type="text" id="variantColors" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Merah, Biru, Hitam">
-                            </div>
-                            
-                            <div>
-                                <label for="variantSizes" class="block text-sm font-medium text-gray-700 mb-1">Ukuran (pisahkan dengan koma)</label>
-                                <input type="text" id="variantSizes" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="S, M, L, XL">
-                            </div>
+                        <div class="form-group">
+                            <label for="productName">Nama Produk</label>
+                            <input type="text" id="productName" required placeholder="Contoh: Jaket Premium Casual">
                         </div>
-                        
-                        <div class="flex items-center">
-                            <input type="checkbox" id="autoCombine" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" checked>
-                            <label for="autoCombine" class="ml-2 block text-sm text-gray-700">Buat kombinasi otomatis warna-ukuran</label>
+                        <div class="form-group">
+                            <label for="price">Harga (Rp)</label>
+                            <input type="number" id="price" required min="1" step="1" placeholder="Contoh: 185000">
                         </div>
-                        
-                        <div id="manualVariantsContainer" class="hidden">
-                            <label for="manualVariants" class="block text-sm font-medium text-gray-700 mb-1">Daftar Varian Manual (satu varian per baris)</label>
-                            <textarea id="manualVariants" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Merah - S\nBiru - M"></textarea>
+                        <div class="form-group">
+                            <label for="description">Deskripsi</label>
+                            <textarea id="description" required placeholder="Tulis deskripsi produk..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="whatsapp">No. WhatsApp Toko</label>
+                            <input type="text" id="whatsapp" required placeholder="6281234567890">
+                            <span class="helper-text">Format: 628xxxx (diawali 62, tanpa + atau 0)</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label for="storeName">Nama Toko</label>
+                            <input type="text" id="storeName" required placeholder="Contoh: Fashion Store">
+                        </div>
+                        <div class="form-group">
+                            <label for="storePhone">No. Telepon Toko (opsional)</label>
+                            <input type="text" id="storePhone" placeholder="Contoh: 021-123456">
+                        </div>
+                        <div class="form-group">
+                            <label for="features">Fitur Produk (dipisah koma)</label>
+                            <textarea id="features" placeholder="Contoh: Bahan Premium, Kualitas Terjamin, Unisex"></textarea>
+                            <span class="helper-text">Contoh: "Bahan Premium, Unisex, Garansi 7 Hari"</span>
                         </div>
                     </div>
                 </div>
-                
-                <div class="pt-4">
-                    <button type="button" id="generateBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                        Generate Toko Online
-                    </button>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">2. Gambar Produk & GIF</div>
+                <div class="form-group">
+                    <label for="productImages">URL Gambar Produk (1 baris 1 gambar, atau dipisah koma)</label>
+                    <textarea id="productImages" required placeholder="https://...jpg&#10;https://...jpg"></textarea>
+                    <span class="helper-text">Paste satu atau banyak link gambar produk (wajib minimal 1, boleh sebanyak apapun)</span>
                 </div>
-            </form>
+                <div class="form-group">
+                    <label for="productGif">URL GIF Produk (opsional)</label>
+                    <input type="text" id="productGif" placeholder="https://...gif">
+                    <span class="helper-text">Jika diisi, GIF akan muncul di galeri gambar</span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">3. Varian Produk</div>
+                <div class="form-grid">
+                    <div>
+                        <div class="checkbox-row">
+                            <input type="checkbox" id="hasVariants">
+                            <label for="hasVariants">Produk punya varian warna/ukuran?</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="colors">Warna (dipisah koma)</label>
+                            <input type="text" id="colors" placeholder="Contoh: Brown, Black, Navy">
+                            <span class="helper-text">Biarkan kosong jika tidak ada</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="sizes">Ukuran (dipisah koma)</label>
+                            <input type="text" id="sizes" placeholder="Contoh: S, M, L, XL, XXL">
+                            <span class="helper-text">Biarkan kosong jika tidak ada</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="checkbox-row">
+                            <input type="checkbox" id="autoGenerateCombinations">
+                            <label for="autoGenerateCombinations">Buat kombinasi otomatis (Warna-Ukuran)</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="manualVariantList">List Varian Manual (satu per baris)</label>
+                            <textarea id="manualVariantList" placeholder="Contoh: BROWN-S&#10;BROWN-M&#10;BLACK-L"></textarea>
+                            <span class="helper-text">Diisi jika ingin varian khusus/manual</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: right;">
+                <button type="button" class="gen-btn" id="generateBtn">Generate Website</button>
+            </div>
+        </form>
+        
+        <div class="result-section" id="resultSection">
+            <div class="result-label">Hasil HTML Website Toko Online</div>
+            <div class="result-actions">
+                <button id="copyBtn">Salin HTML</button>
+                <button class="download-btn" id="downloadBtn">Download HTML</button>
+            </div>
+            <textarea class="result-box" id="result" readonly spellcheck="false"></textarea>
+            <div class="helper-text" style="margin-top:10px;">Upload file HTML ke hosting atau buka langsung di browser untuk uji coba.</div>
         </div>
         
-        <!-- Preview Section -->
-        <div id="previewSection" class="hidden">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-2xl font-bold text-gray-800">Preview Toko Online</h2>
-                <div class="flex space-x-2">
-                    <button id="copyBtn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
-                        Salin Kode
-                    </button>
-                    <button id="downloadBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                        Download HTML
-                    </button>
-                </div>
-            </div>
-            
-            <div id="storePreview" class="bg-white rounded-lg shadow-md overflow-hidden mb-8"></div>
-            
-            <div id="generatedCode" class="hidden">
-                <h3 class="text-lg font-semibold mb-2 text-gray-700">Kode HTML:</h3>
-                <pre id="codeOutput" class="bg-gray-800 text-gray-100 p-4 rounded-md overflow-x-auto text-sm"></pre>
-            </div>
+        <div class="footer">
+            &copy; 2025 <b>nexcoAI</b> · Generator Website Toko Online | Simple. Clean. Powerful.
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Toggle variant options
-            const hasVariantsCheckbox = document.getElementById('hasVariants');
-            const variantOptionsDiv = document.getElementById('variantOptions');
-            const autoCombineCheckbox = document.getElementById('autoCombine');
-            const manualVariantsContainer = document.getElementById('manualVariantsContainer');
+        // Data ongkir per provinsi
+        const ongkirFlat = {
+            "Jawa Barat": { tf: 12000, cod: 18000 },
+            "DKI Jakarta": { tf: 15000, cod: 21000 },
+            "Jawa Tengah": { tf: 13000, cod: 19000 },
+            "Jawa Timur": { tf: 13000, cod: 19000 },
+            "Banten": { tf: 13000, cod: 19000 },
+            "Bali": { tf: 19000, cod: 25000 },
+            "Sumatera Utara": { tf: 25000, cod: 31000 },
+            "Sumatera Selatan": { tf: 25000, cod: 31000 },
+            "Kalimantan Timur": { tf: 35000, cod: 41000 },
+            "Sulawesi Selatan": { tf: 35000, cod: 41000 }
+        };
+
+        // Data wilayah Indonesia
+        const indonesiaData = {
+            "Jawa Barat": {
+                "Bandung": ["Cidadap", "Cicendo", "Coblong", "Bandung Wetan"],
+                "Bekasi": ["Bekasi Barat", "Bekasi Timur", "Bekasi Selatan", "Bekasi Utara"],
+                "Bogor": ["Bogor Tengah", "Bogor Utara", "Bogor Selatan", "Bogor Timur"],
+                "Depok": ["Pancoran Mas", "Sukmajaya", "Sawangan", "Cipayung"],
+                "Cimahi": ["Cimahi Selatan", "Cimahi Tengah", "Cimahi Utara"]
+            },
+            "DKI Jakarta": {
+                "Jakarta Pusat": ["Gambir", "Tanah Abang", "Menteng", "Senen"],
+                "Jakarta Selatan": ["Kebayoran Baru", "Tebet", "Setiabudi", "Mampang Prapatan"],
+                "Jakarta Timur": ["Matraman", "Pulogadung", "Jatinegara", "Duren Sawit"],
+                "Jakarta Barat": ["Grogol Petamburan", "Taman Sari", "Tambora", "Kebon Jeruk"],
+                "Jakarta Utara": ["Penjaringan", "Pademangan", "Tanjung Priok", "Koja"]
+            },
+            "Jawa Tengah": {
+                "Semarang": ["Semarang Tengah", "Semarang Utara", "Semarang Selatan", "Semarang Timur"],
+                "Solo": ["Laweyan", "Serengan", "Pasar Kliwon", "Jebres"],
+                "Yogyakarta": ["Gondokusuman", "Jetis", "Tegalrejo", "Umbulharjo"]
+            },
+            "Jawa Timur": {
+                "Surabaya": ["Genteng", "Gubeng", "Tegalsari", "Wonokromo"],
+                "Malang": ["Klojen", "Blimbing", "Kedungkandang", "Sukun"],
+                "Sidoarjo": ["Sidoarjo", "Buduran", "Candi", "Porong"]
+            },
+            "Banten": {
+                "Tangerang": ["Tangerang Kota", "Cipondoh", "Karawaci", "Pinang"],
+                "Serang": ["Serang Kota", "Kasemen", "Walantaka", "Curug"]
+            },
+            "Bali": {
+                "Denpasar": ["Denpasar Barat", "Denpasar Selatan", "Denpasar Timur", "Denpasar Utara"],
+                "Badung": ["Mengwi", "Abiansemal", "Petang", "Kuta Utara"]
+            },
+            "Sumatera Utara": {
+                "Medan": ["Medan Kota", "Medan Barat", "Medan Timur", "Medan Utara"],
+                "Binjai": ["Binjai Kota", "Binjai Barat", "Binjai Timur", "Binjai Utara"]
+            },
+            "Sumatera Selatan": {
+                "Palembang": ["Ilir Barat I", "Ilir Timur I", "Seberang Ulu I", "Kertapati"]
+            },
+            "Kalimantan Timur": {
+                "Balikpapan": ["Balikpapan Kota", "Balikpapan Barat", "Balikpapan Timur", "Balikpapan Selatan"],
+                "Samarinda": ["Samarinda Kota", "Samarinda Ulu", "Samarinda Ilir", "Sungai Kunjang"]
+            },
+            "Sulawesi Selatan": {
+                "Makassar": ["Makassar", "Mariso", "Mamajang", "Tamalate"]
+            }
+        };
+
+        // Handle variant logic
+        document.getElementById('hasVariants').addEventListener('change', function() {
+            const checked = this.checked;
+            document.getElementById('colors').disabled = !checked;
+            document.getElementById('sizes').disabled = !checked;
+            document.getElementById('autoGenerateCombinations').disabled = !checked;
+            document.getElementById('manualVariantList').disabled = !checked;
+        });
+
+        // Initialize disabled state
+        document.getElementById('colors').disabled = true;
+        document.getElementById('sizes').disabled = true;
+        document.getElementById('autoGenerateCombinations').disabled = true;
+        document.getElementById('manualVariantList').disabled = true;
+
+        // Generate button event
+        document.getElementById('generateBtn').addEventListener('click', function() {
+            const getVal = id => (document.getElementById(id) ? document.getElementById(id).value.trim() : '');
             
-            hasVariantsCheckbox.addEventListener('change', function() {
-                if (this.checked) {
-                    variantOptionsDiv.classList.remove('hidden');
-                } else {
-                    variantOptionsDiv.classList.add('hidden');
+            // Collect form data
+            const featuresArr = getVal('features').split(',').map(f => f.trim()).filter(Boolean);
+            let imagesArr = getVal('productImages').split(/[\n,]/).map(x => x.trim()).filter(Boolean);
+            const gifUrl = getVal('productGif');
+            if (gifUrl) imagesArr.push(gifUrl);
+            
+            const hasVariants = document.getElementById('hasVariants').checked;
+            const autoGen = document.getElementById('autoGenerateCombinations').checked;
+            let colors = getVal('colors').split(',').map(c => c.trim()).filter(Boolean);
+            let sizes = getVal('sizes').split(',').map(c => c.trim()).filter(Boolean);
+            let variantList = getVal('manualVariantList');
+            let variantCombinations = [];
+            
+            if (hasVariants) {
+                if (autoGen && colors.length && sizes.length) {
+                    colors.forEach(color => {
+                        sizes.forEach(size => {
+                            variantCombinations.push(`${color.toUpperCase()}-${size.toUpperCase()}`);
+                        });
+                    });
+                } else if (variantList) {
+                    variantCombinations = variantList.replace(/\r\n/g, '\n').split('\n').map(x => x.trim()).filter(Boolean);
                 }
-            });
-            
-            autoCombineCheckbox.addEventListener('change', function() {
-                if (!this.checked) {
-                    manualVariantsContainer.classList.remove('hidden');
-                } else {
-                    manualVariantsContainer.classList.add('hidden');
-                }
-            });
-            
-            // Generate button click handler
-            document.getElementById('generateBtn').addEventListener('click', function() {
-                if (!validateForm()) {
-                    return;
-                }
-                
-                generateStore();
-                document.getElementById('previewSection').classList.remove('hidden');
-                document.getElementById('generatedCode').classList.remove('hidden');
-                
-                // Scroll to preview
-                document.getElementById('previewSection').scrollIntoView({ behavior: 'smooth' });
-            });
-            
-            // Copy button click handler
-            document.getElementById('copyBtn').addEventListener('click', function() {
-                const code = document.getElementById('codeOutput').textContent;
-                navigator.clipboard.writeText(code).then(function() {
-                    const originalText = this.textContent;
-                    this.textContent = 'Tersalin!';
-                    this.classList.remove('bg-gray-200', 'hover:bg-gray-300');
-                    this.classList.add('bg-green-500', 'hover:bg-green-600', 'text-white');
-                    
-                    setTimeout(() => {
-                        this.textContent = originalText;
-                        this.classList.remove('bg-green-500', 'hover:bg-green-600', 'text-white');
-                        this.classList.add('bg-gray-200', 'hover:bg-gray-300');
-                    }, 2000);
-                }.bind(this));
-            });
-            
-            // Download button click handler
-            document.getElementById('downloadBtn').addEventListener('click', function() {
-                const code = document.getElementById('codeOutput').textContent;
-                const blob = new Blob([code], { type: 'text/html' });
-                const url = URL.createObjectURL(blob);
-                
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'toko-online.html';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-            });
-            
-            // Form validation
-            function validateForm() {
-                let isValid = true;
-                
-                // Required fields
-                const requiredFields = [
-                    'productName', 'productPrice', 'productDescription', 
-                    'storeName', 'whatsappNumber', 'productImages'
-                ];
-                
-                requiredFields.forEach(fieldId => {
-                    const field = document.getElementById(fieldId);
-                    if (!field.value.trim()) {
-                        field.classList.add('border-red-500');
-                        isValid = false;
-                    } else {
-                        field.classList.remove('border-red-500');
-                    }
-                });
-                
-                // Validate WhatsApp number format
-                const whatsappNumber = document.getElementById('whatsappNumber').value.trim();
-                if (whatsappNumber && !/^62\d{9,}$/.test(whatsappNumber)) {
-                    document.getElementById('whatsappNumber').classList.add('border-red-500');
-                    isValid = false;
-                }
-                
-                // Validate at least one image URL
-                const imageUrls = document.getElementById('productImages').value.trim().split('\n').filter(url => url.trim());
-                if (imageUrls.length === 0) {
-                    document.getElementById('productImages').classList.add('border-red-500');
-                    isValid = false;
-                }
-                
-                return isValid;
             }
             
-            // Generate the store HTML
-            function generateStore() {
-                // Get form values
-                const productName = document.getElementById('productName').value.trim();
-                const productPrice = parseInt(document.getElementById('productPrice').value.trim());
-                const productDescription = document.getElementById('productDescription').value.trim();
-                const storeName = document.getElementById('storeName').value.trim();
-                const whatsappNumber = document.getElementById('whatsappNumber').value.trim();
-                const storePhone = document.getElementById('storePhone').value.trim();
-                const productFeatures = document.getElementById('productFeatures').value.trim();
-                const productImages = document.getElementById('productImages').value.trim().split('\n').filter(url => url.trim());
-                const productGif = document.getElementById('productGif').value.trim();
-                const hasVariants = document.getElementById('hasVariants').checked;
-                
-                // Format price
-                const formattedPrice = new Intl.NumberFormat('id-ID', { 
-                    style: 'currency', 
-                    currency: 'IDR',
-                    minimumFractionDigits: 0
-                }).format(productPrice);
-                
-                // Generate variants if needed
-                let variants = [];
-                if (hasVariants) {
-                    const autoCombine = document.getElementById('autoCombine').checked;
-                    
-                    if (autoCombine) {
-                        const colors = document.getElementById('variantColors').value.trim().split(',').map(c => c.trim()).filter(c => c);
-                        const sizes = document.getElementById('variantSizes').value.trim().split(',').map(s => s.trim()).filter(s => s);
-                        
-                        if (colors.length > 0 && sizes.length > 0) {
-                            colors.forEach(color => {
-                                sizes.forEach(size => {
-                                    variants.push(`${color} - ${size}`);
-                                });
-                            });
-                        } else if (colors.length > 0) {
-                            variants = colors;
-                        } else if (sizes.length > 0) {
-                            variants = sizes;
-                        }
-                    } else {
-                        variants = document.getElementById('manualVariants').value.trim().split('\n').map(v => v.trim()).filter(v => v);
-                    }
+            // Validation
+            if (!getVal('productName') || !getVal('price') || !getVal('description') || !getVal('whatsapp') || !getVal('storeName')) {
+                alert("Isi semua data produk & toko dengan benar!");
+                return;
+            }
+            
+            if (imagesArr.length < 1) {
+                alert("Minimal 1 gambar produk wajib diisi!");
+                return;
+            }
+            
+            const formData = {
+                productName: getVal('productName'),
+                price: parseInt(getVal('price')),
+                description: getVal('description'),
+                whatsapp: getVal('whatsapp').replace(/\D/g, ''),
+                images: imagesArr,
+                hasVariants,
+                colors,
+                sizes,
+                autoGenerateCombinations: autoGen,
+                manualVariantList: variantList,
+                variantCombinations,
+                storeName: getVal('storeName'),
+                storePhone: getVal('storePhone'),
+                features: featuresArr
+            };
+            
+            const html = generateWebsite(formData);
+            document.getElementById('result').value = html;
+            document.getElementById('resultSection').style.display = 'block';
+        });
+
+        // Copy button
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            const result = document.getElementById('result');
+            result.select();
+            result.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(result.value).then(() => {
+                this.textContent = "✅ Disalin!";
+                setTimeout(() => { this.textContent = "Salin HTML"; }, 1800);
+            }).catch(() => {
+                document.execCommand("copy");
+                this.textContent = "✅ Disalin!";
+                setTimeout(() => { this.textContent = "Salin HTML"; }, 1800);
+            });
+        });
+
+        // Download button
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const code = document.getElementById('result').value;
+            const blob = new Blob([code], { type: "text/html;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'toko-online.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        function generateVariantHTML(formData) {
+            if (!formData.hasVariants) return '';
+            
+            if (formData.variantCombinations && formData.variantCombinations.length > 0) {
+                return `
+                <div class="variant-selection">
+                    <label>Pilih Varian:</label>
+                    <select id="variantSelect" required onchange="updateOrderSummary()">
+                        <option value="">-- Pilih Varian --</option>
+                        ${formData.variantCombinations.map(variant =>
+                            `<option value="${variant}">${variant}</option>`
+                        ).join('')}
+                    </select>
+                </div>`;
+            } else {
+                let html = `<div class="variant-selection">`;
+                if (formData.colors && formData.colors.length > 0) {
+                    html += `
+                    <div class="form-group">
+                        <label>Pilih Warna:</label>
+                        <select id="colorSelect" required onchange="updateOrderSummary()">
+                            <option value="">-- Pilih Warna --</option>
+                            ${formData.colors.map(color => `<option value="${color}">${color}</option>`).join('')}
+                        </select>
+                    </div>`;
                 }
-                
-                // Generate HTML for the store
-                const storeHTML = `
-<!DOCTYPE html>
+                if (formData.sizes && formData.sizes.length > 0) {
+                    html += `
+                    <div class="form-group">
+                        <label>Pilih Ukuran:</label>
+                        <select id="sizeSelect" required onchange="updateOrderSummary()">
+                            <option value="">-- Pilih Ukuran --</option>
+                            ${formData.sizes.map(size => `<option value="${size}">${size}</option>`).join('')}
+                        </select>
+                    </div>`;
+                }
+                html += `</div>`;
+                return html;
+            }
+        }
+
+        function generateWebsite(formData) {
+            function esc(str) {
+                return (str+"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+                    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+            }
+            
+            const addressDataString = JSON.stringify(indonesiaData);
+            const ongkirFlatString = JSON.stringify(ongkirFlat);
+            
+            let featuresHtml = '';
+            if (formData.features && formData.features.length) {
+                featuresHtml = `<ul class="feature-list">${formData.features.map(f => `<li>✔️ ${esc(f)}</li>`).join('')}</ul>`;
+            }
+            
+            const galleryImgs = formData.images;
+            
+            return `<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${productName} - ${storeName}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>${esc(formData.productName)} - ${esc(formData.storeName)}</title>
     <style>
-        .gallery-main {
-            aspect-ratio: 4/5;
+        body { 
+            font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+            background: #f8fafc;
+            color: #222;
+            margin: 0;
+            padding: 0;
         }
-        
-        .thumbnail {
-            aspect-ratio: 1/1;
+        header { 
+            background: #2563eb; 
+            color: #fff; 
+            margin-bottom: 0; 
         }
-        
-        @media (max-width: 768px) {
-            .product-layout {
-                grid-template-columns: 1fr;
+        .container { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            padding: 0 12px 30px 12px;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        .logo { 
+            font-size: 1.4rem; 
+            font-weight: 800; 
+            letter-spacing: -.01em; 
+        }
+        .contact { 
+            font-size: 1.08rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 7px; 
+        }
+        main.product-section {
+            margin-top: 0;
+        }
+        .product-section .container { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 36px; 
+        }
+        .gallery-outer { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            width: 100%; 
+        }
+        .gallery-mainbox {
+            width: 100%; 
+            max-width: 440px; 
+            aspect-ratio: 4/5; 
+            background: #fff;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            border-radius: 12px; 
+            box-shadow: 0 3px 14px 0 #e5e7eb;
+            overflow: hidden; 
+            margin: 0 auto;
+        }
+        .gallery-mainbox img {
+            max-width: 100%; 
+            max-height: 100%; 
+            object-fit: contain; 
+            background: #fff;
+            display: block; 
+            margin: 0 auto;
+            transition: opacity .18s;
+        }
+        .gallery-thumbs {
+            display: flex; 
+            flex-direction: row; 
+            align-items: center;
+            gap: 10px; 
+            overflow-x: auto; 
+            margin: 14px 0 0 0;
+            width: 100%; 
+            max-width: 440px; 
+            padding-bottom: 4px;
+            scrollbar-width: thin; 
+            scrollbar-color: #2563eb #e5e7eb;
+        }
+        .gallery-thumbimg {
+            width: 70px; 
+            height: 70px; 
+            object-fit: cover; 
+            border-radius: 7px;
+            border: 2px solid #fff; 
+            box-shadow: 0 1px 6px 0 #e5e7eb;
+            cursor: pointer; 
+            background: #f3f4f6; 
+            transition: border .13s;
+            flex-shrink: 0;
+        }
+        .gallery-thumbimg.active, 
+        .gallery-thumbimg:focus { 
+            border: 2px solid #2563eb; 
+        }
+        .product-info { 
+            background: #fff; 
+            border-radius: 13px; 
+            box-shadow: 0 4px 20px 0 #dbeafe; 
+            padding: 28px 18px 18px 18px;
+        }
+        .product-title { 
+            font-size: 1.42rem; 
+            font-weight: 800; 
+            color: #222; 
+            margin-bottom: 6px; 
+        }
+        .price { 
+            font-size: 1.28rem; 
+            color: #2563eb; 
+            font-weight: 800; 
+            margin-bottom: 7px; 
+        }
+        .desc { 
+            color: #444; 
+            margin-bottom: 12px; 
+            font-size: 1.05rem;
+        }
+        .feature-list { 
+            margin: 0 0 17px 0; 
+            padding-left: 19px;
+        }
+        .feature-list li { 
+            font-size: 1rem; 
+            color: #059669; 
+            margin-bottom: 2px;
+        }
+        #orderForm {
+            margin-top: 7px;
+        }
+        input, select, textarea, button {
+            width: 100%; 
+            padding: 12px; 
+            margin-bottom: 10px;
+            border: 1px solid #ddd; 
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        select { 
+            cursor: pointer; 
+        }
+        button { 
+            cursor: pointer; 
+        }
+        .payment-choice {
+            display: flex; 
+            gap: 13px; 
+            margin: 18px 0 10px 0; 
+            justify-content: center;
+        }
+        .payment-btn {
+            padding: 12px 22px; 
+            border-radius: 7px; 
+            font-size: 1.12rem; 
+            font-weight: 700;
+            border: none; 
+            outline: none; 
+            transition: background .13s, color .13s;
+            cursor: pointer; 
+            background: #e5e7eb; 
+            color: #222; 
+            box-shadow: 0 1px 4px 0 #e5e7eb;
+            width: auto;
+            margin-bottom: 0;
+        }
+        .payment-btn.active, 
+        .payment-btn.selected, 
+        .payment-btn[data-method="tf"].active {
+            background: #2563eb !important; 
+            color: #fff !important; 
+            box-shadow: 0 2px 8px 0 #2563eb22;
+        }
+        .payment-btn[data-method="tf"] { 
+            background: #e5e7eb; 
+            color: #2563eb; 
+            border: 2px solid #2563eb;
+        }
+        .payment-btn[data-method="cod"] { 
+            background: #f3f4f6; 
+            color: #444; 
+            border: 2px solid #e5e7eb; 
+        }
+        .payment-btn[data-method="tf"]:hover { 
+            background: #1749b4; 
+            color: #fff;
+        }
+        .payment-btn[data-method="cod"]:hover { 
+            background: #ddd; 
+            color: #222;
+        }
+        .whatsapp-btn {
+            background: #25d366; 
+            color: white; 
+            font-weight: bold;
+            border: none; 
+            padding: 15px; 
+            border-radius: 5px; 
+            cursor: pointer;
+            font-size: 1.13rem; 
+            margin-top: 10px;
+            transition: background 0.15s;
+        }
+        .whatsapp-btn:hover { 
+            background: #1caf5a; 
+        }
+        .quantity { 
+            margin-bottom: 20px; 
+        }
+        .qty-controls {
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            margin: 10px 0;
+        }
+        .qty-controls button {
+            width: 36px; 
+            height: 36px; 
+            border-radius: 50%;
+            background: #2563eb; 
+            color: white; 
+            border: none;
+            font-size: 18px; 
+            font-weight: bold; 
+            cursor: pointer;
+            margin-bottom: 0;
+        }
+        .qty-controls input {
+            width: 50px; 
+            text-align: center; 
+            font-size: 16px; 
+            font-weight: bold;
+            margin: 0; 
+            border: 2px solid #ddd;
+        }
+        .qty-info { 
+            color: #666; 
+            font-size: 14px; 
+        }
+        .customer-notes {
+            margin: 20px 0; 
+            padding: 13px 9px; 
+            background: #f0f9ff; 
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+        }
+        .customer-notes label {
+            display: block; 
+            margin-bottom: 8px; 
+            font-weight: 600; 
+            color: #1e40af;
+        }
+        .customer-notes textarea {
+            border-color: #93c5fd; 
+            background: white;
+        }
+        .notes-help {
+            display: block; 
+            margin-top: 5px; 
+            color: #6366f1; 
+            font-size: 12px;
+        }
+        .order-summary {
+            background: #f8fafc; 
+            border: 2px solid #e2e8f0; 
+            border-radius: 12px;
+            padding: 18px 15px; 
+            margin: 20px 0 0 0;
+        }
+        .summary-row {
+            display: flex; 
+            justify-content: space-between; 
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .summary-row.total {
+            border-top: 2px solid #3b82f6; 
+            border-bottom: none;
+            font-size: 18px; 
+            font-weight: bold; 
+            color: #1e40af;
+            margin-top: 10px; 
+            padding-top: 15px;
+        }
+        .payment-methods { 
+            margin: 20px 0 0 0; 
+        }
+        .payment-methods h4 { 
+            margin-bottom: 7px; 
+            font-size: 1.07rem; 
+        }
+        .payment-options { 
+            display: flex; 
+            gap: 16px; 
+            flex-wrap: wrap;
+        }
+        .payment-option { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 3px;
+        }
+        .payment-option img { 
+            width: 50px; 
+            height: 30px; 
+            border-radius: 5px;
+        }
+        .variant-selection {
+            margin-bottom: 15px;
+        }
+        .variant-selection label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        @media (max-width: 900px) {
+            .product-section .container { 
+                grid-template-columns: 1fr; 
+            }
+            .gallery-outer { 
+                max-width: 95vw;
+            }
+        }
+        @media (max-width: 600px) {
+            .product-info { 
+                padding: 10px 4px 13px 4px;
+            }
+            .gallery-mainbox {
+                max-width: 99vw;
+            }
+            .gallery-thumbs {
+                max-width: 99vw;
+            }
+            .payment-choice {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .payment-btn {
+                width: 100%;
             }
         }
     </style>
 </head>
-<body class="bg-gray-100 font-sans">
-    <div class="container mx-auto px-4 py-6">
-        <!-- Header -->
-        <header class="bg-white shadow-sm rounded-lg p-4 mb-6">
-            <div class="flex justify-between items-center">
-                <h1 class="text-xl font-bold text-gray-800">${storeName}</h1>
-                <div class="flex items-center space-x-2">
-                    <a href="https://wa.me/${whatsappNumber}" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-md text-sm flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-6.29-3.51c.174-.386.272-.799.272-1.218 0-.52-.133-.987-.397-1.386-.422-.619-1.186-.995-2.04-.995-1.338 0-2.423 1.09-2.423 2.435 0 .898.434 1.707 1.111 2.219.173.124.25.148.322.148.074 0 .149-.025.223-.074.272-.173.744-.644.893-.868.074-.124.124-.198.198-.198.074 0 .124.025.173.124.074.198.396 1.142.446 1.239.05.099.025.173-.025.248-.05.074-.173.149-.322.223-.149.074-.297.149-.347.198-.05.05-.05.124-.025.198.05.099.198.446.519.694.397.31.893.483 1.413.483 1.488 0 2.694-1.216 2.694-2.716 0-.868-.421-1.636-1.091-2.117"/>
-                            <path d="M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10c-1.848 0-3.584-.524-5.06-1.428l-3.82 1.067 1.066-3.82A9.96 9.96 0 0 1 2 12 10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8c0 1.69.56 3.25 1.5 4.5L4 20l3.5-1.5A8 8 0 0 0 12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8"/>
-                        </svg>
-                        WhatsApp
-                    </a>
-                    ${storePhone ? `<a href="tel:${storePhone}" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                        </svg>
-                        Telepon
-                    </a>` : ''}
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">${esc(formData.storeName)}</div>
+                <div class="contact">
+                    <span style="font-size:1.2rem;">📱</span>
+                    <span style="margin-left:8px;">${esc(formData.whatsapp)}</span>
                 </div>
             </div>
-        </header>
-        
-        <!-- Product Section -->
-        <div class="product-layout grid grid-cols-1 md:grid-cols-2 gap-6 bg-white rounded-lg shadow-md p-6">
-            <!-- Gallery -->
-            <div class="gallery-container">
-                <div class="gallery-main bg-gray-100 rounded-lg overflow-hidden mb-4 relative">
-                    <img id="mainImage" src="${productImages[0]}" alt="${productName}" class="w-full h-full object-cover">
-                    ${productGif ? `<img id="gifImage" src="${productGif}" alt="${productName} GIF" class="w-full h-full object-cover hidden">` : ''}
-                    
-                    <button id="prevBtn" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 rounded-full p-2 shadow-md hover:bg-opacity-100 focus:outline-none">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                    <button id="nextBtn" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 rounded-full p-2 shadow-md hover:bg-opacity-100 focus:outline-none">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                    
-                    ${productGif ? `<button id="toggleGifBtn" class="absolute bottom-2 right-2 bg-white bg-opacity-70 rounded-full p-2 shadow-md hover:bg-opacity-100 focus:outline-none">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
-                        </svg>
-                    </button>` : ''}
-                </div>
-                
-                <div class="thumbnail-container flex space-x-2 overflow-x-auto py-2">
-                    ${productImages.map((img, index) => `
-                        <button class="thumbnail-btn ${index === 0 ? 'border-2 border-blue-500' : 'border border-gray-200'}" data-index="${index}">
-                            <img src="${img}" alt="Thumbnail ${index + 1}" class="thumbnail w-16 h-16 object-cover rounded">
-                        </button>
-                    `).join('')}
-                    
-                    ${productGif ? `
-                        <button class="thumbnail-btn border border-gray-200" data-gif="true">
-                            <img src="${productGif}" alt="GIF Thumbnail" class="thumbnail w-16 h-16 object-cover rounded">
-                        </button>
-                    ` : ''}
+        </div>
+    </header>
+    
+    <main class="product-section">
+        <div class="container">
+            <div>
+                <div class="gallery-outer">
+                    <div class="gallery-mainbox">
+                        <img src="${esc(galleryImgs[0])}" id="galleryMainImage" alt="Gambar Utama Produk">
+                    </div>
+                    <div class="gallery-thumbs">
+                        ${galleryImgs.map((src, idx) => `<img src="${esc(src)}" class="gallery-thumbimg${idx==0?' active':''}" onclick="showGalleryImage(${idx})" alt="Thumbnail ${idx+1}">`).join('')}
+                    </div>
                 </div>
             </div>
-            
-            <!-- Product Info -->
             <div class="product-info">
-                <h1 class="text-2xl font-bold text-gray-800 mb-2">${productName}</h1>
-                <div class="text-2xl font-semibold text-blue-600 mb-4">${formattedPrice}</div>
+                <div class="product-title">${esc(formData.productName)}</div>
+                <div class="price">Rp ${formData.price.toLocaleString('id-ID')}</div>
+                <div class="desc">${esc(formData.description)}</div>
+                ${featuresHtml}
                 
-                ${productFeatures ? `<div class="mb-4">
-                    <h3 class="text-sm font-medium text-gray-700 mb-1">Fitur Produk:</h3>
-                    <ul class="list-disc list-inside text-sm text-gray-600">
-                        ${productFeatures.split(',').map(feature => `<li>${feature.trim()}</li>`).join('')}
-                    </ul>
-                </div>` : ''}
-                
-                <div class="mb-4">
-                    <h3 class="text-sm font-medium text-gray-700 mb-1">Deskripsi:</h3>
-                    <p class="text-sm text-gray-600 whitespace-pre-line">${productDescription}</p>
-                </div>
-                
-                <!-- Order Form -->
-                <form id="orderForm" class="space-y-4">
-                    ${hasVariants ? `
-                    <div>
-                        <label for="productVariant" class="block text-sm font-medium text-gray-700 mb-1">Varian:</label>
-                        <select id="productVariant" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            ${variants.map(variant => `<option value="${variant}">${variant}</option>`).join('')}
-                        </select>
-                    </div>
-                    ` : ''}
+                <form id="orderForm" autocomplete="off" onsubmit="return false;">
+                    ${generateVariantHTML(formData)}
                     
-                    <div>
-                        <label for="quantity" class="block text-sm font-medium text-gray-700 mb-1">Jumlah:</label>
-                        <div class="flex items-center">
-                            <button type="button" id="decrementBtn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded-l-md focus:outline-none">-</button>
-                            <input type="number" id="quantity" value="1" min="1" class="w-16 px-3 py-1 border-t border-b border-gray-300 text-center focus:outline-none">
-                            <button type="button" id="incrementBtn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded-r-md focus:outline-none">+</button>
+                    <div class="quantity">
+                        <label>Jumlah Pesanan:</label>
+                        <div class="qty-controls">
+                            <button type="button" onclick="changeQty(-1)">-</button>
+                            <input type="number" id="qty" value="1" min="1" max="99" onchange="updateTotal()">
+                            <button type="button" onclick="changeQty(1)">+</button>
                         </div>
+                        <small class="qty-info">Harga per pcs: Rp <span id="unitPrice">${formData.price.toLocaleString('id-ID')}</span></small>
                     </div>
                     
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Metode Pembayaran:</label>
-                        <div class="flex space-x-4">
-                            <label class="inline-flex items-center">
-                                <input type="radio" name="paymentMethod" value="transfer" checked class="h-4 w-4 text-blue-600 focus:ring-blue-500">
-                                <span class="ml-2 text-sm text-gray-700">Transfer Bank</span>
-                            </label>
-                            <label class="inline-flex items-center">
-                                <input type="radio" name="paymentMethod" value="cod" class="h-4 w-4 text-blue-600 focus:ring-blue-500">
-                                <span class="ml-2 text-sm text-gray-700">COD (Bayar di Tempat)</span>
-                            </label>
+                    <div class="payment-choice">
+                        <button type="button" class="payment-btn" id="btnTf" data-method="tf" onclick="choosePayment('tf')">Transfer Bank</button>
+                        <button type="button" class="payment-btn" id="btnCod" data-method="cod" onclick="choosePayment('cod')">COD</button>
+                    </div>
+                    
+                    <input type="text" id="customerName" placeholder="Nama Lengkap" required>
+                    <input type="tel" id="customerPhone" placeholder="No. WhatsApp" required>
+                    <textarea id="customerAddress" placeholder="Alamat Lengkap" required rows="3"></textarea>
+                    
+                    <select id="province" onchange="loadCities()" required>
+                        <option value="">Pilih Provinsi</option>
+                    </select>
+                    
+                    <select id="city" onchange="loadDistricts()" required>
+                        <option value="">Pilih Kota</option>
+                    </select>
+                    
+                    <select id="district" required>
+                        <option value="">Pilih Kecamatan</option>
+                    </select>
+                    
+                    <textarea id="catatanWilayah" placeholder="Catatan Wilayah (Tulis manual jika wilayah tidak ada di list)" rows="2"></textarea>
+                    
+                    <div class="customer-notes">
+                        <label>Catatan Tambahan (Opsional):</label>
+                        <textarea id="customerNotes" placeholder="Contoh: Saya pesan 3 pcs - 1 warna merah ukuran L, 2 warna hijau ukuran M dan XL. Atau catatan khusus lainnya..." rows="3"></textarea>
+                        <small class="notes-help">💡 Gunakan catatan ini jika memesan beberapa varian berbeda atau ada permintaan khusus</small>
+                    </div>
+                    
+                    <div class="order-summary">
+                        <div class="summary-row">
+                            <span>Harga per pcs:</span>
+                            <span id="unitPriceDisplay">Rp ${formData.price.toLocaleString('id-ID')}</span>
                         </div>
-                    </div>
-                    
-                    <div>
-                        <label for="customerName" class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap*</label>
-                        <input type="text" id="customerName" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    
-                    <div>
-                        <label for="customerWhatsApp" class="block text-sm font-medium text-gray-700 mb-1">Nomor WhatsApp*</label>
-                        <input type="text" id="customerWhatsApp" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="6281234567890">
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
-                        <div>
-                            <label for="province" class="block text-sm font-medium text-gray-700 mb-1">Provinsi*</label>
-                            <select id="province" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">Pilih Provinsi</option>
-                                <option value="DKI Jakarta">DKI Jakarta</option>
-                                <option value="Jawa Barat">Jawa Barat</option>
-                                <option value="Jawa Tengah">Jawa Tengah</option>
-                                <option value="Jawa Timur">Jawa Timur</option>
-                                <option value="Banten">Banten</option>
-                                <option value="Bali">Bali</option>
-                                <option value="Sumatera Utara">Sumatera Utara</option>
-                                <option value="Sumatera Barat">Sumatera Barat</option>
-                                <option value="Sumatera Selatan">Sumatera Selatan</option>
-                                <option value="Sulawesi Selatan">Sulawesi Selatan</option>
-                            </select>
+                        <div class="summary-row">
+                            <span>Jumlah:</span>
+                            <span id="quantityDisplay">1 pcs</span>
                         </div>
-                        <div>
-                            <label for="city" class="block text-sm font-medium text-gray-700 mb-1">Kota/Kabupaten*</label>
-                            <select id="city" required disabled class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">Pilih Kota</option>
-                            </select>
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">Rp ${formData.price.toLocaleString('id-ID')}</span>
                         </div>
-                        <div>
-                            <label for="district" class="block text-sm font-medium text-gray-700 mb-1">Kecamatan*</label>
-                            <select id="district" required disabled class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">Pilih Kecamatan</option>
-                            </select>
+                        <div class="summary-row" id="ongkirRow">
+                            <span>Ongkir:</span>
+                            <span id="ongkirText">-</span>
                         </div>
-                    </div>
-                    
-                    <div>
-                        <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Alamat Lengkap*</label>
-                        <textarea id="address" rows="2" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-                    </div>
-                    
-                    <div>
-                        <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">Catatan Tambahan</label>
-                        <textarea id="notes" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-                    </div>
-                    
-                    <!-- Order Summary -->
-                    <div class="bg-gray-50 p-4 rounded-md">
-                        <h3 class="text-sm font-medium text-gray-700 mb-2">Ringkasan Pesanan:</h3>
-                        <div class="space-y-1 text-sm text-gray-600">
-                            <div class="flex justify-between">
-                                <span>Subtotal:</span>
-                                <span id="subtotal">${formattedPrice}</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>Ongkos Kirim:</span>
-                                <span id="shippingCost">Rp0</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>Kode Unik:</span>
-                                <span id="uniqueCode">-</span>
-                            </div>
-                            <div class="border-t border-gray-200 my-2"></div>
-                            <div class="flex justify-between font-medium text-gray-800">
-                                <span>Total:</span>
-                                <span id="totalPrice">${formattedPrice}</span>
+                        <div class="summary-row">
+                            <span>Kode Unik:</span>
+                            <span id="uniqueCode">+Rp 123</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>TOTAL PEMBAYARAN:</span>
+                            <span id="total">Rp ${formData.price.toLocaleString('id-ID')}</span>
+                        </div>
+                        
+                        <div class="payment-methods">
+                            <h4>Metode Pembayaran:</h4>
+                            <div class="payment-options">
+                                <div class="payment-option">
+                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='30' viewBox='0 0 50 30'%3E%3Crect width='50' height='30' rx='4' fill='%232563EB'/%3E%3Ctext x='25' y='18' text-anchor='middle' font-size='10' fill='white' font-weight='bold'%3EBANK%3C/text%3E%3C/svg%3E" alt="Bank Transfer">
+                                    <span>Transfer Bank</span>
+                                </div>
+                                <div class="payment-option">
+                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='30' viewBox='0 0 50 30'%3E%3Crect width='50' height='30' rx='4' fill='%2310B981'/%3E%3Ctext x='25' y='18' text-anchor='middle' font-size='10' fill='white' font-weight='bold'%3ECOD%3C/text%3E%3C/svg%3E" alt="Cash on Delivery">
+                                    <span>COD</span>
+                                </div>
+                                <div class="payment-option">
+                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='30' viewBox='0 0 50 30'%3E%3Crect width='50' height='30' rx='4' fill='%23EC4899'/%3E%3Ctext x='25' y='18' text-anchor='middle' font-size='9' fill='white' font-weight='bold'%3EE-WALLET%3C/text%3E%3C/svg%3E" alt="E-Wallet">
+                                    <span>E-Wallet</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <button type="button" id="orderBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                        Pesan Sekarang
+                    <button type="button" onclick="submitOrder()" class="whatsapp-btn">
+                        📱 Pesan via WhatsApp
                     </button>
                 </form>
             </div>
         </div>
-    </div>
+    </main>
+    
+    <footer style="text-align:center; color:#7f8899; font-size:13px; margin:25px 0 15px 0;">
+        &copy; 2025 ${esc(formData.storeName)}. Powered by nexcoAI.
+    </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Gallery functionality
-            const mainImage = document.getElementById('mainImage');
-            ${productGif ? 'const gifImage = document.getElementById("gifImage");' : ''}
-            const thumbnailBtns = document.querySelectorAll('.thumbnail-btn');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            ${productGif ? 'const toggleGifBtn = document.getElementById("toggleGifBtn");' : ''}
-            
-            let currentImageIndex = 0;
-            const images = ${JSON.stringify(productImages)};
-            ${productGif ? 'let showingGif = false;' : ''}
-            
-            // Thumbnail click handler
-            thumbnailBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    if (this.dataset.gif) {
-                        ${productGif ? `
-                        mainImage.classList.add('hidden');
-                        gifImage.classList.remove('hidden');
-                        showingGif = true;
-                        ` : ''}
-                    } else {
-                        ${productGif ? `
-                        mainImage.classList.remove('hidden');
-                        gifImage.classList.add('hidden');
-                        showingGif = false;
-                        ` : ''}
-                        currentImageIndex = parseInt(this.dataset.index);
-                        mainImage.src = images[currentImageIndex];
-                    }
-                    
-                    // Update active thumbnail
-                    thumbnailBtns.forEach(tb => {
-                        if (tb === this) {
-                            tb.classList.add('border-2', 'border-blue-500');
-                            tb.classList.remove('border');
-                        } else {
-                            tb.classList.remove('border-2', 'border-blue-500');
-                            tb.classList.add('border');
-                        }
-                    });
-                });
+        const indonesiaData = ${addressDataString};
+        const ongkirFlat = ${ongkirFlatString};
+        const PRODUCT_PRICE = ${formData.price};
+        const productName = "${esc(formData.productName)}";
+        const whatsappNumber = "${esc(formData.whatsapp)}";
+        let galleryImages = ${JSON.stringify(galleryImgs)};
+        let galleryCurrent = 0;
+        
+        // Gallery functions
+        function showGalleryImage(idx) {
+            galleryCurrent = idx;
+            let mainImg = document.getElementById('galleryMainImage');
+            mainImg.src = galleryImages[idx];
+            let thumbImgs = document.querySelectorAll('.gallery-thumbimg');
+            thumbImgs.forEach((img, i) => {
+                if(i === idx) img.classList.add('active');
+                else img.classList.remove('active');
             });
+        }
+        
+        function prevGalleryImage() {
+            let idx = (galleryCurrent - 1 + galleryImages.length) % galleryImages.length;
+            showGalleryImage(idx);
+        }
+        
+        function nextGalleryImage() {
+            let idx = (galleryCurrent + 1) % galleryImages.length;
+            showGalleryImage(idx);
+        }
+        
+        // Touch events for gallery
+        let startX = 0, endX = 0;
+        function galleryTouchStart(e) { 
+            startX = e.touches[0].clientX; 
+        }
+        function galleryTouchEnd(e) {
+            endX = e.changedTouches[0].clientX;
+            if (endX - startX > 50) prevGalleryImage();
+            else if (startX - endX > 50) nextGalleryImage();
+        }
+        
+        // Quantity functions
+        function changeQty(delta) {
+            const qtyInput = document.getElementById('qty');
+            let newQty = parseInt(qtyInput.value) + delta;
+            if (newQty < 1) newQty = 1;
+            if (newQty > 99) newQty = 99;
+            qtyInput.value = newQty;
+            updateTotal();
+        }
+        
+        // Payment functions
+        let paymentMethod = 'tf';
+        function choosePayment(method) {
+            paymentMethod = method;
+            document.getElementById('btnTf').classList.toggle('active', method==='tf');
+            document.getElementById('btnCod').classList.toggle('active', method==='cod');
+            updateTotal();
+        }
+        
+        // Ongkir calculation
+        function getOngkir(prov, method) {
+            if (!prov || !ongkirFlat[prov]) return null;
+            return ongkirFlat[prov][method];
+        }
+        
+        // Update total calculation
+        function updateTotal() {
+            const qty = parseInt(document.getElementById('qty').value);
+            const basePrice = PRODUCT_PRICE;
+            const subtotal = basePrice * qty;
             
-            // Previous button
-            prevBtn.addEventListener('click', function() {
-                ${productGif ? 'if (showingGif) return;' : ''}
-                currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-                mainImage.src = images[currentImageIndex];
-                
-                // Update active thumbnail
-                thumbnailBtns.forEach((tb, index) => {
-                    if (index === currentImageIndex) {
-                        tb.classList.add('border-2', 'border-blue-500');
-                        tb.classList.remove('border');
-                    } else if (!tb.dataset.gif) {
-                        tb.classList.remove('border-2', 'border-blue-500');
-                        tb.classList.add('border');
-                    }
-                });
-            });
+            let uniqueCode = window.currentUniqueCode;
+            if (!uniqueCode) {
+                uniqueCode = Math.floor(Math.random() * 800) + 100;
+                window.currentUniqueCode = uniqueCode;
+            }
             
-            // Next button
-            nextBtn.addEventListener('click', function() {
-                ${productGif ? 'if (showingGif) return;' : ''}
-                currentImageIndex = (currentImageIndex + 1) % images.length;
-                mainImage.src = images[currentImageIndex];
-                
-                // Update active thumbnail
-                thumbnailBtns.forEach((tb, index) => {
-                    if (index === currentImageIndex) {
-                        tb.classList.add('border-2', 'border-blue-500');
-                        tb.classList.remove('border');
-                    } else if (!tb.dataset.gif) {
-                        tb.classList.remove('border-2', 'border-blue-500');
-                        tb.classList.add('border');
-                    }
-                });
-            });
+            // Ongkir logic
+            const province = document.getElementById('province').value;
+            let ongkir = getOngkir(province, paymentMethod);
+            let ongkirText = '';
             
-            ${productGif ? `
-            // Toggle GIF
-            toggleGifBtn.addEventListener('click', function() {
-                if (showingGif) {
-                    mainImage.classList.remove('hidden');
-                    gifImage.classList.add('hidden');
-                    showingGif = false;
-                    
-                    // Update active thumbnail
-                    thumbnailBtns.forEach((tb, index) => {
-                        if (index === currentImageIndex) {
-                            tb.classList.add('border-2', 'border-blue-500');
-                            tb.classList.remove('border');
-                        } else if (!tb.dataset.gif) {
-                            tb.classList.remove('border-2', 'border-blue-500');
-                            tb.classList.add('border');
-                        }
-                    });
-                } else {
-                    mainImage.classList.add('hidden');
-                    gifImage.classList.remove('hidden');
-                    showingGif = true;
-                    
-                    // Update active thumbnail
-                    thumbnailBtns.forEach(tb => {
-                        if (tb.dataset.gif) {
-                            tb.classList.add('border-2', 'border-blue-500');
-                            tb.classList.remove('border');
-                        } else {
-                            tb.classList.remove('border-2', 'border-blue-500');
-                            tb.classList.add('border');
-                        }
-                    });
-                }
-            });
-            ` : ''}
+            if (ongkir === null || typeof ongkir === "undefined") {
+                ongkirText = '<span style="color:#dc2626;">Ongkir akan diinformasikan admin</span>';
+                ongkir = 0;
+            } else {
+                ongkirText = 'Rp ' + ongkir.toLocaleString('id-ID');
+            }
             
-            // Quantity controls
-            const quantityInput = document.getElementById('quantity');
-            const decrementBtn = document.getElementById('decrementBtn');
-            const incrementBtn = document.getElementById('incrementBtn');
+            document.getElementById('ongkirRow').innerHTML = '<span>Ongkir:</span><span id="ongkirText">'+ongkirText+'</span>';
             
-            decrementBtn.addEventListener('click', function() {
-                let value = parseInt(quantityInput.value);
-                if (value > 1) {
-                    quantityInput.value = value - 1;
-                    updateOrderSummary();
-                }
-            });
+            const total = subtotal + uniqueCode + ongkir;
             
-            incrementBtn.addEventListener('click', function() {
-                let value = parseInt(quantityInput.value);
-                quantityInput.value = value + 1;
-                updateOrderSummary();
-            });
-            
-            quantityInput.addEventListener('change', function() {
-                if (this.value < 1) this.value = 1;
-                updateOrderSummary();
-            });
-            
-            // Address selection
-            const provinceSelect = document.getElementById('province');
+            document.getElementById('unitPriceDisplay').textContent = 'Rp ' + basePrice.toLocaleString('id-ID');
+            document.getElementById('quantityDisplay').textContent = qty + ' pcs';
+            document.getElementById('subtotal').textContent = 'Rp ' + subtotal.toLocaleString('id-ID');
+            document.getElementById('uniqueCode').textContent = '+Rp ' + uniqueCode;
+            document.getElementById('total').textContent = 'Rp ' + total.toLocaleString('id-ID');
+        }
+        
+        // Address functions
+        function loadCities() {
+            const province = document.getElementById('province').value;
             const citySelect = document.getElementById('city');
             const districtSelect = document.getElementById('district');
             
-            // Province data
-            const provinceData = {
-                "DKI Jakarta": ["Jakarta Pusat", "Jakarta Barat", "Jakarta Selatan", "Jakarta Timur", "Jakarta Utara"],
-                "Jawa Barat": ["Bandung", "Bogor", "Bekasi", "Depok", "Cimahi"],
-                "Jawa Tengah": ["Semarang", "Surakarta", "Pekalongan", "Tegal", "Salatiga"],
-                "Jawa Timur": ["Surabaya", "Malang", "Sidoarjo", "Madiun", "Kediri"],
-                "Banten": ["Tangerang", "Serang", "Cilegon", "Tangerang Selatan", "Lebak"],
-                "Bali": ["Denpasar", "Badung", "Gianyar", "Klungkung", "Bangli"],
-                "Sumatera Utara": ["Medan", "Binjai", "Pematang Siantar", "Tebing Tinggi", "Tanjung Balai"],
-                "Sumatera Barat": ["Padang", "Bukittinggi", "Payakumbuh", "Pariaman", "Solok"],
-                "Sumatera Selatan": ["Palembang", "Prabumulih", "Pagar Alam", "Lubuklinggau", "Banyuasin"],
-                "Sulawesi Selatan": ["Makassar", "Parepare", "Palopo", "Maros", "Gowa"]
-            };
-            
-            // District data
-            const districtData = {
-                "Jakarta Pusat": ["Gambir", "Tanah Abang", "Menteng", "Senen", "Cempaka Putih"],
-                "Jakarta Barat": ["Kebon Jeruk", "Kembangan", "Palmerah", "Grogol Petamburan", "Taman Sari"],
-                "Jakarta Selatan": ["Kebayoran Baru", "Kebayoran Lama", "Pancoran", "Cilandak", "Pasar Minggu"],
-                "Jakarta Timur": ["Matraman", "Pulo Gadung", "Jatinegara", "Duren Sawit", "Cakung"],
-                "Jakarta Utara": ["Penjaringan", "Tanjung Priok", "Koja", "Cilincing", "Kelapa Gading"],
-                "Bandung": ["Bandung Kulon", "Babakan Ciparay", "Bojongloa Kaler", "Bojongloa Kidul", "Sukajadi"],
-                "Bogor": ["Bogor Selatan", "Bogor Timur", "Bogor Utara", "Bogor Tengah", "Bogor Barat"],
-                "Bekasi": ["Bekasi Selatan", "Bekasi Timur", "Bekasi Barat", "Bekasi Utara", "Pondok Gede"],
-                "Depok": ["Beji", "Pancoran Mas", "Cipayung", "Sukmajaya", "Cilodong"],
-                "Cimahi": ["Cimahi Selatan", "Cimahi Tengah", "Cimahi Utara"],
-                "Semarang": ["Semarang Barat", "Semarang Selatan", "Semarang Timur", "Semarang Utara", "Semarang Tengah"],
-                "Surakarta": ["Laweyan", "Serengan", "Pasar Kliwon", "Jebres", "Banjarsari"],
-                "Pekalongan": ["Pekalongan Barat", "Pekalongan Timur", "Pekalongan Utara", "Pekalongan Selatan"],
-                "Tegal": ["Tegal Barat", "Tegal Timur", "Tegal Selatan", "Margadana"],
-                "Salatiga": ["Sidorejo", "Tingkir", "Argomulyo", "Sidomukti"],
-                "Surabaya": ["Sukolilo", "Wonokromo", "Dukuh Pakis", "Gubeng", "Tegalsari"],
-                "Malang": ["Klojen", "Blimbing", "Kedungkandang", "Sukun", "Lowokwaru"],
-                "Sidoarjo": ["Sidoarjo", "Buduran", "Gedangan", "Waru", "Tarik"],
-                "Madiun": ["Kartoharjo", "Manguharjo", "Taman"],
-                "Kediri": ["Mojoroto", "Kota", "Pesantren"],
-                "Tangerang": ["Batuceper", "Benda", "Cibodas", "Ciledug", "Jatiuwung"],
-                "Serang": ["Curug", "Kasemen", "Cipocok Jaya", "Taktakan", "Walantaka"],
-                "Cilegon": ["Cilegon", "Pulomerak", "Ciwandan", "Jombang"],
-                "Tangerang Selatan": ["Pondok Aren", "Serpong", "Serpong Utara", "Ciputat", "Ciputat Timur"],
-                "Lebak": ["Rangkasbitung", "Warunggunung", "Cibadak", "Cikulur", "Cileles"],
-                "Denpasar": ["Denpasar Barat", "Denpasar Timur", "Denpasar Selatan", "Denpasar Utara"],
-                "Badung": ["Kuta", "Mengwi", "Abiansemal", "Petang"],
-                "Gianyar": ["Gianyar", "Tampaksiring", "Ubud", "Tegallalang"],
-                "Klungkung": ["Klungkung", "Dawan", "Nusapenida"],
-                "Bangli": ["Bangli", "Kintamani", "Susut", "Tembuku"],
-                "Medan": ["Medan Barat", "Medan Baru", "Medan Deli", "Medan Denai", "Medan Helvetia"],
-                "Binjai": ["Binjai Barat", "Binjai Kota", "Binjai Selatan", "Binjai Timur", "Binjai Utara"],
-                "Pematang Siantar": ["Siantar Barat", "Siantar Marihat", "Siantar Martoba", "Siantar Selatan", "Siantar Timur"],
-                "Tebing Tinggi": ["Padang Hilir", "Rambutan", "Tebing Tinggi Kota"],
-                "Tanjung Balai": ["Tanjung Balai Selatan", "Tanjung Balai Utara", "Sei Tualang Raso"],
-                "Padang": ["Padang Barat", "Padang Selatan", "Padang Timur", "Padang Utara", "Koto Tangah"],
-                "Bukittinggi": ["Guguk Panjang", "Mandiangin Koto Selayan", "Aur Birugo Tigo Baleh"],
-                "Payakumbuh": ["Payakumbuh Barat", "Payakumbuh Selatan", "Payakumbuh Timur", "Payakumbuh Utara"],
-                "Pariaman": ["Pariaman Selatan", "Pariaman Tengah", "Pariaman Timur", "Pariaman Utara"],
-                "Solok": ["Lubuk Sikarah", "Tanjung Harapan"],
-                "Palembang": ["Ilir Barat I", "Ilir Barat II", "Ilir Timur I", "Ilir Timur II", "Seberang Ulu I"],
-                "Prabumulih": ["Prabumulih Barat", "Prabumulih Selatan", "Prabumulih Timur", "Prabumulih Utara"],
-                "Pagar Alam": ["Pagar Alam Selatan", "Pagar Alam Utara"],
-                "Lubuklinggau": ["Lubuklinggau Barat I", "Lubuklinggau Barat II", "Lubuklinggau Selatan I", "Lubuklinggau Selatan II"],
-                "Banyuasin": ["Banyuasin I", "Banyuasin II", "Banyuasin III", "Talang Kelapa"],
-                "Makassar": ["Biringkanaya", "Bontoala", "Makassar", "Mamajang", "Mariso"],
-                "Parepare": ["Bacukiki", "Soreang", "Ujung"],
-                "Palopo": ["Bara", "Mungkajang", "Sendana", "Wara", "Wara Selatan"],
-                "Maros": ["Bantimurung", "Camba", "Lau", "Mallawa", "Mandai"],
-                "Gowa": ["Bajeng", "Barombong", "Biringbulu", "Bontomarannu", "Pallangga"]
-            };
-            
-            // Shipping cost data (per province, transfer vs COD)
-            const shippingCosts = {
-                "DKI Jakarta": { transfer: 10000, cod: 15000 },
-                "Jawa Barat": { transfer: 15000, cod: 20000 },
-                "Jawa Tengah": { transfer: 20000, cod: 25000 },
-                "Jawa Timur": { transfer: 25000, cod: 30000 },
-                "Banten": { transfer: 15000, cod: 20000 },
-                "Bali": { transfer: 30000, cod: 35000 },
-                "Sumatera Utara": { transfer: 35000, cod: 40000 },
-                "Sumatera Barat": { transfer: 40000, cod: 45000 },
-                "Sumatera Selatan": { transfer: 30000, cod: 35000 },
-                "Sulawesi Selatan": { transfer: 50000, cod: 55000 }
-            };
-            
-            // Province change handler
-            provinceSelect.addEventListener('change', function() {
+            if (province && indonesiaData[province]) {
                 citySelect.innerHTML = '<option value="">Pilih Kota</option>';
-                districtSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
-                
-                if (this.value) {
-                    citySelect.disabled = false;
-                    const cities = provinceData[this.value];
-                    
-                    cities.forEach(city => {
-                        const option = document.createElement('option');
-                        option.value = city;
-                        option.textContent = city;
-                        citySelect.appendChild(option);
-                    });
-                    
-                    updateOrderSummary();
-                } else {
-                    citySelect.disabled = true;
-                    districtSelect.disabled = true;
-                    updateOrderSummary();
-                }
-            });
-            
-            // City change handler
-            citySelect.addEventListener('change', function() {
-                districtSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
-                
-                if (this.value) {
-                    districtSelect.disabled = false;
-                    const districts = districtData[this.value];
-                    
-                    districts.forEach(district => {
-                        const option = document.createElement('option');
-                        option.value = district;
-                        option.textContent = district;
-                        districtSelect.appendChild(option);
-                    });
-                } else {
-                    districtSelect.disabled = true;
-                }
-                
-                updateOrderSummary();
-            });
-            
-            // District change handler
-            districtSelect.addEventListener('change', function() {
-                updateOrderSummary();
-            });
-            
-            // Payment method change handler
-            document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
-                radio.addEventListener('change', function() {
-                    updateOrderSummary();
+                Object.keys(indonesiaData[province]).forEach(city => {
+                    citySelect.innerHTML += '<option value="'+city+'">'+city+'</option>';
                 });
+                citySelect.disabled = false;
+            } else {
+                citySelect.innerHTML = '<option value="">Pilih Kota</option>';
+                citySelect.disabled = true;
+            }
+            loadDistricts();
+            updateTotal();
+        }
+        
+        function loadDistricts() {
+            const province = document.getElementById('province').value;
+            const city = document.getElementById('city').value;
+            const districtSelect = document.getElementById('district');
+            
+            if (province && city && indonesiaData[province] && indonesiaData[province][city]) {
+                districtSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
+                indonesiaData[province][city].forEach(district => {
+                    districtSelect.innerHTML += '<option value="'+district+'">'+district+'</option>';
+                });
+                districtSelect.disabled = false;
+            } else {
+                districtSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
+                districtSelect.disabled = true;
+            }
+            updateTotal();
+        }
+        
+        function updateOrderSummary() { 
+            updateTotal(); 
+        }
+        
+        // Initialize page
+        window.onload = function() {
+            const provinceSelect = document.getElementById('province');
+            provinceSelect.innerHTML = '<option value="">Pilih Provinsi</option>';
+            Object.keys(indonesiaData).forEach(prov => {
+                provinceSelect.innerHTML += '<option value="'+prov+'">'+prov+'</option>';
             });
             
-            // Order summary update function
-            function updateOrderSummary() {
-                const quantity = parseInt(quantityInput.value);
-                const price = ${productPrice};
-                const subtotal = quantity * price;
-                
-                // Format currency
-                const formatCurrency = (amount) => {
-                    return new Intl.NumberFormat('id-ID', { 
-                        style: 'currency', 
-                        currency: 'IDR',
-                        minimumFractionDigits: 0
-                    }).format(amount);
-                };
-                
-                // Calculate shipping cost
-                let shippingCost = 0;
-                const province = provinceSelect.value;
-                const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
-                
-                if (province && shippingCosts[province]) {
-                    shippingCost = shippingCosts[province][paymentMethod];
+            document.getElementById('city').disabled = true;
+            document.getElementById('district').disabled = true;
+            
+            showGalleryImage(0);
+            
+            let mainImg = document.getElementById('galleryMainImage');
+            mainImg.addEventListener('touchstart', galleryTouchStart, {passive:true});
+            mainImg.addEventListener('touchend', galleryTouchEnd, {passive:true});
+            
+            updateTotal();
+            choosePayment('tf');
+        };
+        
+        // Submit order - FIXED WhatsApp function
+        function submitOrder() {
+            // Get variant selection
+            let selectedVariant = '';
+            const variantSelect = document.getElementById('variantSelect');
+            const colorSelect = document.getElementById('colorSelect');
+            const sizeSelect = document.getElementById('sizeSelect');
+            
+            if (variantSelect && variantSelect.value) {
+                selectedVariant = variantSelect.value;
+            } else if (colorSelect && sizeSelect) {
+                const color = colorSelect.value || '';
+                const size = sizeSelect.value || '';
+                if (color || size) {
+                    selectedVariant = [color, size].filter(v => v).join(' - ');
                 }
-                
-                // Generate unique code (100-999)
-                const uniqueCode = Math.floor(Math.random() * 900) + 100;
-                
-                // Update DOM
-                document.getElementById('subtotal').textContent = formatCurrency(subtotal);
-                document.getElementById('shippingCost').textContent = formatCurrency(shippingCost);
-                document.getElementById('uniqueCode').textContent = uniqueCode;
-                
-                const total = subtotal + shippingCost + uniqueCode;
-                document.getElementById('totalPrice').textContent = formatCurrency(total);
             }
             
-            // Order button click handler
-            document.getElementById('orderBtn').addEventListener('click', function() {
-                // Validate form
-                const form = document.getElementById('orderForm');
-                const requiredFields = ['customerName', 'customerWhatsApp', 'province', 'city', 'district', 'address'];
-                let isValid = true;
-                
-                requiredFields.forEach(fieldId => {
-                    const field = document.getElementById(fieldId);
-                    if (!field.value.trim()) {
-                        field.classList.add('border-red-500');
-                        isValid = false;
-                    } else {
-                        field.classList.remove('border-red-500');
-                    }
-                });
-                
-                // Validate WhatsApp number
-                const whatsappNumber = document.getElementById('customerWhatsApp').value.trim();
-                if (whatsappNumber && !/^62\d{9,}$/.test(whatsappNumber)) {
-                    document.getElementById('customerWhatsApp').classList.add('border-red-500');
-                    isValid = false;
-                }
-                
-                if (!isValid) {
-                    alert('Harap lengkapi semua field yang wajib diisi dengan format yang benar!');
-                    return;
-                }
-                
-                // Prepare WhatsApp message
-                const productName = "${productName}";
-                const quantity = parseInt(quantityInput.value);
-                const variant = ${hasVariants} ? document.getElementById('productVariant').value : '-';
-                const customerName = document.getElementById('customerName').value.trim();
-                const customerWhatsApp = document.getElementById('customerWhatsApp').value.trim();
-                const province = document.getElementById('province').value;
-                const city = document.getElementById('city').value;
-                const district = document.getElementById('district').value;
-                const address = document.getElementById('address').value.trim();
-                const notes = document.getElementById('notes').value.trim();
-                const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value === 'transfer' ? 'Transfer Bank' : 'COD';
-                
-                const subtotal = quantity * ${productPrice};
-                const shippingCost = shippingCosts[province][document.querySelector('input[name="paymentMethod"]:checked').value];
-                const uniqueCode = parseInt(document.getElementById('uniqueCode').textContent);
-                const total = subtotal + shippingCost + uniqueCode;
-                
-                const message = `Halo ${storeName}, saya ingin memesan:
-
-*Produk:* ${productName}
-${hasVariants ? `*Varian:* ${variant}\n` : ''}*Jumlah:* ${quantity}
-*Harga Satuan:* ${formattedPrice}
-*Subtotal:* ${new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(subtotal)}
-*Ongkos Kirim:* ${new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(shippingCost)}
-*Kode Unik:* ${uniqueCode}
-*Total Pembayaran:* ${new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(total)}
-
-*Data Diri:*
-Nama: ${customerName}
-WhatsApp: ${customerWhatsApp}
-Alamat: ${address}, ${district}, ${city}, ${province}
-${notes ? `Catatan: ${notes}\n` : ''}
-*Metode Pembayaran:* ${paymentMethod}
-
-Mohon konfirmasi ketersediaan stock dan total yang harus dibayar. Terima kasih.`;
-                
-                // Encode message for WhatsApp URL
-                const encodedMessage = encodeURIComponent(message);
-                const whatsappUrl = \`https://wa.me/${whatsappNumber}?text=\${encodedMessage}\`;
-                
-                // Open WhatsApp
-                window.open(whatsappUrl, '_blank');
-            });
+            // Get form data
+            const province = document.getElementById('province').value;
+            const city = document.getElementById('city').value;
+            const district = document.getElementById('district').value;
+            const catatanWilayah = document.getElementById('catatanWilayah').value.trim();
+            const customerName = document.getElementById('customerName').value.trim();
+            const customerPhone = document.getElementById('customerPhone').value.trim();
+            const customerAddress = document.getElementById('customerAddress').value.trim();
+            const customerNotes = document.getElementById('customerNotes').value.trim();
             
-            // Initialize order summary
-            updateOrderSummary();
-        });
+            // Validation
+            if (!customerName || !customerPhone || !customerAddress) {
+                alert('Mohon lengkapi semua data yang diperlukan (nama, WhatsApp, alamat lengkap)');
+                return;
+            }
+            
+            if (!paymentMethod) {
+                alert('Pilih metode pembayaran!');
+                return;
+            }
+            
+            // Calculate totals
+            const qty = parseInt(document.getElementById('qty').value);
+            const basePrice = PRODUCT_PRICE;
+            const subtotal = basePrice * qty;
+            const uniqueCode = window.currentUniqueCode || Math.floor(Math.random() * 800) + 100;
+            window.currentUniqueCode = uniqueCode;
+            
+            let ongkir = getOngkir(province, paymentMethod);
+            let ongkirMsg = '';
+            if (ongkir === null || typeof ongkir === "undefined") {
+                ongkirMsg = "Ongkir akan diinformasikan admin";
+                ongkir = 0;
+            } else {
+                ongkirMsg = "Rp " + ongkir.toLocaleString('id-ID');
+            }
+            
+            const total = subtotal + uniqueCode + ongkir;
+            
+            // Payment method text
+            let paymentText = paymentMethod === 'tf'
+                ? 'Transfer Bank (BCA, Mandiri, BRI, BNI)'
+                : 'COD (Cash on Delivery)';
+            
+            // Address text
+            let wilayahText = '';
+            if (district || city || province) {
+                wilayahText = (district ? district+', ' : '') + (city ? city+', ' : '') + (province ? province : '');
+            }
+            
+            // Create WhatsApp message - FIXED encoding
+            const message = \`🛒 PESANAN \${productName}
+
+📋 DETAIL PESANAN:
+• Produk: \${productName}
+\${selectedVariant ? '• Varian Dipilih: ' + selectedVariant : ''}
+• Harga Satuan: Rp \${basePrice.toLocaleString('id-ID')}
+• Jumlah: \${qty} pcs
+• Subtotal: Rp \${subtotal.toLocaleString('id-ID')}
+• Kode Unik: +Rp \${uniqueCode}
+• Ongkir: \${ongkirMsg}
+• 💰 TOTAL PEMBAYARAN: Rp \${total.toLocaleString('id-ID')}
+
+👤 DATA PENERIMA:
+• Nama: \${customerName}
+• WhatsApp: \${customerPhone}
+• Alamat: \${customerAddress}
+• Wilayah: \${wilayahText}
+\${catatanWilayah ? '• Catatan Wilayah: ' + catatanWilayah : ''}
+\${customerNotes ? \`📝 CATATAN TAMBAHAN:
+\${customerNotes}
+
+\` : ''}💳 METODE PEMBAYARAN: 
+• \${paymentText}
+
+Mohon konfirmasi pesanan ini. Terima kasih! 🙏\`;
+            
+            // FIXED: Proper URL encoding and WhatsApp format
+            const cleanWhatsappNumber = whatsappNumber.replace(/[^0-9]/g, '');
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = \`https://wa.me/\${cleanWhatsappNumber}?text=\${encodedMessage}\`;
+            
+            // Debug log (remove in production)
+            console.log('WhatsApp URL:', whatsappUrl);
+            console.log('Phone number:', cleanWhatsappNumber);
+            
+            // Open WhatsApp
+            window.open(whatsappUrl, '_blank');
+        }
+    <\/script>
+</body>
+</html>\`;
+        }
     </script>
 </body>
 </html>
