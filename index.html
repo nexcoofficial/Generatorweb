@@ -3,1185 +3,957 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generator Website Toko Online - Buat Toko Online Instant</title>
+    <title>Generator Website Toko Online</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: #1a1a1a;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        
-        .header {
-            background: rgba(255, 255, 255, 0.98);
-            padding: 20px 0;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            text-align: center;
-        }
-        
-        .header h1 {
-            color: #2563eb;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: 800;
-        }
-        
-        .header p {
-            color: #666;
-            font-size: 1.1rem;
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        
-        .generator-form {
-            background: rgba(255, 255, 255, 0.98);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-        }
-        
-        .form-section {
-            margin-bottom: 35px;
-            padding-bottom: 25px;
-            border-bottom: 2px solid #f0f0f0;
-            animation: fadeIn 0.5s ease-out;
-        }
-        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
-        .form-section:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
+        .fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
         }
         
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        
-        .section-number {
-            background: #2563eb;
-            color: white;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-        
-        .section-title {
-            color: #1a1a1a;
-            font-size: 1.4rem;
-            font-weight: 700;
-        }
-        
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #374151;
-            font-size: 0.95rem;
-        }
-        
-        .required {
-            color: #dc2626;
-            margin-left: 2px;
-        }
-        
-        input[type="text"],
-        input[type="tel"],
-        input[type="number"],
-        input[type="url"],
-        textarea,
-        select {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e5e7eb;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: all 0.3s;
-            background: #f9fafb;
-        }
-        
-        input[type="text"]:focus,
-        input[type="tel"]:focus,
-        input[type="number"]:focus,
-        input[type="url"]:focus,
-        textarea:focus,
-        select:focus {
-            outline: none;
-            border-color: #2563eb;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-        
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-            font-family: inherit;
-        }
-        
-        .checkbox-wrapper {
-            background: #f0f9ff;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border: 2px solid #dbeafe;
-        }
-        
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-        
-        .checkbox-label {
-            cursor: pointer;
-            user-select: none;
-            color: #1e40af;
-            font-weight: 600;
-        }
-        
-        .variant-fields {
-            display: none;
-            background: #fefce8;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 15px;
-            border: 2px solid #fef3c7;
-            animation: slideDown 0.3s ease-out;
-        }
-        
-        @keyframes slideDown {
-            from { opacity: 0; max-height: 0; }
-            to { opacity: 1; max-height: 500px; }
-        }
-        
-        .help-text {
-            font-size: 0.875rem;
-            color: #6b7280;
-            margin-top: 5px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .help-icon {
-            color: #3b82f6;
-        }
-        
-        .generate-btn {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            color: white;
-            padding: 18px 50px;
-            border: none;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            display: block;
-            margin: 40px auto 0;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        .ripple {
             position: relative;
             overflow: hidden;
         }
         
-        .generate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
-        }
-        
-        .generate-btn:active {
-            transform: translateY(0);
-        }
-        
-        .generate-btn::after {
-            content: '';
+        .ripple:after {
+            content: "";
+            display: block;
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-        
-        .generate-btn:active::after {
-            width: 300px;
-            height: 300px;
-        }
-        
-        #resultSection {
-            display: none;
-            margin-top: 40px;
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        .result-container {
-            background: rgba(255, 255, 255, 0.98);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-        
-        .result-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .result-header h2 {
-            color: #059669;
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-        
-        .result-header p {
-            color: #666;
-            font-size: 1.1rem;
-        }
-        
-        #result {
             width: 100%;
-            min-height: 400px;
-            padding: 20px;
-            border: 2px solid #e5e7eb;
-            border-radius: 10px;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            background: #f8fafc;
-            line-height: 1.5;
-            overflow-x: auto;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10, 10);
+            opacity: 0;
+            transition: transform .5s, opacity 1s;
         }
         
-        .result-actions {
-            margin-top: 20px;
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 16px;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .btn-copy {
-            background: #059669;
-            color: white;
-        }
-        
-        .btn-copy:hover {
-            background: #047857;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
-        }
-        
-        .btn-download {
-            background: #dc2626;
-            color: white;
-        }
-        
-        .btn-download:hover {
-            background: #b91c1c;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
-        }
-        
-        .btn-preview {
-            background: #7c3aed;
-            color: white;
-        }
-        
-        .btn-preview:hover {
-            background: #6d28d9;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
-        }
-        
-        .success-message {
-            background: #d1fae5;
-            border: 2px solid #34d399;
-            color: #065f46;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            display: none;
-            animation: slideIn 0.3s ease-out;
-        }
-        
-        @keyframes slideIn {
-            from { transform: translateX(-20px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
-        .image-input-group {
-            position: relative;
+        .ripple:active:after {
+            transform: scale(0, 0);
+            opacity: .3;
+            transition: 0s;
         }
         
         .image-preview {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 30px;
-            height: 30px;
-            border-radius: 5px;
-            object-fit: cover;
-            display: none;
+            transition: all 0.3s ease;
+        }
+        
+        .image-preview:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .main-image {
+            height: 500px;
+            object-fit: contain;
         }
         
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .generator-form {
-                padding: 25px;
-            }
-            
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .generate-btn {
-                width: 100%;
-                padding: 16px 30px;
-            }
-            
-            .result-actions {
-                flex-direction: column;
-            }
-            
-            .btn {
-                width: 100%;
-                justify-content: center;
+            .main-image {
+                height: 300px;
             }
         }
         
-        /* Loading animation */
-        .loading {
+        .variant-select {
+            transition: all 0.2s ease;
+        }
+        
+        .variant-select:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .quantity-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .quantity-btn:hover {
+            background-color: #1d4ed8;
+        }
+        
+        .whatsapp-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+        }
+        
+        .tab-content {
             display: none;
-            text-align: center;
-            margin: 20px 0;
         }
         
-        .loading-spinner {
-            border: 3px solid #f3f4f6;
-            border-top: 3px solid #2563eb;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
         }
         
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .tab-btn {
+            transition: all 0.3s ease;
         }
         
-        /* Tooltips */
-        .tooltip {
-            position: relative;
-            display: inline-block;
+        .tab-btn.active {
+            background-color: #2563eb;
+            color: white;
         }
         
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 200px;
-            background-color: #1f2937;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 8px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -100px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 0.875rem;
+        .tab-btn:not(.active):hover {
+            background-color: #e0e7ff;
         }
         
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #2563eb;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1d4ed8;
         }
     </style>
 </head>
-<body>
-    <div class="header">
-        <div class="header-content">
-            <h1>🛍️ Generator Website Toko Online</h1>
-            <p>Buat website toko online profesional dalam hitungan detik!</p>
-        </div>
-    </div>
-    
-    <div class="container">
-        <form class="generator-form" id="generatorForm">
-            <!-- Product Information -->
-            <div class="form-section">
-                <div class="section-header">
-                    <div class="section-number">1</div>
-                    <h2 class="section-title">Informasi Produk</h2>
-                </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="productName">Nama Produk <span class="required">*</span></label>
-                        <input type="text" id="productName" required placeholder="Contoh: Jaket Premium Casual">
-                    </div>
-                    <div class="form-group">
-                        <label for="price">Harga (Rp) <span class="required">*</span></label>
-                        <input type="number" id="price" required placeholder="299000" min="1000">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="description">Deskripsi Produk <span class="required">*</span></label>
-                    <textarea id="description" required placeholder="Jaket berkualitas tinggi dengan bahan premium dan desain trendy. Cocok untuk aktivitas sehari-hari maupun acara formal." rows="4"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="whatsapp">Nomor WhatsApp <span class="required">*</span></label>
-                    <input type="tel" id="whatsapp" required placeholder="6281234567890" pattern="[0-9]+">
-                    <div class="help-text">
-                        <span class="help-icon">ℹ️</span>
-                        Format: 62 diikuti nomor (tanpa 0 di depan). Contoh: 6281234567890
-                    </div>
-                </div>
+<body class="bg-gray-50 font-sans">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header Section -->
+        <header class="bg-gradient-to-r from-blue-600 to-purple-700 text-white py-12 px-4 shadow-lg">
+            <div class="container mx-auto text-center">
+                <h1 class="text-4xl font-bold mb-2">Generator Website Toko Online</h1>
+                <p class="text-xl opacity-90">Buat website toko online profesional dalam hitungan detik!</p>
             </div>
-            
-            <!-- Product Images -->
-            <div class="form-section">
-                <div class="section-header">
-                    <div class="section-number">2</div>
-                    <h2 class="section-title">Gambar Produk</h2>
-                </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="image1">URL Gambar Utama <span class="required">*</span></label>
-                        <div class="image-input-group">
-                            <input type="url" id="image1" required placeholder="https://example.com/gambar1.jpg" onblur="previewImage(this, 'preview1')">
-                            <img id="preview1" class="image-preview" alt="Preview">
-                        </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Generator Form -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h2 class="text-2xl font-bold mb-6 text-gray-800">Form Generator</h2>
+                    
+                    <!-- Navigation Tabs -->
+                    <div class="flex mb-6 border-b border-gray-200">
+                        <button class="tab-btn px-4 py-2 rounded-t-lg active" data-tab="product-info">Info Produk</button>
+                        <button class="tab-btn px-4 py-2 rounded-t-lg" data-tab="product-images">Gambar Produk</button>
+                        <button class="tab-btn px-4 py-2 rounded-t-lg" data-tab="product-variants">Varian Produk</button>
+                        <button class="tab-btn px-4 py-2 rounded-t-lg" data-tab="store-info">Info Toko</button>
                     </div>
-                    <div class="form-group">
-                        <label for="image2">URL Gambar 2 <span class="required">*</span></label>
-                        <div class="image-input-group">
-                            <input type="url" id="image2" required placeholder="https://example.com/gambar2.jpg" onblur="previewImage(this, 'preview2')">
-                            <img id="preview2" class="image-preview" alt="Preview">
+                    
+                    <!-- Tab Contents -->
+                    <form id="generator-form">
+                        <!-- Product Info Tab -->
+                        <div id="product-info" class="tab-content active">
+                            <div class="mb-4">
+                                <label for="product-name" class="block text-sm font-medium text-gray-700 mb-1">Nama Produk *</label>
+                                <input type="text" id="product-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="product-price" class="block text-sm font-medium text-gray-700 mb-1">Harga (Rp) *</label>
+                                <input type="number" id="product-price" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="product-description" class="block text-sm font-medium text-gray-700 mb-1">Deskripsi Produk *</label>
+                                <textarea id="product-description" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required></textarea>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="whatsapp-number" class="block text-sm font-medium text-gray-700 mb-1">Nomor WhatsApp *</label>
+                                <div class="flex">
+                                    <span class="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">+62</span>
+                                    <input type="tel" id="whatsapp-number" pattern="[0-9]{9,13}" class="w-full px-4 py-2 border border-gray-300 rounded-r-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="81234567890" required>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">Format: 62XXXXXXXXXX (contoh: 6281234567890)</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="image3">URL Gambar 3 <span class="required">*</span></label>
-                        <div class="image-input-group">
-                            <input type="url" id="image3" required placeholder="https://example.com/gambar3.jpg" onblur="previewImage(this, 'preview3')">
-                            <img id="preview3" class="image-preview" alt="Preview">
+                        
+                        <!-- Product Images Tab -->
+                        <div id="product-images" class="tab-content">
+                            <div class="mb-4">
+                                <label for="image-1" class="block text-sm font-medium text-gray-700 mb-1">URL Gambar Utama *</label>
+                                <input type="url" id="image-1" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                                <div class="mt-2">
+                                    <div id="image-1-preview" class="image-preview-container"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="image-2" class="block text-sm font-medium text-gray-700 mb-1">URL Gambar 2 *</label>
+                                <input type="url" id="image-2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                                <div class="mt-2">
+                                    <div id="image-2-preview" class="image-preview-container"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="image-3" class="block text-sm font-medium text-gray-700 mb-1">URL Gambar 3 *</label>
+                                <input type="url" id="image-3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                                <div class="mt-2">
+                                    <div id="image-3-preview" class="image-preview-container"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="image-4" class="block text-sm font-medium text-gray-700 mb-1">URL Gambar 4 *</label>
+                                <input type="url" id="image-4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                                <div class="mt-2">
+                                    <div id="image-4-preview" class="image-preview-container"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="image-5" class="block text-sm font-medium text-gray-700 mb-1">URL Gambar 5 (Opsional)</label>
+                                <input type="url" id="image-5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <div class="mt-2">
+                                    <div id="image-5-preview" class="image-preview-container"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="image-6" class="block text-sm font-medium text-gray-700 mb-1">URL Gambar 6 (Opsional)</label>
+                                <input type="url" id="image-6" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <div class="mt-2">
+                                    <div id="image-6-preview" class="image-preview-container"></div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="image4">URL Gambar 4 <span class="required">*</span></label>
-                        <div class="image-input-group">
-                            <input type="url" id="image4" required placeholder="https://example.com/gambar4.jpg" onblur="previewImage(this, 'preview4')">
-                            <img id="preview4" class="image-preview" alt="Preview">
+                        
+                        <!-- Product Variants Tab -->
+                        <div id="product-variants" class="tab-content">
+                            <div class="mb-4">
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="has-variants" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="has-variants" class="ml-2 text-sm font-medium text-gray-700">Produk memiliki varian?</label>
+                                </div>
+                            </div>
+                            
+                            <div id="variants-section" class="hidden space-y-4">
+                                <div>
+                                    <label for="variant-colors" class="block text-sm font-medium text-gray-700 mb-1">Warna (pisahkan dengan koma)</label>
+                                    <input type="text" id="variant-colors" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Contoh: Merah, Biru, Hitam">
+                                </div>
+                                
+                                <div>
+                                    <label for="variant-sizes" class="block text-sm font-medium text-gray-700 mb-1">Ukuran (pisahkan dengan koma)</label>
+                                    <input type="text" id="variant-sizes" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Contoh: S, M, L, XL">
+                                </div>
+                                
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="auto-generate-variants" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" checked>
+                                    <label for="auto-generate-variants" class="ml-2 text-sm font-medium text-gray-700">Auto generate kombinasi varian</label>
+                                </div>
+                                
+                                <div id="manual-variants-section" class="hidden">
+                                    <label for="manual-variants" class="block text-sm font-medium text-gray-700 mb-1">Input Manual Varian (satu varian per baris)</label>
+                                    <textarea id="manual-variants" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Contoh: Merah-S, Merah-M, Biru-L"></textarea>
+                                </div>
+                                
+                                <div id="variant-preview" class="mt-4 p-4 bg-gray-50 rounded-lg hidden">
+                                    <h4 class="font-medium text-gray-700 mb-2">Preview Varian:</h4>
+                                    <div id="variant-list" class="flex flex-wrap gap-2"></div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="image5">URL Gambar 5 (Opsional)</label>
-                        <div class="image-input-group">
-                            <input type="url" id="image5" placeholder="https://example.com/gambar5.jpg" onblur="previewImage(this, 'preview5')">
-                            <img id="preview5" class="image-preview" alt="Preview">
+                        
+                        <!-- Store Info Tab -->
+                        <div id="store-info" class="tab-content">
+                            <div class="mb-4">
+                                <label for="store-name" class="block text-sm font-medium text-gray-700 mb-1">Nama Toko *</label>
+                                <input type="text" id="store-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="store-phone" class="block text-sm font-medium text-gray-700 mb-1">Telepon Toko (Opsional)</label>
+                                <input type="tel" id="store-phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="product-features" class="block text-sm font-medium text-gray-700 mb-1">Fitur Produk (pisahkan dengan koma)</label>
+                                <textarea id="product-features" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Contoh: Bahan katun premium, Jahitan kuat, Desain modern"></textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="image6">URL Gambar 6 (Opsional)</label>
-                        <div class="image-input-group">
-                            <input type="url" id="image6" placeholder="https://example.com/gambar6.jpg" onblur="previewImage(this, 'preview6')">
-                            <img id="preview6" class="image-preview" alt="Preview">
-                        </div>
-                    </div>
-                </div>
-                <div class="help-text">
-                    <span class="help-icon">💡</span>
-                    Gunakan gambar berkualitas tinggi dengan rasio 1:1 untuk hasil terbaik
-                </div>
-            </div>
-            
-            <!-- Product Variants -->
-            <div class="form-section">
-                <div class="section-header">
-                    <div class="section-number">3</div>
-                    <h2 class="section-title">Varian Produk</h2>
-                </div>
-                <div class="checkbox-wrapper">
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="hasVariants" onchange="toggleVariantFields()">
-                        <label for="hasVariants" class="checkbox-label">Produk memiliki varian (warna, ukuran, dll)</label>
+                    </form>
+                    
+                    <div class="mt-6">
+                        <button id="generate-btn" class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-lg font-medium ripple shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                            ✨ Generate Website
+                        </button>
                     </div>
                 </div>
                 
-                <div class="variant-fields" id="variantFields">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="colors">Daftar Warna</label>
-                            <input type="text" id="colors" placeholder="Brown, Black, Navy, Grey">
-                            <div class="help-text">
-                                <span class="help-icon">ℹ️</span>
-                                Pisahkan dengan koma
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="sizes">Daftar Ukuran</label>
-                            <input type="text" id="sizes" placeholder="S, M, L, XL, XXL">
-                            <div class="help-text">
-                                <span class="help-icon">ℹ️</span>
-                                Pisahkan dengan koma
-                            </div>
-                        </div>
+                <!-- Result Section -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h2 class="text-2xl font-bold mb-6 text-gray-800">Hasil Generator</h2>
+                    
+                    <div class="flex space-x-2 mb-4">
+                        <button id="copy-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg transition-colors">
+                            Salin HTML
+                        </button>
+                        <button id="download-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg transition-colors">
+                            Download File
+                        </button>
+                        <button id="preview-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg transition-colors">
+                            Preview
+                        </button>
                     </div>
-                    <div class="checkbox-wrapper" style="margin-top: 15px;">
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="autoGenerateCombinations" checked>
-                            <label for="autoGenerateCombinations" class="checkbox-label">
-                                Otomatis buat semua kombinasi (BROWN-S, BROWN-M, dst)
-                            </label>
-                        </div>
+                    
+                    <div class="mb-4">
+                        <label for="result-code" class="block text-sm font-medium text-gray-700 mb-1">Kode HTML:</label>
+                        <textarea id="result-code" rows="20" class="w-full px-4 py-2 border border-gray-300 rounded-lg font-mono text-sm bg-gray-50" readonly></textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="manualVariantList">Atau Input Manual Varian (satu per baris)</label>
-                        <textarea id="manualVariantList" placeholder="BROWN - S
-BROWN - M
-BROWN - L
-BLACK - S
-BLACK - M
-NAVY - L" rows="6"></textarea>
-                        <div class="help-text">
-                            <span class="help-icon">💡</span>
-                            Kosongkan jika menggunakan mode otomatis
-                        </div>
+                    
+                    <div id="notification" class="hidden fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg">
+                        Kode HTML berhasil disalin!
                     </div>
                 </div>
             </div>
-            
-            <!-- Store Information -->
-            <div class="form-section">
-                <div class="section-header">
-                    <div class="section-number">4</div>
-                    <h2 class="section-title">Informasi Toko</h2>
-                </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="storeName">Nama Toko <span class="required">*</span></label>
-                        <input type="text" id="storeName" required placeholder="Fashion Store Indonesia">
-                    </div>
-                    <div class="form-group">
-                        <label for="storePhone">Telepon Toko (Opsional)</label>
-                        <input type="tel" id="storePhone" placeholder="081234567890">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="features">Fitur & Keunggulan Produk</label>
-                    <textarea id="features" placeholder="Bahan Premium Import, Anti Kusut, Jahitan Rapi, Awet dan Tahan Lama, Garansi 1 Tahun, Free Ongkir Jabodetabek" rows="3"></textarea>
-                    <div class="help-text">
-                        <span class="help-icon">💡</span>
-                        Pisahkan dengan koma untuk membuat list fitur
-                    </div>
-                </div>
-            </div>
-            
-            <button type="button" class="generate-btn" id="generateBtn">
-                ✨ Generate Website
-            </button>
-            
-            <div class="loading" id="loading">
-                <div class="loading-spinner"></div>
-                <p style="margin-top: 10px; color: #666;">Sedang membuat website...</p>
-            </div>
-        </form>
+        </main>
         
-        <!-- Result Section -->
-        <div id="resultSection">
-            <div class="result-container">
-                <div class="success-message" id="successMessage">
-                    ✅ Website berhasil dibuat! Silakan copy atau download file HTML di bawah ini.
-                </div>
-                <div class="result-header">
-                    <h2>🎉 Website Berhasil Dibuat!</h2>
-                    <p>Website toko online Anda sudah siap. Pilih salah satu opsi di bawah:</p>
-                </div>
-                <textarea id="result" readonly></textarea>
-                <div class="result-actions">
-                    <button class="btn btn-copy" onclick="copyResult()">
-                        📋 Copy HTML
-                    </button>
-                    <button class="btn btn-download" onclick="downloadResult()">
-                        💾 Download File
-                    </button>
-                    <button class="btn btn-preview" onclick="previewResult()">
-                        👁️ Preview Website
-                    </button>
+        <!-- Preview Modal -->
+        <div id="preview-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 overflow-y-auto">
+            <div class="relative mx-auto my-8 max-w-6xl w-full">
+                <div class="bg-white rounded-lg shadow-xl overflow-hidden">
+                    <div class="flex justify-between items-center border-b border-gray-200 px-6 py-4">
+                        <h3 class="text-xl font-bold text-gray-800">Preview Website</h3>
+                        <button id="close-preview" class="text-gray-500 hover:text-gray-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <iframe id="preview-frame" class="w-full h-[80vh] border border-gray-200 rounded-lg"></iframe>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <script>
-        // Indonesian regions data
+        // Indonesia Data
         const indonesiaData = {
-            "Jawa Barat": {
-                "Bandung": ["Cidadap", "Cicendo", "Coblong", "Bandung Wetan", "Sumur Bandung", "Andir", "Bandung Kulon", "Babakan Ciparay", "Bojongloa Kaler", "Bojongloa Kidul", "Astanaanyar", "Regol", "Lengkong", "Bandung Kidul", "Buahbatu", "Rancasari", "Gedebage", "Cibiru", "Panyileukan", "Ujungberung", "Cinambo", "Arcamanik", "Antapani", "Mandalajati", "Kiaracondong", "Batununggal", "Cibeunying Kaler", "Cibeunying Kidul", "Bandung Wetan"],
-                "Bekasi": ["Bekasi Barat", "Bekasi Timur", "Bekasi Selatan", "Bekasi Utara", "Medan Satria", "Pondok Gede", "Pondok Melati", "Jati Asih", "Jatiasih", "Jatisampurna", "Mustika Jaya", "Rawalumbu", "Bantargebang"],
-                "Bogor": ["Bogor Tengah", "Bogor Utara", "Bogor Selatan", "Bogor Timur", "Bogor Barat", "Tanah Sareal"],
-                "Depok": ["Pancoran Mas", "Sukmajaya", "Sawangan", "Cipayung", "Cimanggis", "Tapos", "Beji", "Limo", "Cinere", "Bojongsari", "Cilodong"],
-                "Cimahi": ["Cimahi Selatan", "Cimahi Tengah", "Cimahi Utara"],
-                "Tasikmalaya": ["Cihideung", "Cipedes", "Tawang", "Indihiang", "Kawalu", "Cibereum", "Tamansari", "Bungursari", "Purbaratu", "Mangkubumi"],
-                "Karawang": ["Karawang Barat", "Karawang Timur", "Telukjambe Timur", "Telukjambe Barat", "Klari", "Cikampek", "Purwasari", "Tegalwaru", "Kutawaluya", "Rengasdengklok"],
-                "Sukabumi": ["Cikole", "Citamiang", "Warudoyong", "Baros", "Lembursitu", "Cibeureum", "Gunungpuyuh"]
-            },
-            "DKI Jakarta": {
-                "Jakarta Pusat": ["Gambir", "Tanah Abang", "Menteng", "Senen", "Cempaka Putih", "Johar Baru", "Kemayoran", "Sawah Besar"],
-                "Jakarta Selatan": ["Kebayoran Baru", "Kebayoran Lama", "Pesanggrahan", "Cilandak", "Pasar Minggu", "Jagakarsa", "Mampang Prapatan", "Pancoran", "Tebet", "Setiabudi"],
-                "Jakarta Timur": ["Matraman", "Pulogadung", "Jatinegara", "Duren Sawit", "Kramat Jati", "Makasar", "Pasar Rebo", "Ciracas", "Cipayung", "Cakung"],
-                "Jakarta Barat": ["Grogol Petamburan", "Taman Sari", "Tambora", "Kebon Jeruk", "Kalideres", "Palmerah", "Kembangan", "Cengkareng"],
-                "Jakarta Utara": ["Penjaringan", "Pademangan", "Tanjung Priok", "Koja", "Kelapa Gading", "Cilincing"]
-            },
-            "Jawa Tengah": {
-                "Semarang": ["Semarang Tengah", "Semarang Utara", "Semarang Selatan", "Semarang Timur", "Semarang Barat", "Candisari", "Gajahmungkur", "Gayamsari", "Genuk", "Gunungpati", "Mijen", "Ngaliyan", "Pedurungan", "Tembalang", "Tugu", "Banyumanik"],
-                "Solo": ["Laweyan", "Serengan", "Pasar Kliwon", "Jebres", "Banjarsari"],
-                "Yogyakarta": ["Gondokusuman", "Jetis", "Tegalrejo", "Umbulharjo", "Kotagede", "Mergangsan", "Ngampilan", "Danurejan", "Kraton", "Gondomanan", "Pakualaman", "Mantrijeron", "Wirobrajan", "Gedongtengen"],
-                "Magelang": ["Magelang Selatan", "Magelang Tengah", "Magelang Utara"],
-                "Salatiga": ["Argomulyo", "Tingkir", "Sidomukti", "Sidorejo"],
-                "Pekalongan": ["Pekalongan Barat", "Pekalongan Timur", "Pekalongan Selatan", "Pekalongan Utara"],
-                "Tegal": ["Tegal Barat", "Tegal Timur", "Tegal Selatan", "Margadana"]
-            },
-            "Jawa Timur": {
-                "Surabaya": ["Genteng", "Gubeng", "Tegalsari", "Wonokromo", "Sawahan", "Semampir", "Pabean Cantikan", "Bubutan", "Simokerto", "Krembangan", "Bulak", "Kenjeran", "Tambaksari", "Mulyorejo", "Rungkut", "Tenggilis Mejoyo", "Gunung Anyar", "Sukolilo", "Wonocolo", "Wiyung", "Karang Pilang", "Jambangan", "Gayungan", "Dukuh Pakis", "Lakarsantri", "Tandes", "Sukomanunggal", "Asemrowo", "Benowo", "Pakal", "Sambikerep"],
-                "Malang": ["Klojen", "Blimbing", "Kedungkandang", "Sukun", "Lowokwaru"],
-                "Sidoarjo": ["Sidoarjo", "Buduran", "Candi", "Porong", "Krembung", "Tulangan", "Tanggulangin", "Jabon", "Krian", "Balongbendo", "Wonoayu", "Tarik", "Prambon", "Taman", "Waru", "Gedangan", "Sedati", "Sukodono"],
-                "Gresik": ["Gresik", "Kebomas", "Manyar", "Bungah", "Sidayu", "Ujungpangkah", "Panceng", "Balongpanggang", "Benjeng", "Duduksampeyan", "Wringinanom", "Driyorejo", "Kedamean", "Menganti", "Cerme", "Sangkapura", "Tambak"],
-                "Kediri": ["Kota", "Pesantren", "Mojoroto"],
-                "Jember": ["Kaliwates", "Sumbersari", "Patrang"],
-                "Banyuwangi": ["Banyuwangi", "Giri", "Glagah", "Kalipuro", "Licin", "Muncar", "Cluring", "Gambiran", "Genteng", "Glenmore", "Kabat", "Kalibaru", "Pesanggaran", "Purwoharjo", "Rogojampi", "Sempu", "Singojuruh", "Songgon", "Srono", "Tegaldlimo", "Tegalsari", "Wongsorejo", "Siliragung", "Bangorejo", "Blimbingsari"]
-            },
-            "Banten": {
-                "Tangerang": ["Tangerang", "Cipondoh", "Karawaci", "Pinang", "Cibodas", "Jatiuwung", "Periuk", "Batuceper", "Neglasari", "Benda", "Larangan", "Ciledug", "Karang Tengah"],
-                "Serang": ["Serang", "Kasemen", "Walantaka", "Curug", "Cipocok Jaya", "Taktakan"],
-                "Tangerang Selatan": ["Serpong", "Serpong Utara", "Pondok Aren", "Ciputat", "Ciputat Timur", "Pamulang", "Setu"],
-                "Cilegon": ["Cibeber", "Cilegon", "Citangkil", "Ciwandan", "Gerogol", "Grogol", "Jombang", "Pulo Merak", "Purwakarta"]
-            },
-            "Bali": {
-                "Denpasar": ["Denpasar Barat", "Denpasar Selatan", "Denpasar Timur", "Denpasar Utara"],
-                "Badung": ["Mengwi", "Abiansemal", "Petang", "Kuta Utara", "Kuta", "Kuta Selatan"],
-                "Buleleng": ["Buleleng", "Gerokgak", "Seririt", "Busungbiu", "Banjar", "Sukasada", "Sawan", "Kubutambahan", "Tejakula"],
-                "Gianyar": ["Sukawati", "Blahbatuh", "Gianyar", "Tampaksiring", "Ubud", "Tegallalang", "Payangan"],
-                "Tabanan": ["Kediri", "Marga", "Baturiti", "Kerambitan", "Penebel", "Pupuan", "Selemadeg", "Selemadeg Barat", "Selemadeg Timur", "Tabanan"]
-            },
-            "Sumatera Utara": {
-                "Medan": ["Medan Kota", "Medan Barat", "Medan Timur", "Medan Utara", "Medan Selatan", "Medan Polonia", "Medan Petisah", "Medan Baru", "Medan Selayang", "Medan Sunggal", "Medan Helvetia", "Medan Tembung", "Medan Perjuangan", "Medan Denai", "Medan Area", "Medan Johor", "Medan Amplas", "Medan Tuntungan", "Medan Deli", "Medan Marelan", "Medan Labuhan", "Medan Belawan"],
-                "Binjai": ["Binjai Kota", "Binjai Barat", "Binjai Timur", "Binjai Utara", "Binjai Selatan"],
-                "Pematang Siantar": ["Siantar Barat", "Siantar Marihat", "Siantar Marimbun", "Siantar Martoba", "Siantar Selatan", "Siantar Sitalasari", "Siantar Timur", "Siantar Utara"],
-                "Padang Sidempuan": ["Padangsidimpuan Batunadua", "Padangsidimpuan Hutaimbaru", "Padangsidimpuan Selatan", "Padangsidimpuan Tenggara", "Padangsidimpuan Utara"]
-            },
-            "Sumatera Barat": {
-                "Padang": ["Padang Barat", "Padang Timur", "Padang Utara", "Padang Selatan", "Bungus Teluk Kabung", "Koto Tangah", "Kuranji", "Lubuk Begalung", "Lubuk Kilangan", "Nanggalo", "Pauh"],
-                "Bukittinggi": ["Aur Birugo Tigo Baleh", "Guguk Panjang", "Mandiangin Koto Selayan"],
-                "Payakumbuh": ["Payakumbuh Barat", "Payakumbuh Timur", "Payakumbuh Utara", "Payakumbuh Selatan", "Lamposi Tigo Nagori"]
-            },
-            "Sumatera Selatan": {
-                "Palembang": ["Ilir Barat I", "Ilir Barat II", "Ilir Timur I", "Ilir Timur II", "Ilir Timur III", "Seberang Ulu I", "Seberang Ulu II", "Kertapati", "Plaju", "Bukit Kecil", "Gandus", "Kalidoni", "Kemuning", "Sako", "Sematang Borang", "Sukarami", "Alang-Alang Lebar", "Jakabaring"],
-                "Prabumulih": ["Prabumulih Barat", "Prabumulih Timur", "Prabumulih Selatan", "Prabumulih Utara", "Cambai", "Rambang Kapak Tengah"]
-            },
-            "Lampung": {
-                "Bandar Lampung": ["Kedaton", "Sukarame", "Tanjung Karang Barat", "Tanjung Karang Pusat", "Tanjung Karang Timur", "Teluk Betung Barat", "Teluk Betung Selatan", "Teluk Betung Utara", "Kemiling", "Langkapura", "Enggal", "Kedamaian", "Rajabasa", "Tanjung Senang", "Labuhan Ratu", "Way Halim", "Sukabumi", "Bumi Waras", "Panjang", "Teluk Betung Timur"],
-                "Metro": ["Metro Barat", "Metro Timur", "Metro Pusat", "Metro Selatan", "Metro Utara"]
-            },
-            "Kalimantan Timur": {
-                "Balikpapan": ["Balikpapan Kota", "Balikpapan Barat", "Balikpapan Timur", "Balikpapan Selatan", "Balikpapan Utara", "Balikpapan Tengah"],
-                "Samarinda": ["Samarinda Kota", "Samarinda Ulu", "Samarinda Ilir", "Sungai Kunjang", "Sambutan", "Samarinda Seberang", "Loa Janan Ilir", "Palaran", "Samarinda Utara", "Sungai Pinang"],
-                "Bontang": ["Bontang Barat", "Bontang Selatan", "Bontang Utara"]
-            },
-            "Kalimantan Selatan": {
-                "Banjarmasin": ["Banjarmasin Barat", "Banjarmasin Selatan", "Banjarmasin Tengah", "Banjarmasin Timur", "Banjarmasin Utara"],
-                "Banjarbaru": ["Banjarbaru Selatan", "Banjarbaru Utara", "Cempaka", "Landasan Ulin", "Liang Anggang"]
-            },
-            "Kalimantan Barat": {
-                "Pontianak": ["Pontianak Barat", "Pontianak Kota", "Pontianak Selatan", "Pontianak Tenggara", "Pontianak Timur", "Pontianak Utara"],
-                "Singkawang": ["Singkawang Barat", "Singkawang Selatan", "Singkawang Tengah", "Singkawang Timur", "Singkawang Utara"]
-            },
-            "Kalimantan Tengah": {
-                "Palangka Raya": ["Pahandut", "Sabangau", "Jekan Raya", "Bukit Batu", "Rakumpit"]
-            },
-            "Sulawesi Selatan": {
-                "Makassar": ["Makassar", "Mariso", "Mamajang", "Tamalate", "Rappocini", "Panakkukang", "Manggala", "Ujung Pandang", "Wajo", "Bontoala", "Ujung Tanah", "Tallo", "Biringkanaya", "Tamalanrea", "Sangkarrang", "Kepulauan Sangkarrang"],
-                "Parepare": ["Bacukiki", "Bacukiki Barat", "Soreang", "Ujung"],
-                "Palopo": ["Wara", "Wara Barat", "Wara Selatan", "Wara Timur", "Wara Utara", "Sendana", "Mungkajang", "Telluwanua", "Bara"]
-            },
-            "Sulawesi Utara": {
-                "Manado": ["Malalayang", "Sario", "Wanea", "Wenang", "Tikala", "Paal Dua", "Mapanget", "Singkil", "Tuminting", "Bunaken", "Bunaken Kepulauan"],
-                "Bitung": ["Madidir", "Maesa", "Aertembaga", "Matuari", "Girian", "Lembeh Selatan", "Lembeh Utara", "Ranowulu"],
-                "Tomohon": ["Tomohon Barat", "Tomohon Selatan", "Tomohon Tengah", "Tomohon Timur", "Tomohon Utara"]
-            },
-            "Sulawesi Tengah": {
-                "Palu": ["Palu Barat", "Palu Selatan", "Palu Timur", "Palu Utara", "Mantikulore", "Tawaeli", "Tatanga", "Ulujadi"]
-            },
-            "Sulawesi Tenggara": {
-                "Kendari": ["Mandonga", "Baruga", "Puuwatu", "Kadia", "Wua-Wua", "Poasia", "Abeli", "Kambu", "Kendari", "Kendari Barat"],
-                "Baubau": ["Betoambari", "Bungi", "Kokalukuna", "Lea-Lea", "Murhum", "Sorawolio", "Wolio", "Batupoaro"]
-            },
-            "Gorontalo": {
-                "Gorontalo": ["Kota Barat", "Kota Selatan", "Kota Tengah", "Kota Timur", "Kota Utara", "Dumbo Raya", "Dungingi", "Hulonthalangi", "Sipatana"]
-            },
-            "Maluku": {
-                "Ambon": ["Nusaniwe", "Sirimau", "Teluk Ambon", "Teluk Ambon Baguala", "Leitimur Selatan"],
-                "Tual": ["Pulau Dullah Selatan", "Pulau Dullah Utara", "Tayando Tam", "Pulau-Pulau Kur", "Kur Selatan"]
-            },
-            "Maluku Utara": {
-                "Ternate": ["Ternate Selatan", "Ternate Tengah", "Ternate Utara", "Pulau Ternate", "Moti", "Pulau Batang Dua", "Pulau Hiri"],
-                "Tidore": ["Tidore", "Tidore Selatan", "Tidore Utara", "Oba", "Oba Selatan", "Oba Tengah", "Oba Utara"]
-            },
-            "Papua": {
-                "Jayapura": ["Jayapura Selatan", "Jayapura Utara", "Abepura", "Heram", "Muara Tami"],
-                "Sorong": ["Sorong Barat", "Sorong Kota", "Sorong Manoi", "Sorong Timur", "Sorong Utara", "Sorong Kepulauan"]
-            },
-            "Papua Barat": {
-                "Manokwari": ["Manokwari Barat", "Manokwari Selatan", "Manokwari Timur", "Manokwari Utara"]
-            },
-            "Nusa Tenggara Barat": {
-                "Mataram": ["Ampenan", "Cakranegara", "Mataram", "Sandubaya", "Sekarbela", "Selaparang"],
-                "Bima": ["Rasanae Barat", "Rasanae Timur", "Asakota", "Raba", "Mpunda"]
-            },
-            "Nusa Tenggara Timur": {
-                "Kupang": ["Alak", "Kelapa Lima", "Kota Lama", "Kota Raja", "Maulafa", "Oebobo"],
-                "Maumere": ["Alok", "Alok Barat", "Alok Timur", "Kangae", "Kewapante", "Lela", "Nelle", "Waigete"]
-            },
             "Aceh": {
                 "Banda Aceh": ["Baiturrahman", "Banda Raya", "Jaya Baru", "Kuta Alam", "Kuta Raja", "Lueng Bata", "Meuraxa", "Syiah Kuala", "Ulee Kareng"],
-                "Lhokseumawe": ["Banda Sakti", "Blang Mangat", "Muara Dua", "Muara Satu"],
-                "Langsa": ["Langsa Barat", "Langsa Baro", "Langsa Kota", "Langsa Lama", "Langsa Timur"]
+                "Langsa": ["Langsa Barat", "Langsa Kota", "Langsa Timur", "Langsa Baro"],
+                "Lhokseumawe": ["Banda Sakti", "Blang Mangat", "Muara Dua"]
+            },
+            "Sumatera Utara": {
+                "Medan": ["Medan Amplas", "Medan Area", "Medan Barat", "Medan Baru", "Medan Belawan", "Medan Deli", "Medan Denai", "Medan Helvetia", "Medan Johor", "Medan Kota", "Medan Labuhan", "Medan Maimun", "Medan Marelan", "Medan Perjuangan", "Medan Petisah", "Medan Polonia", "Medan Selayang", "Medan Sunggal", "Medan Tembung", "Medan Timur", "Medan Tuntungan"],
+                "Binjai": ["Binjai Barat", "Binjai Kota", "Binjai Selatan", "Binjai Timur", "Binjai Utara"],
+                "Pematang Siantar": ["Siantar Barat", "Siantar Marihat", "Siantar Marimbun", "Siantar Martoba", "Siantar Selatan", "Siantar Sitalasari", "Siantar Timur", "Siantar Utara"]
+            },
+            "Sumatera Barat": {
+                "Padang": ["Bungus Teluk Kabung", "Koto Tangah", "Kuranji", "Lubuk Begalung", "Lubuk Kilangan", "Nanggalo", "Padang Barat", "Padang Selatan", "Padang Timur", "Padang Utara", "Pauh"],
+                "Bukittinggi": ["Aur Birugo Tigo Baleh", "Guguk Panjang", "Mandiangin Koto Selayan"],
+                "Payakumbuh": ["Lamposi Tigo Nagari", "Payakumbuh Barat", "Payakumbuh Selatan", "Payakumbuh Timur", "Payakumbuh Utara"]
             },
             "Riau": {
                 "Pekanbaru": ["Bukit Raya", "Lima Puluh", "Marpoyan Damai", "Payung Sekaki", "Pekanbaru Kota", "Rumbai", "Rumbai Pesisir", "Sail", "Senapelan", "Sukajadi", "Tampan", "Tenayan Raya"],
-                "Dumai": ["Bukit Kapur", "Dumai Barat", "Dumai Kota", "Dumai Selatan", "Dumai Timur", "Medang Kampai", "Sungai Sembilan"]
-            },
-            "Kepulauan Riau": {
-                "Batam": ["Batam Kota", "Belakang Padang", "Bengkong", "Batu Aji", "Batu Ampar", "Bulang", "Galang", "Lubuk Baja", "Nongsa", "Sagulung", "Sei Beduk", "Sekupang"],
-                "Tanjung Pinang": ["Bukit Bestari", "Tanjungpinang Barat", "Tanjungpinang Kota", "Tanjungpinang Timur"]
+                "Dumai": ["Bukit Kapur", "Dumai Barat", "Dumai Kota", "Dumai Selatan", "Dumai Timur", "Medang Kampai", "Sungai Sembilan"],
+                "Bengkalis": ["Bengkalis", "Bukit Batu", "Mandau", "Pinggir", "Rupat", "Rupat Utara", "Siak Kecil"]
             },
             "Jambi": {
-                "Jambi": ["Alam Barajo", "Danau Sipin", "Danau Teluk", "Jambi Selatan", "Jambi Timur", "Jelutung", "Kota Baru", "Paal Merah", "Pasar Jambi", "Pelayangan", "Telanaipura"],
-                "Sungai Penuh": ["Hamparan Rawang", "Koto Baru", "Kumun Debai", "Pesisir Bukit", "Pondok Tinggi", "Sungai Bungkal", "Sungai Penuh", "Tanah Kampung"]
+                "Jambi": ["Danau Teluk", "Jambi Selatan", "Jambi Timur", "Jelutung", "Kota Baru", "Pasar Jambi", "Pelayangan", "Telanaipura"],
+                "Sungai Penuh": ["Hamparan Rawang", "Koto Baru", "Kumun Debai", "Pesisir Bukit", "Pondok Tinggi", "Sungai Bungkal", "Sungai Penuh"],
+                "Muaro Jambi": ["Bahar Selatan", "Bahar Utara", "Jambi Luar Kota", "Kumpeh", "Kumpeh Ulu", "Maro Sebo", "Mestong", "Sekernan", "Taman Rajo"]
+            },
+            "Sumatera Selatan": {
+                "Palembang": ["Alang-Alang Lebar", "Bukit Kecil", "Gandus", "Ilir Barat I", "Ilir Barat II", "Ilir Timur I", "Ilir Timur II", "Kalidoni", "Kemuning", "Kertapati", "Plaju", "Sako", "Seberang Ulu I", "Seberang Ulu II", "Sematang Borang", "Sukarami"],
+                "Prabumulih": ["Cambai", "Prabumulih Barat", "Prabumulih Selatan", "Prabumulih Timur", "Prabumulih Utara"],
+                "Lubuklinggau": ["Lubuk Linggau Barat I", "Lubuk Linggau Barat II", "Lubuk Linggau Selatan I", "Lubuk Linggau Selatan II", "Lubuk Linggau Timur I", "Lubuk Linggau Timur II", "Lubuk Linggau Utara I", "Lubuk Linggau Utara II"]
             },
             "Bengkulu": {
-                "Bengkulu": ["Gading Cempaka", "Kampung Melayu", "Muara Bangka Hulu", "Ratu Agung", "Ratu Samban", "Selebar", "Singaran Pati", "Sungai Serut", "Teluk Segara"]
+                "Bengkulu": ["Gading Cempaka", "Kampung Melayu", "Muara Bangkahulu", "Ratu Agung", "Ratu Samban", "Selebar", "Sungai Serut", "Teluk Segara"],
+                "Curup": ["Curup", "Curup Selatan", "Curup Tengah", "Curup Timur", "Curup Utara"],
+                "Manna": ["Kota Manna", "Kedurang", "Kedurang Ilir", "Pasar Manna", "Seginim", "Ulu Manna"]
+            },
+            "Lampung": {
+                "Bandar Lampung": ["Bumi Waras", "Enggal", "Kedamaian", "Kedaton", "Kemiling", "Labuhan Ratu", "Langkapura", "Panjang", "Rajabasa", "Sukabumi", "Sukarame", "Tanjung Karang Barat", "Tanjung Karang Pusat", "Tanjung Karang Timur", "Teluk Betung Barat", "Teluk Betung Selatan", "Teluk Betung Utara", "Way Halim"],
+                "Metro": ["Metro Barat", "Metro Pusat", "Metro Selatan", "Metro Timur", "Metro Utara"],
+                "Kotabumi": ["Kotabumi Selatan", "Kotabumi Utara"]
             },
             "Bangka Belitung": {
-                "Pangkal Pinang": ["Bukit Intan", "Gabek", "Gerunggang", "Girimaya", "Pangkal Balam", "Rangkui", "Taman Sari"],
-                "Belitung": ["Tanjung Pandan", "Badau", "Membalong", "Selat Nasik", "Sijuk"]
+                "Pangkal Pinang": ["Bukit Intan", "Gabek", "Gerunggang", "Pangkal Balam", "Rangkui", "Taman Sari"],
+                "Tanjung Pandan": ["Badau", "Membalong", "Selat Nasik", "Sijuk", "Tanjung Pandan"],
+                "Manggar": ["Dendang", "Gantung", "Kelapa Kampit", "Manggar", "Simpang Pesak"]
+            },
+            "DKI Jakarta": {
+                "Jakarta Pusat": ["Cempaka Putih", "Gambir", "Johar Baru", "Kemayoran", "Menteng", "Sawah Besar", "Senen", "Tanah Abang"],
+                "Jakarta Barat": ["Cengkareng", "Grogol Petamburan", "Kalideres", "Kebon Jeruk", "Kembangan", "Palmerah", "Taman Sari", "Tambora"],
+                "Jakarta Selatan": ["Cilandak", "Jagakarsa", "Kebayoran Baru", "Kebayoran Lama", "Mampang Prapatan", "Pancoran", "Pasar Minggu", "Pesanggrahan", "Setiabudi", "Tebet"],
+                "Jakarta Timur": ["Cakung", "Cipayung", "Ciracas", "Duren Sawit", "Jatinegara", "Kramat Jati", "Makasar", "Matraman", "Pasar Rebo", "Pulo Gadung"],
+                "Jakarta Utara": ["Cilincing", "Kelapa Gading", "Koja", "Pademangan", "Penjaringan", "Tanjung Priok"],
+                "Kepulauan Seribu": ["Kepulauan Seribu Selatan", "Kepulauan Seribu Utara"]
+            },
+            "Jawa Barat": {
+                "Bandung": ["Andir", "Antapani", "Arcamanik", "Astana Anyar", "Babakan Ciparay", "Bandung Kidul", "Bandung Kulon", "Bandung Wetan", "Batununggal", "Bojongloa Kaler", "Bojongloa Kidul", "Buahbatu", "Cibeunying Kaler", "Cibeunying Kidul", "Cibiru", "Cicendo", "Cidadap", "Cinambo", "Coblong", "Gedebage", "Kiaracondong", "Lengkong", "Mandalajati", "Panyileukan", "Rancasari", "Regol", "Sukajadi", "Sukasari", "Sumur Bandung", "Ujungberung"],
+                "Bekasi": ["Bantar Gebang", "Bekasi Barat", "Bekasi Selatan", "Bekasi Timur", "Bekasi Utara", "Jatiasih", "Jatisampurna", "Medan Satria", "Mustika Jaya", "Pondok Gede", "Pondok Melati", "Rawalumbu"],
+                "Bogor": ["Bogor Barat", "Bogor Selatan", "Bogor Tengah", "Bogor Timur", "Bogor Utara", "Tanah Sareal"],
+                "Cimahi": ["Cimahi Selatan", "Cimahi Tengah", "Cimahi Utara"],
+                "Depok": ["Beji", "Bojongsari", "Cilodong", "Cimanggis", "Cinere", "Cipayung", "Limo", "Pancoran Mas", "Sawangan", "Sukmajaya", "Tapos"]
+            },
+            "Jawa Tengah": {
+                "Semarang": ["Banyumanik", "Candisari", "Gajah Mungkur", "Gayamsari", "Genuk", "Gunungpati", "Mijen", "Ngaliyan", "Pedurungan", "Semarang Barat", "Semarang Selatan", "Semarang Tengah", "Semarang Timur", "Semarang Utara", "Tembalang", "Tugu"],
+                "Surakarta": ["Banjarsari", "Jebres", "Laweyan", "Pasar Kliwon", "Serengan"],
+                "Tegal": ["Margadana", "Tegal Barat", "Tegal Selatan", "Tegal Timur"],
+                "Pekalongan": ["Pekalongan Barat", "Pekalongan Selatan", "Pekalongan Timur", "Pekalongan Utara"],
+                "Salatiga": ["Argomulyo", "Sidorejo", "Sidomukti", "Tingkir"]
+            },
+            "DI Yogyakarta": {
+                "Yogyakarta": ["Danurejan", "Gedongtengen", "Gondokusuman", "Gondomanan", "Jetis", "Kotagede", "Kraton", "Mantrijeron", "Mergangsan", "Ngampilan", "Pakualaman", "Tegalrejo", "Umbulharo", "Wirobrajan"],
+                "Bantul": ["Bambanglipuro", "Banguntapan", "Bantul", "Dlingo", "Imogiri", "Jetis", "Kasihan", "Kretek", "Pajangan", "Pandak", "Piyungan", "Pleret", "Pundong", "Sanden", "Sedayu", "Sewon", "Srandakan"],
+                "Sleman": ["Berbah", "Cangkringan", "Depok", "Gamping", "Godean", "Kalasan", "Minggir", "Mlati", "Moyudan", "Ngaglik", "Ngemplak", "Pakem", "Prambanan", "Seyegan", "Sleman", "Tempel", "Turi"]
+            },
+            "Jawa Timur": {
+                "Surabaya": ["Asemrowo", "Benowo", "Bubutan", "Bulak", "Dukuh Pakis", "Gayungan", "Genteng", "Gubeng", "Gununganyar", "Jambangan", "Karangpilang", "Kenjeran", "Krembangan", "Lakarsantri", "Mulyorejo", "Pabean Cantian", "Pakal", "Rungkut", "Sambikerep", "Sawahan", "Semampir", "Simokerto", "Sukolilo", "Sukomanunggal", "Tambaksari", "Tandes", "Tegalsari", "Tenggilis Mejoyo", "Wiyung", "Wonocolo", "Wonokromo"],
+                "Malang": ["Blimbing", "Kedungkandang", "Klojen", "Lowokwaru", "Sukun"],
+                "Sidoarjo": ["Balongbendo", "Buduran", "Candi", "Gedangan", "Jabon", "Krembung", "Krian", "Prambon", "Sedati", "Sidoarjo", "Sukodono", "Taman", "Tanggulangin", "Tarik", "Tulangan", "Waru", "Wonoayu"],
+                "Madiun": ["Kartoharjo", "Manguharjo", "Taman"],
+                "Pasuruan": ["Bugulkidul", "Gadingrejo", "Panggungrejo", "Purworejo"]
+            },
+            "Banten": {
+                "Serang": ["Cipocok Jaya", "Curug", "Kasemen", "Serang", "Taktakan", "Walantaka"],
+                "Tangerang": ["Batuceper", "Benda", "Cibodas", "Ciledug", "Cipondoh", "Jatiuwung", "Karang Tengah", "Karawaci", "Larangan", "Neglasari", "Periuk", "Pinang", "Tangerang"],
+                "Cilegon": ["Cibeber", "Cilegon", "Citangkil", "Ciwandan", "Gerogol", "Jombang", "Pulomerak", "Purwakarta"],
+                "Tangerang Selatan": ["Ciputat", "Ciputat Timur", "Pamulang", "Pondok Aren", "Serpong", "Serpong Utara", "Setu"]
+            },
+            "Bali": {
+                "Denpasar": ["Denpasar Barat", "Denpasar Selatan", "Denpasar Timur", "Denpasar Utara"],
+                "Badung": ["Abiansemal", "Kuta", "Kuta Selatan", "Kuta Utara", "Mengwi", "Petang"],
+                "Gianyar": ["Blahbatuh", "Gianyar", "Payangan", "Sukawati", "Tampaksiring", "Tegallalang", "Ubud"],
+                "Tabanan": ["Baturiti", "Kediri", "Kerambitan", "Marga", "Penebel", "Pupuan", "Selemadeg", "Selemadeg Barat", "Selemadeg Timur", "Tabanan"]
+            },
+            "Nusa Tenggara Barat": {
+                "Mataram": ["Ampenan", "Cakranegara", "Mataram", "Sandubaya", "Sekarbela", "Selaparang"],
+                "Bima": ["Asakota", "Mpunda", "Raba", "Rasanae Barat", "Rasanae Timur"],
+                "Sumbawa Besar": ["Alas", "Alas Barat", "Batu Lanteh", "Buer", "Empang", "Labangka", "Labuhan Badas", "Lunyuk", "Moyo Hilir", "Moyo Hulu", "Moyo Utara", "Orong Telu", "Plampang", "Rhee", "Ropang", "Sumbawa", "Tarano", "Unter Iwes", "Utan"]
+            },
+            "Nusa Tenggara Timur": {
+                "Kupang": ["Alak", "Kelapa Lima", "Kota Lama", "Kota Raja", "Maulafa", "Oebobo"],
+                "Ende": ["Ende", "Ende Selatan", "Ende Tengah", "Ende Timur", "Ende Utara", "Kota Baru", "Ndona", "Ndona Timur", "Pulau Ende", "Wewaria", "Wolowaru"],
+                "Timor Tengah Selatan": ["Amanatun Selatan", "Amanatun Utara", "Amanuban Barat", "Amanuban Selatan", "Amanuban Tengah", "Amanuban Timur", "Batu Putih", "Boking", "Fatukopa", "Fatumnasi", "Fautmolo", "Kie", "Kok Baun", "Kolbano", "Kot Olin", "Kualin", "Kuatnana", "Mollo Barat", "Mollo Selatan", "Mollo Tengah", "Mollo Utara", "Noebana", "Noebeba", "Nunbena", "Oenino", "Polen", "Santian", "Tobu", "Toianas"]
+            },
+            "Kalimantan Barat": {
+                "Pontianak": ["Pontianak Barat", "Pontianak Kota", "Pontianak Selatan", "Pontianak Tenggara", "Pontianak Timur", "Pontianak Utara"],
+                "Singkawang": ["Singkawang Barat", "Singkawang Selatan", "Singkawang Tengah", "Singkawang Timur", "Singkawang Utara"],
+                "Sambas": ["Galing", "Jawai", "Jawai Selatan", "Paloh", "Pemangkat", "Sajad", "Sajingan Besar", "Salatiga", "Sambas", "Sebawi", "Sejangkung", "Selakau", "Selakau Timur", "Semparuk", "Subah", "Tangaran", "Tebas", "Tekarang", "Teluk Keramat"]
+            },
+            "Kalimantan Tengah": {
+                "Palangka Raya": ["Bukit Batu", "Jekan Raya", "Pahandut", "Rakumpit", "Sebangau"],
+                "Sampit": ["Baamang", "Bukit Santuai", "Cempaga", "Cempaga Hulu", "Kota Besi", "Mentawa Baru Ketapang", "Mentaya Hilir Selatan", "Mentaya Hilir Utara", "Mentaya Hulu", "Parenggean", "Pulau Hanaut", "Seranau", "Telawang", "Teluk Sampit", "Tualan Hulu"],
+                "Pangkalan Bun": ["Arut Selatan", "Arut Utara", "Kotawaringin Lama", "Kumai", "Pangkalan Banteng", "Pangkalan Lada"]
+            },
+            "Kalimantan Selatan": {
+                "Banjarmasin": ["Banjarmasin Barat", "Banjarmasin Selatan", "Banjarmasin Tengah", "Banjarmasin Timur", "Banjarmasin Utara"],
+                "Banjarbaru": ["Banjarbaru Selatan", "Banjarbaru Utara", "Cempaka", "Landasan Ulin", "Liang Anggang"],
+                "Martapura": ["Astambul", "Cintapuri Darussalam", "Daha Barat", "Daha Selatan", "Daha Utara", "Hantakan", "Haruyan", "Karang Intan", "Martapura", "Martapura Barat", "Martapura Timur", "Paramasan", "Pemurus", "Sungai Pinang", "Sungai Tabuk", "Takisung"]
+            },
+            "Kalimantan Timur": {
+                "Samarinda": ["Palaran", "Samarinda Ilir", "Samarinda Kota", "Samarinda Seberang", "Samarinda Ulu", "Samarinda Utara", "Sungai Kunjang", "Sungai Pinang"],
+                "Balikpapan": ["Balikpapan Barat", "Balikpapan Kota", "Balikpapan Selatan", "Balikpapan Tengah", "Balikpapan Timur", "Balikpapan Utara"],
+                "Bontang": ["Bontang Barat", "Bontang Selatan", "Bontang Utara"],
+                "Tarakan": ["Tarakan Barat", "Tarakan Tengah", "Tarakan Timur", "Tarakan Utara"]
+            },
+            "Kalimantan Utara": {
+                "Tanjung Selor": ["Tanjung Selor", "Tanjung Palas", "Tanjung Palas Barat", "Tanjung Palas Tengah", "Tanjung Palas Timur", "Tanjung Palas Utara"],
+                "Tarakan": ["Tarakan Barat", "Tarakan Tengah", "Tarakan Timur", "Tarakan Utara"],
+                "Malinau": ["Malinau Barat", "Malinau Kota", "Malinau Selatan", "Malinau Utara"],
+                "Nunukan": ["Nunukan", "Nunukan Selatan", "Sebuku", "Sebatik", "Sebatik Barat", "Sebatik Tengah", "Sebatik Timur", "Sebatik Utara"]
+            },
+            "Sulawesi Utara": {
+                "Manado": ["Bunaken", "Bunaken Kepulauan", "Malalayang", "Mapanget", "Paal Dua", "Sario", "Singkil", "Tikala", "Tuminting", "Wanea", "Wenang"],
+                "Bitung": ["Aertembaga", "Girian", "Lembeh Selatan", "Lembeh Utara", "Madidir", "Maesa", "Matuari", "Ranowulu"],
+                "Tomohon": ["Tomohon Barat", "Tomohon Selatan", "Tomohon Tengah", "Tomohon Timur", "Tomohon Utara"]
+            },
+            "Sulawesi Tengah": {
+                "Palu": ["Mantikulore", "Palu Barat", "Palu Selatan", "Palu Timur", "Palu Utara", "Tatanga", "Tawaeli", "Ulujadi"],
+                "Donggala": ["Balaesang", "Balaesang Tanjung", "Banawa", "Banawa Selatan", "Banawa Tengah", "Dampelas", "Labuan", "Pinembani", "Rio Pakava", "Sindue", "Sindue Tobata", "Sindue Tombusabora", "Sirenja", "Sojol", "Sojol Utara", "Tanantovea"],
+                "Toli-Toli": ["Baolan", "Basidondo", "Dako Pamean", "Dampal Selatan", "Dampal Utara", "Dondo", "Galang", "Lampasio", "Ogo Deide", "Toli-Toli Utara"]
+            },
+            "Sulawesi Selatan": {
+                "Makassar": ["Biringkanaya", "Bontoala", "Makassar", "Mamajang", "Manggala", "Mariso", "Panakkukang", "Rappocini", "Tallo", "Tamalanrea", "Tamalate", "Ujung Pandang", "Ujung Tanah", "Wajo"],
+                "Parepare": ["Bacukiki", "Bacukiki Barat", "Soreang", "Ujung"],
+                "Palopo": ["Bara", "Mungkajang", "Sendana", "Telluwanua", "Wara", "Wara Barat", "Wara Selatan", "Wara Timur", "Wara Utara"]
+            },
+            "Sulawesi Tenggara": {
+                "Kendari": ["Abeli", "Baruga", "Kadia", "Kambu", "Kendari", "Kendari Barat", "Mandonga", "Poasia", "Puuwatu", "Wua-Wua"],
+                "Baubau": ["Batupoaro", "Betoambari", "Bungi", "Kokalukuna", "Lea-Lea", "Murhum", "Sora Walio", "Wolio"],
+                "Raha": ["Barangka", "Batalaiworu", "Batu Putih", "Duruka", "Kabaena", "Kabaena Barat", "Kabaena Selatan", "Kabaena Timur", "Kabaena Utara", "Katobu", "Lohia", "Maginti", "Maligano", "Napabalano", "Pasir Putih", "Tongkuno", "Tongkuno Selatan", "Wakorumba", "Wakorumba Selatan", "Watopute"]
+            },
+            "Gorontalo": {
+                "Gorontalo": ["Dungingi", "Hulonthalangi", "Kota Barat", "Kota Selatan", "Kota Tengah", "Kota Timur", "Kota Utara", "Sipatana"],
+                "Kwandang": ["Anggrek", "Atinggola", "Biau", "Kwandang", "Monano", "Sumalata", "Sumalata Timur", "Tolinggula", "Tolinggula Utara"],
+                "Tilamuta": ["Bongomeme", "Mananggu", "Paguyaman", "Paguyaman Pantai", "Tilamuta", "Wonosari"]
+            },
+            "Sulawesi Barat": {
+                "Mamuju": ["Bonehau", "Kalukku", "Kalumpang", "Karossa", "Mamuju", "Pangale", "Papalang", "Sampaga", "Simboro dan Kepulauan", "Tapalang", "Tapalang Barat", "Tommo"],
+                "Majene": ["Banggae", "Banggae Timur", "Malunda", "Pamboang", "Sendana", "Tammerodo", "Tubo Sendana", "Ulumanda"],
+                "Polewali Mandar": ["Allu", "Anreapi", "Balanipa", "Binuang", "Campalagian", "Limboro", "Luyo", "Mapilli", "Matakali", "Matangnga", "Polewali", "Tapango", "Tinambung", "Tubbi Taramanu", "Wonomulyo"]
+            },
+            "Maluku": {
+                "Ambon": ["Baguala", "Leitimur Selatan", "Nusaniwe", "Sirimau", "Teluk Ambon"],
+                "Tual": ["Dullah Selatan", "Dullah Utara", "Pulau Dullah Selatan", "Pulau Dullah Utara", "Pulau Tayando Tam", "Tayando Tam"],
+                "Masohi": ["Amahai", "Banda", "Kota Masohi", "Salahutu", "Saparua", "Seram Utara", "Tehoru"]
+            },
+            "Maluku Utara": {
+                "Ternate": ["Moti", "Pulau Batang Dua", "Pulau Hiri", "Pulau Ternate", "Ternate Selatan", "Ternate Tengah", "Ternate Utara"],
+                "Tidore Kepulauan": ["Oba", "Oba Selatan", "Oba Tengah", "Oba Utara", "Tidore", "Tidore Selatan", "Tidore Timur", "Tidore Utara"],
+                "Halmahera Barat": ["Jailolo", "Jailolo Selatan", "Sahu", "Sahu Timur", "Tabaru"]
+            },
+            "Papua": {
+                "Jayapura": ["Abepura", "Heram", "Jayapura Selatan", "Jayapura Utara", "Muara Tami"],
+                "Merauke": ["Animha", "Elikobal", "Ilwayab", "Jagebob", "Kaptel", "Kimaam", "Kurik", "Malind", "Merauke", "Muting", "Naukenjerai", "Ngguti", "Okaba", "Semangga", "Sota", "Tabonji", "Tanah Miring", "Tubang", "Ulilin"],
+                "Biak Numfor": ["Aimando Padaido", "Andey", "Biak Barat", "Biak Kota", "Biak Timur", "Biak Utara", "Bondifuar", "Bruyadori", "Numfor Barat", "Numfor Timur", "Oridek", "Orkeri", "Padaido", "Poiru", "Samofa", "Swandiwe", "Warsa", "Yawosi", "Yendidori"]
+            },
+            "Papua Barat": {
+                "Manokwari": ["Amberbaken", "Anggi", "Anggi Gida", "Catubouw", "Dataran Isim", "Didohu", "Hink", "Kebar", "Manokwari Barat", "Manokwari Selatan", "Manokwari Timur", "Manokwari Utara", "Masni", "Membey", "Minyambouw", "Momi Waren", "Naikere", "Oransbari", "Prafi", "Ransiki", "Senopi", "Sidey", "Sugurey", "Tahota", "Tanah Rubuh", "Testega", "Warmare"],
+                "Sorong": ["Aimas", "Beraur", "Botain", "Buk", "Fokour", "Kais", "Klamono", "Klabot", "Klawak", "Klayili", "Makbon", "Mariat", "Maudus", "Mayamuk", "Moisegen", "Salawati", "Salawati Selatan", "Sayosa", "Seget", "Segun", "Sorong", "Sorong Barat", "Sorong Kepulauan", "Sorong Manoi", "Sorong Timur", "Sorong Utara", "Sunook", "Teminabuan"]
             }
         };
+
+        // DOM Elements
+        const form = document.getElementById('generator-form');
+        const generateBtn = document.getElementById('generate-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const previewBtn = document.getElementById('preview-btn');
+        const resultCode = document.getElementById('result-code');
+        const notification = document.getElementById('notification');
+        const previewModal = document.getElementById('preview-modal');
+        const previewFrame = document.getElementById('preview-frame');
+        const closePreview = document.getElementById('close-preview');
+        const hasVariantsCheckbox = document.getElementById('has-variants');
+        const variantsSection = document.getElementById('variants-section');
+        const autoGenerateVariantsCheckbox = document.getElementById('auto-generate-variants');
+        const manualVariantsSection = document.getElementById('manual-variants-section');
+        const variantPreview = document.getElementById('variant-preview');
+        const variantList = document.getElementById('variant-list');
         
-        function toggleVariantFields() {
-            const variantFields = document.getElementById('variantFields');
-            const hasVariants = document.getElementById('hasVariants').checked;
-            variantFields.style.display = hasVariants ? 'block' : 'none';
-        }
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
         
-        function previewImage(input, previewId) {
-            const preview = document.getElementById(previewId);
-            if (input.value) {
-                preview.src = input.value;
-                preview.style.display = 'block';
-                preview.onerror = function() {
-                    this.style.display = 'none';
-                };
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+                
+                // Update active tab button
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Update active tab content
+                tabContents.forEach(content => content.classList.remove('active'));
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Image preview functionality
+        const imageInputs = ['image-1', 'image-2', 'image-3', 'image-4', 'image-5', 'image-6'];
+        
+        imageInputs.forEach(id => {
+            const input = document.getElementById(id);
+            const previewContainer = document.getElementById(`${id}-preview`);
+            
+            input.addEventListener('input', () => {
+                const url = input.value.trim();
+                
+                if (url) {
+                    previewContainer.innerHTML = `
+                        <div class="image-preview border border-gray-200 rounded-lg overflow-hidden">
+                            <img src="${url}" alt="Preview" class="w-full h-32 object-cover" onerror="this.parentElement.innerHTML='<div class=\'h-32 flex items-center justify-center bg-gray-100 text-gray-500\'>Gambar tidak valid</div>'">
+                        </div>
+                    `;
+                } else {
+                    previewContainer.innerHTML = '';
+                }
+            });
+        });
+        
+        // Variants functionality
+        hasVariantsCheckbox.addEventListener('change', () => {
+            if (hasVariantsCheckbox.checked) {
+                variantsSection.classList.remove('hidden');
             } else {
-                preview.style.display = 'none';
+                variantsSection.classList.add('hidden');
+                variantPreview.classList.add('hidden');
+            }
+        });
+        
+        autoGenerateVariantsCheckbox.addEventListener('change', () => {
+            if (autoGenerateVariantsCheckbox.checked) {
+                manualVariantsSection.classList.add('hidden');
+            } else {
+                manualVariantsSection.classList.remove('hidden');
+            }
+        });
+        
+        // Update variant preview
+        const variantInputs = ['variant-colors', 'variant-sizes', 'manual-variants'];
+        
+        variantInputs.forEach(id => {
+            const input = document.getElementById(id);
+            if (input) {
+                input.addEventListener('input', updateVariantPreview);
+            }
+        });
+        
+        function updateVariantPreview() {
+            if (!hasVariantsCheckbox.checked) return;
+            
+            if (autoGenerateVariantsCheckbox.checked) {
+                const colors = document.getElementById('variant-colors').value.split(',').map(c => c.trim()).filter(c => c);
+                const sizes = document.getElementById('variant-sizes').value.split(',').map(s => s.trim()).filter(s => s);
+                
+                if (colors.length > 0 && sizes.length > 0) {
+                    variantList.innerHTML = '';
+                    
+                    colors.forEach(color => {
+                        sizes.forEach(size => {
+                            const variant = `${color.toUpperCase()}-${size.toUpperCase()}`;
+                            variantList.innerHTML += `
+                                <span class="variant-select bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">${variant}</span>
+                            `;
+                        });
+                    });
+                    
+                    variantPreview.classList.remove('hidden');
+                } else {
+                    variantPreview.classList.add('hidden');
+                }
+            } else {
+                const variants = document.getElementById('manual-variants').value.split('\n').map(v => v.trim()).filter(v => v);
+                
+                if (variants.length > 0) {
+                    variantList.innerHTML = '';
+                    
+                    variants.forEach(variant => {
+                        variantList.innerHTML += `
+                            <span class="variant-select bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">${variant.toUpperCase()}</span>
+                        `;
+                    });
+                    
+                    variantPreview.classList.remove('hidden');
+                } else {
+                    variantPreview.classList.add('hidden');
+                }
             }
         }
         
-        document.getElementById('generateBtn').addEventListener('click', function() {
-            const loading = document.getElementById('loading');
-            loading.style.display = 'block';
-            
-            // Simulate loading
-            setTimeout(() => {
-                generateWebsite();
-                loading.style.display = 'none';
-            }, 1500);
-        });
-        
-        function generateWebsite() {
-            // Get form data
-            const formData = {
-                productName: document.getElementById('productName').value,
-                price: document.getElementById('price').value,
-                description: document.getElementById('description').value,
-                whatsapp: document.getElementById('whatsapp').value,
-                images: [
-                    document.getElementById('image1').value,
-                    document.getElementById('image2').value,
-                    document.getElementById('image3').value,
-                    document.getElementById('image4').value,
-                    document.getElementById('image5').value || '',
-                    document.getElementById('image6').value || ''
-                ].filter(url => url !== ''),
-                hasVariants: document.getElementById('hasVariants').checked,
-                colors: document.getElementById('colors').value.split(',').map(c => c.trim()).filter(c => c),
-                sizes: document.getElementById('sizes').value.split(',').map(s => s.trim()).filter(s => s),
-                autoGenerateCombinations: document.getElementById('autoGenerateCombinations').checked,
-                manualVariantList: document.getElementById('manualVariantList').value,
-                storeName: document.getElementById('storeName').value,
-                storePhone: document.getElementById('storePhone').value,
-                features: document.getElementById('features').value.split(',').map(f => f.trim()).filter(f => f)
-            };
-            
+        // Generate website
+        generateBtn.addEventListener('click', () => {
             // Validate required fields
-            if (!formData.productName || !formData.price || !formData.description || !formData.whatsapp || !formData.storeName || formData.images.length < 4) {
-                alert('Mohon lengkapi semua field yang wajib diisi (*)');
-                document.getElementById('loading').style.display = 'none';
+            const productName = document.getElementById('product-name').value.trim();
+            const productPrice = document.getElementById('product-price').value.trim();
+            const productDescription = document.getElementById('product-description').value.trim();
+            const whatsappNumber = document.getElementById('whatsapp-number').value.trim();
+            const storeName = document.getElementById('store-name').value.trim();
+            const image1 = document.getElementById('image-1').value.trim();
+            const image2 = document.getElementById('image-2').value.trim();
+            const image3 = document.getElementById('image-3').value.trim();
+            const image4 = document.getElementById('image-4').value.trim();
+            
+            if (!productName || !productPrice || !productDescription || !whatsappNumber || !storeName || !image1 || !image2 || !image3 || !image4) {
+                alert('Harap isi semua field yang wajib diisi!');
                 return;
             }
             
-            // Process variants
-            if (formData.hasVariants) {
-                if (formData.autoGenerateCombinations && formData.colors.length > 0 && formData.sizes.length > 0) {
-                    formData.variantCombinations = [];
-                    formData.colors.forEach(color => {
-                        formData.sizes.forEach(size => {
-                            formData.variantCombinations.push(`${color.toUpperCase()}-${size.toUpperCase()}`);
+            // Get all form values
+            const productFeatures = document.getElementById('product-features').value.split(',').map(f => f.trim()).filter(f => f);
+            const hasVariants = document.getElementById('has-variants').checked;
+            let variants = [];
+            
+            if (hasVariants) {
+                if (document.getElementById('auto-generate-variants').checked) {
+                    const colors = document.getElementById('variant-colors').value.split(',').map(c => c.trim()).filter(c => c);
+                    const sizes = document.getElementById('variant-sizes').value.split(',').map(s => s.trim()).filter(s => s);
+                    
+                    if (colors.length > 0 && sizes.length > 0) {
+                        colors.forEach(color => {
+                            sizes.forEach(size => {
+                                variants.push(`${color.toUpperCase()}-${size.toUpperCase()}`);
+                            });
                         });
-                    });
-                } else if (formData.manualVariantList.trim()) {
-                    formData.variantCombinations = formData.manualVariantList
-                        .split('\n')
-                        .map(v => v.trim())
-                        .filter(v => v !== '');
+                    }
+                } else {
+                    variants = document.getElementById('manual-variants').value.split('\n').map(v => v.trim()).filter(v => v);
                 }
             }
             
-            // Generate HTML
-            const generatedHTML = createWebsiteHTML(formData);
+            // Get all images (filter out empty ones)
+            const images = [];
+            for (let i = 1; i <= 6; i++) {
+                const img = document.getElementById(`image-${i}`).value.trim();
+                if (img) images.push(img);
+            }
             
-            // Display result
-            document.getElementById('result').value = generatedHTML;
-            document.getElementById('resultSection').style.display = 'block';
-            document.getElementById('successMessage').style.display = 'block';
+            // Generate the HTML code
+            const htmlCode = generateHTMLCode({
+                productName,
+                productPrice,
+                productDescription,
+                whatsappNumber,
+                storeName,
+                storePhone: document.getElementById('store-phone').value.trim(),
+                productFeatures,
+                hasVariants,
+                variants,
+                images
+            });
             
-            // Scroll to result
-            document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
-            
-            // Hide success message after 5 seconds
-            setTimeout(() => {
-                document.getElementById('successMessage').style.display = 'none';
-            }, 5000);
-        }
+            // Display the result
+            resultCode.value = htmlCode;
+        });
         
-        function createWebsiteHTML(data) {
+        // Generate HTML code function
+        function generateHTMLCode(data) {
+            const formattedPrice = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(data.productPrice);
+            
+            // Generate features list
+            let featuresHTML = '';
+            if (data.productFeatures.length > 0) {
+                featuresHTML = `
+                    <div class="mt-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Fitur Produk:</h3>
+                        <ul class="list-disc pl-5 space-y-1">
+                            ${data.productFeatures.map(f => `<li>${f}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            // Generate variants HTML if exists
+            let variantsHTML = '';
+            if (data.hasVariants && data.variants.length > 0) {
+                variantsHTML = `
+                    <div class="mt-6">
+                        <label for="product-variant" class="block text-sm font-medium text-gray-700 mb-1">Pilih Varian:</label>
+                        <select id="product-variant" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            ${data.variants.map(v => `<option value="${v}">${v}</option>`).join('')}
+                        </select>
+                    </div>
+                `;
+            }
+            
+            // Generate image gallery HTML
+            let galleryThumbnailsHTML = '';
+            for (let i = 0; i < data.images.length; i++) {
+                galleryThumbnailsHTML += `
+                    <div class="cursor-pointer" onclick="changeMainImage('${data.images[i]}')">
+                        <img src="${data.images[i]}" alt="Thumbnail ${i+1}" class="w-full h-full object-cover rounded-lg border border-gray-200 hover:border-blue-500 transition-colors">
+                    </div>
+                `;
+            }
+            
+            // Generate payment methods HTML
+            const paymentMethodsHTML = `
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Metode Pembayaran:</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        <div class="p-3 bg-gray-50 rounded-lg border border-gray-200 flex items-center justify-center">
+                            <div class="text-center">
+                                <div class="text-3xl">🏦</div>
+                                <p class="text-sm mt-1">Transfer Bank</p>
+                            </div>
+                        </div>
+                        <div class="p-3 bg-gray-50 rounded-lg border border-gray-200 flex items-center justify-center">
+                            <div class="text-center">
+                                <div class="text-3xl">💵</div>
+                                <p class="text-sm mt-1">COD</p>
+                            </div>
+                        </div>
+                        <div class="p-3 bg-gray-50 rounded-lg border border-gray-200 flex items-center justify-center">
+                            <div class="text-center">
+                                <div class="text-3xl">📱</div>
+                                <p class="text-sm mt-1">E-Wallet</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Generate Indonesia data for address dropdowns
+            let provincesOptions = '';
+            for (const province in indonesiaData) {
+                provincesOptions += `<option value="${province}">${province}</option>`;
+            }
+            
+            // Generate the full HTML
             return `<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${data.productName} - ${data.storeName}</title>
-    <meta name="description" content="${data.description}">
-    <meta property="og:title" content="${data.productName} - ${data.storeName}">
-    <meta property="og:description" content="${data.description}">
-    <meta property="og:image" content="${data.images[0]}">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: #1a1a1a;
-            background-color: #f8f9fa;
-        }
-        
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-            color: white;
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-        }
-        
-        .contact {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 16px;
-        }
-        
-        .contact a {
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        /* Main Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        /* Product Section */
-        .product-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-top: 30px;
-        }
-        
-        /* Product Gallery */
-        .product-gallery {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-        }
-        
-        .main-image-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-            margin-bottom: 15px;
+        .fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
         }
         
         .main-image {
-            width: 100%;
             height: 500px;
-            object-fit: cover;
-            transition: transform 0.3s;
+            object-fit: contain;
         }
         
-        .main-image:hover {
-            transform: scale(1.05);
+        @media (max-width: 768px) {
+            .main-image {
+                height: 300px;
+            }
         }
         
-        .image-badge {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: #dc2626;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 14px;
+        .variant-select {
+            transition: all 0.2s ease;
         }
         
-        .thumbnails {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-            gap: 10px;
-        }
-        
-        .thumbnail {
-            width: 100%;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 8px;
-            cursor: pointer;
-            border: 3px solid transparent;
-            transition: all 0.3s;
-        }
-        
-        .thumbnail:hover {
-            border-color: #2563eb;
+        .variant-select:hover {
             transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         
-        .thumbnail.active {
-            border-color: #2563eb;
+        .quantity-btn {
+            transition: all 0.2s ease;
         }
         
-        /* Product Info */
-        .product-info {
-            background: white;
-            padding: 35px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        .quantity-btn:hover {
+            background-color: #1d4ed8;
         }
         
-        .product-title {
-            font-size: 32px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            color: #1a1a1a;
-            line-height: 1.2;
+        .whatsapp-btn {
+            transition: all 0.3s ease;
         }
         
-        .price-container {
-            display: flex;
-            align-items: baseline;
-            gap: 15px;
-            margin-bottom: 25px;
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
         }
         
-        .price {
-            font-size: 36px;
-            color: #dc2626;
-            font-weight: 800;
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
         }
         
-        .price-label {
-            font-size: 14px;
-            color: #6b7280;
-        }
-        
-        .description {
-            margin-bottom: 30px;
-            color: #4b5563;
-            line-height: 1.8;
-            font-size: 16px;
-        }
-        
-        .features {
-            background: #f0f9ff;
-            padding: 20px;
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
             border-radius: 10px;
-            margin-bottom: 30px;
-            border-left: 4px solid #2563eb;
         }
         
-        .features h3 {
-            margin-bottom: 15px;
-            color: #1e40af;
-            font-size: 18px;
-            font-weight: 700;
-        }
-        
-        .features ul {
-            list-style: none;
-        }
-        
-        .features li {
-            padding: 8px 0;
-            padding-left: 25px;
-            position: relative;
-            color: #374151;
-        }
-        
-        .features li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #059669;
-            font-weight: bold;
-            font-size: 18px;
-        }
-        
-        /* Order Form */
-        .order-form {
-            margin-top: 30px;
-        }
-        
-        .form-section-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #1a1a1a;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .form-section-title::before {
-            content: "";
-            width: 4px;
-            height: 24px;
+        ::-webkit-scrollbar-thumb {
             background: #2563eb;
-            border-radius: 2px;
+            border-radius: 10px;
         }
         
-        .form-group {
-            margin-bottom: 20px;
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1d4ed8;
         }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #374151;
-            font-size
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-600 to-purple-700 text-white shadow-lg sticky top-0 z-10">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-xl font-bold">${data.storeName}</h1>
+                <p class="text-sm opacity-90">Toko Online Terpercaya</p>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="https://wa.me/${data.whatsappNumber}" class="flex items-center bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-5.219 4.288-9.457 9.606-9.457 2.573 0 5.021.992 6.865 2.794 1.843 1.803 2.857 4.224 2.854 6.774-.003 5.221-4.291 9.458-9.609 9.458h-.008c-1.99 0-3.93-.58-5.61-1.658l-6.198 1.697zm12.524-18.393c-3.791 0-6.873 3.075-6.876 6.885-.001 1.693.615 3.331 1.727 4.613l-1.153 4.21 4.362-1.11c1.292.76 2.748 1.144 4.225 1.144h.006c3.79 0 6.872-3.075 6.875-6.885.002-3.809-3.076-6.884-6.866-6.884zm3.594 8.701c-.153.216-.472.345-.855.345-.135 0-.294-.033-.451-.103-.314-.123-.661-.314-1.033-.576-.645-.453-1.082-.812-1.514-1.317-.411-.48-.858-1.139-1.176-1.823-.131-.285-.236-.555-.301-.776-.082-.281-.106-.521-.092-.714.021-.345.177-.544.33-.653.152-.108.333-.163.52-.163.153 0 .305.035.445.099.246.112.471.276.658.48.12.133.255.321.342.525.085.202.17.549-.018 1.065-.188.515-.715 1.309-1.003 1.633-.285.321-.569.456-.853.456-.135 0-.27-.034-.405-.1-.446-.216-.854-.533-1.213-.958-.367-.434-.656-.95-.854-1.519-.193-.557-.293-1.137-.293-1.709 0-.571.1-1.113.296-1.62.194-.505.473-.955.834-1.331.362-.376.8-.672 1.298-.873.5-.201 1.049-.302 1.627-.302s1.126.101 1.624.302c.498.201.936.497 1.297.873.362.376.64.826.834 1.331.196.507.296 1.049.296 1.62 0 .315-.035.633-.105.939-.067.302-.174.593-.314.858z"/>
+                    </svg>
+                    WhatsApp
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Product Section -->
+    <section class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Image Gallery -->
+            <div>
+                <div class="bg-white rounded-xl shadow-md p-4 mb-4">
+                    <img id="mainImage" src="${data.images[0]}" alt="${data.productName}" class="main-image w-full rounded-lg">
+                </div>
+                
+                <div class="grid grid-cols-4 gap-2">
+                    ${galleryThumbnailsHTML}
+                </div>
+            </div>
+            
+            <!-- Product Info -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">${data.productName}</h1>
+                <div class="text-2xl font-bold text-blue-600 mb-4">${formattedPrice}</div>
+                
+                <div class="prose max-w-none text-gray-700">
+                    <p>${data.productDescription}</p>
+                </div>
+                
+                ${featuresHTML}
+                
+                <div class="border-t border-gray-200 my-6"></div>
+                
+                <!-- Order Form -->
+                <form id="orderForm">
+                    ${variantsHTML}
+                    
+                    <div class="mt-6">
+                        <label for="quantity" class="block text-sm font-medium text-gray-700 mb-1">Jumlah:</label>
+                        <div class="flex items-center">
+                            <button type="button" onclick="changeQty(-1)" class="quantity-btn bg-blue-600 text-white px-3 py-1 rounded-l-lg">
+                                -
+                            </button>
+                            <input type="number" id="quantity" value="1" min="1" max="99" class="w-16 text-center px-2 py-1 border-t border-b border-gray-300">
+                            <button type="button" onclick="changeQty(1)" class="quantity-btn bg-blue-600 text-white px-3 py-1 rounded-r-lg">
+                                +
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Data Penerima:</h3>
+                        
+                        <div class="space-y-3">
+                            <div>
+                                <label for="customerName" class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap *</label>
+                                <input type="text" id="customerName" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            
+                            <div>
+                                <label for="customerPhone" class="block text-sm font-medium text-gray-700 mb-1">No. WhatsApp *</label>
+                                <div class="flex">
+                                    <span class="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">+62</span>
+                                    <input type="tel" id="customerPhone" pattern="[0-9]{9,13}" required class="w-full px-4 py-2 border border-gray-300 rounded-r-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="81234567890">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="province" class="block text-sm font-medium text-gray-700 mb-1">Provinsi *</label>
+                                <select id="province" onchange="loadCities()" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:
+</body>
+</html>
