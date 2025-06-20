@@ -628,6 +628,8 @@
             
             const galleryImgs = formData.images;
             
+            const variantHTML = generateVariantHTML(formData);
+            
             return `<!DOCTYPE html>
 <html lang="id">
 <head>
@@ -1017,7 +1019,7 @@
                 ${featuresHtml}
                 
                 <form id="orderForm" autocomplete="off" onsubmit="return false;">
-                    ${generateVariantHTML(formData)}
+                    ${variantHTML}
                     
                     <div class="quantity">
                         <label>Jumlah Pesanan:</label>
