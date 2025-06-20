@@ -3,405 +3,305 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generator Website Toko Online - Fixed</title>
+    <title>Generator Website Toko Online</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #2563eb;
-            --danger: #dc2626;
-            --success: #059669;
-            --bg: #f8fafc;
-            --shadow: 0 2px 12px rgba(37, 99, 235, 0.06);
-            --card: #ffffff;
-            --border: #e5e7eb;
-            --radius: 14px;
-        }
-        
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--bg);
-            color: #222;
-            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
         }
         
-        h1, h2, h3, h4 { 
-            font-weight: 700; 
-            letter-spacing: -.01em; 
+        .gradient-bg {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
         }
         
-        .container {
-            max-width: 880px;
-            margin: 0 auto;
-            padding: 32px 12px 64px 12px;
-        }
-        
-        header {
-            background: var(--primary);
-            color: #fff;
-            padding: 0;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow);
-        }
-        
-        .header-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 880px;
-            margin: 0 auto;
-            padding: 16px 12px;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -.01em;
-        }
-        
-        .header-info {
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .header-info i {
-            background: #fff;
-            border-radius: 50%;
-            color: var(--primary);
-            width: 28px;
-            height: 28px;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            font-style: normal;
-            font-size: 1.3rem;
-        }
-        
-        .card {
-            background: var(--card);
-            box-shadow: var(--shadow);
-            border-radius: var(--radius);
-            padding: 28px 22px 22px 22px;
-            margin-bottom: 30px;
-        }
-        
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-        
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px 32px;
-        }
-        
-        @media (max-width: 850px) {
-            .form-grid { 
-                grid-template-columns: 1fr; 
-            }
-        }
-        
-        .form-group {
-            margin-bottom: 14px;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        label {
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: #222;
-        }
-        
-        input[type="text"], 
-        input[type="number"], 
-        input[type="tel"], 
-        textarea, 
-        select {
-            padding: 11px 10px;
-            border: 1.5px solid var(--border);
-            border-radius: 6px;
-            font-size: 1rem;
-            background: #fff;
-            transition: border 0.2s;
-        }
-        
-        input:focus, 
-        textarea:focus, 
-        select:focus {
-            outline: 2px solid var(--primary);
-            border-color: var(--primary);
-        }
-        
-        textarea {
-            min-height: 56px;
-            resize: vertical;
-        }
-        
-        .checkbox-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 6px;
-            margin-top: 7px;
-        }
-        
-        .checkbox-row label {
-            margin-bottom: 0;
-            font-weight: 500;
-            color: #222;
-        }
-        
-        .gen-btn {
-            display: block;
-            width: 100%;
-            font-size: 1.15rem;
-            background: var(--primary);
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            padding: 17px 0;
-            font-weight: 700;
-            margin-top: 18px;
+        .checkbox-custom {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #2563eb;
+            border-radius: 4px;
+            outline: none;
             cursor: pointer;
-            box-shadow: 0 2px 10px 0 rgba(37,99,235,.10);
-            transition: background .15s;
+            position: relative;
         }
         
-        .gen-btn:hover { 
-            background: #1749b4; 
+        .checkbox-custom:checked {
+            background-color: #2563eb;
         }
         
-        .result-section {
-            margin-top: 26px;
-            display: none;
-        }
-        
-        .result-label {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--primary);
-        }
-        
-        .result-actions {
-            display: flex;
-            gap: 13px;
-            margin-bottom: 10px;
-        }
-        
-        .result-actions button {
-            background: var(--success);
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            padding: 9px 17px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background .15s;
-        }
-        
-        .result-actions button:hover { 
-            background: #047857; 
-        }
-        
-        .result-actions .download-btn { 
-            background: var(--primary); 
-        }
-        
-        .result-actions .download-btn:hover { 
-            background: #1749b4; 
+        .checkbox-custom:checked::after {
+            content: '\2713';
+            position: absolute;
+            color: white;
+            font-size: 12px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
         
         .result-box {
-            width: 100%;
-            min-height: 280px;
-            border: 1.5px solid var(--border);
-            border-radius: 8px;
-            padding: 16px 11px;
-            background: #f3f8fe;
             font-family: 'Menlo', 'Consolas', monospace;
-            font-size: 0.98rem;
-            color: #222;
             white-space: pre;
-            resize: vertical;
+            tab-size: 2;
         }
         
-        .footer {
-            text-align: center;
-            font-size: 14px;
-            color: #888;
-            margin: 30px 0 18px 0;
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
         }
         
-        @media (max-width: 600px) {
-            .container { 
-                padding: 10px 2px 50px 2px; 
-            }
-            .header-inner { 
-                flex-direction: column; 
-                gap: 9px; 
-            }
-            .card { 
-                padding: 15px 8px 16px 8px; 
-            }
+        input[type=number] {
+            -moz-appearance: textfield;
         }
         
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-            -webkit-appearance: none; 
-            margin: 0; 
+        .gallery-thumbnail {
+            transition: all 0.2s ease;
         }
         
-        input[type=number] { 
-            -moz-appearance: textfield; 
+        .gallery-thumbnail:hover {
+            transform: scale(1.05);
         }
         
-        input[type="checkbox"] {
-            accent-color: var(--primary);
-            width: 17px; 
-            height: 17px;
+        .gallery-thumbnail.active {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
         }
         
-        .helper-text {
-            font-size: 12px;
-            color: #6b7280;
-            margin-top: 2px;
+        .payment-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .payment-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        }
+        
+        .slide-fade-enter-active {
+            transition: all 0.3s ease-out;
+        }
+        
+        .slide-fade-leave-active {
+            transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+        }
+        
+        .slide-fade-enter-from,
+        .slide-fade-leave-to {
+            transform: translateY(20px);
+            opacity: 0;
         }
     </style>
 </head>
-<body>
-    <header>
-        <div class="header-inner">
-            <div class="logo">🛍️ Generator Website Toko Online</div>
-            <div class="header-info">
-                <i>📱</i>
-                <span>Powered by <b style="color: #fff;">nexcoAI</b></span>
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                <i class="fas fa-store text-2xl"></i>
+                <h1 class="text-xl md:text-2xl font-bold">Generator Website Toko Online</h1>
+            </div>
+            <div class="flex items-center space-x-2 bg-white/20 px-3 py-2 rounded-full">
+                <div class="bg-white text-blue-600 w-8 h-8 rounded-full flex items-center justify-center">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <span class="text-sm md:text-base">Powered by <span class="font-bold">nexcoAI</span></span>
             </div>
         </div>
     </header>
-    
-    <div class="container">
-        <form id="generatorForm" autocomplete="off">
-            <div class="card">
-                <div class="card-title">1. Informasi Produk</div>
-                <div class="form-grid">
-                    <div>
-                        <div class="form-group">
-                            <label for="productName">Nama Produk</label>
-                            <input type="text" id="productName" required placeholder="Contoh: Jaket Premium Casual">
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <form id="generatorForm" class="space-y-6">
+            <!-- Product Information Card -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-xl font-bold text-blue-600 mb-6 flex items-center">
+                    <i class="fas fa-box-open mr-2"></i> Informasi Produk
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Left Column -->
+                    <div class="space-y-4">
+                        <div>
+                            <label for="productName" class="block text-sm font-medium text-gray-700 mb-1">Nama Produk</label>
+                            <input type="text" id="productName" required 
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                placeholder="Contoh: Jaket Premium Casual">
                         </div>
-                        <div class="form-group">
-                            <label for="price">Harga (Rp)</label>
-                            <input type="number" id="price" required min="1" step="1" placeholder="Contoh: 185000">
+                        
+                        <div>
+                            <label for="price" class="block text-sm font-medium text-gray-700 mb-1">Harga (Rp)</label>
+                            <input type="number" id="price" required min="1" step="1"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                placeholder="Contoh: 185000">
                         </div>
-                        <div class="form-group">
-                            <label for="description">Deskripsi</label>
-                            <textarea id="description" required placeholder="Tulis deskripsi produk..."></textarea>
+                        
+                        <div>
+                            <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Deskripsi</label>
+                            <textarea id="description" required rows="3"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                placeholder="Tulis deskripsi produk..."></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="whatsapp">No. WhatsApp Toko</label>
-                            <input type="text" id="whatsapp" required placeholder="6281234567890">
-                            <span class="helper-text">Format: 628xxxx (diawali 62, tanpa + atau 0)</span>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="form-group">
-                            <label for="storeName">Nama Toko</label>
-                            <input type="text" id="storeName" required placeholder="Contoh: Fashion Store">
-                        </div>
-                        <div class="form-group">
-                            <label for="storePhone">No. Telepon Toko (opsional)</label>
-                            <input type="text" id="storePhone" placeholder="Contoh: 021-123456">
-                        </div>
-                        <div class="form-group">
-                            <label for="features">Fitur Produk (dipisah koma)</label>
-                            <textarea id="features" placeholder="Contoh: Bahan Premium, Kualitas Terjamin, Unisex"></textarea>
-                            <span class="helper-text">Contoh: "Bahan Premium, Unisex, Garansi 7 Hari"</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-title">2. Gambar Produk & GIF</div>
-                <div class="form-group">
-                    <label for="productImages">URL Gambar Produk (1 baris 1 gambar, atau dipisah koma)</label>
-                    <textarea id="productImages" required placeholder="https://...jpg&#10;https://...jpg"></textarea>
-                    <span class="helper-text">Paste satu atau banyak link gambar produk (wajib minimal 1, boleh sebanyak apapun)</span>
-                </div>
-                <div class="form-group">
-                    <label for="productGif">URL GIF Produk (opsional)</label>
-                    <input type="text" id="productGif" placeholder="https://...gif">
-                    <span class="helper-text">Jika diisi, GIF akan muncul di galeri gambar</span>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-title">3. Varian Produk</div>
-                <div class="form-grid">
-                    <div>
-                        <div class="checkbox-row">
-                            <input type="checkbox" id="hasVariants">
-                            <label for="hasVariants">Produk punya varian warna/ukuran?</label>
-                        </div>
-                        <div class="form-group">
-                            <label for="colors">Warna (dipisah koma)</label>
-                            <input type="text" id="colors" placeholder="Contoh: Brown, Black, Navy">
-                            <span class="helper-text">Biarkan kosong jika tidak ada</span>
-                        </div>
-                        <div class="form-group">
-                            <label for="sizes">Ukuran (dipisah koma)</label>
-                            <input type="text" id="sizes" placeholder="Contoh: S, M, L, XL, XXL">
-                            <span class="helper-text">Biarkan kosong jika tidak ada</span>
+                        
+                        <div>
+                            <label for="whatsapp" class="block text-sm font-medium text-gray-700 mb-1">No. WhatsApp Toko</label>
+                            <input type="text" id="whatsapp" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                placeholder="6281234567890">
+                            <p class="text-xs text-gray-500 mt-1">Format: 628xxxx (diawali 62, tanpa + atau 0)</p>
                         </div>
                     </div>
-                    <div>
-                        <div class="checkbox-row">
-                            <input type="checkbox" id="autoGenerateCombinations">
-                            <label for="autoGenerateCombinations">Buat kombinasi otomatis (Warna-Ukuran)</label>
+                    
+                    <!-- Right Column -->
+                    <div class="space-y-4">
+                        <div>
+                            <label for="storeName" class="block text-sm font-medium text-gray-700 mb-1">Nama Toko</label>
+                            <input type="text" id="storeName" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                placeholder="Contoh: Fashion Store">
                         </div>
-                        <div class="form-group">
-                            <label for="manualVariantList">List Varian Manual (satu per baris)</label>
-                            <textarea id="manualVariantList" placeholder="Contoh: BROWN-S&#10;BROWN-M&#10;BLACK-L"></textarea>
-                            <span class="helper-text">Diisi jika ingin varian khusus/manual</span>
+                        
+                        <div>
+                            <label for="storePhone" class="block text-sm font-medium text-gray-700 mb-1">No. Telepon Toko (opsional)</label>
+                            <input type="text" id="storePhone"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                placeholder="Contoh: 021-123456">
+                        </div>
+                        
+                        <div>
+                            <label for="features" class="block text-sm font-medium text-gray-700 mb-1">Fitur Produk (dipisah koma)</label>
+                            <textarea id="features" rows="3"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                placeholder="Contoh: Bahan Premium, Kualitas Terjamin, Unisex"></textarea>
+                            <p class="text-xs text-gray-500 mt-1">Contoh: "Bahan Premium, Unisex, Garansi 7 Hari"</p>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div style="text-align: right;">
-                <button type="button" class="gen-btn" id="generateBtn">Generate Website</button>
+            <!-- Product Images Card -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-xl font-bold text-blue-600 mb-6 flex items-center">
+                    <i class="fas fa-images mr-2"></i> Gambar Produk & GIF
+                </h2>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label for="productImages" class="block text-sm font-medium text-gray-700 mb-1">URL Gambar Produk (1 baris 1 gambar, atau dipisah koma)</label>
+                        <textarea id="productImages" required rows="3"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                            placeholder="https://...jpg&#10;https://...jpg"></textarea>
+                        <p class="text-xs text-gray-500 mt-1">Paste satu atau banyak link gambar produk (wajib minimal 1, boleh sebanyak apapun)</p>
+                    </div>
+                    
+                    <div>
+                        <label for="productGif" class="block text-sm font-medium text-gray-700 mb-1">URL GIF Produk (opsional)</label>
+                        <input type="text" id="productGif"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                            placeholder="https://...gif">
+                        <p class="text-xs text-gray-500 mt-1">Jika diisi, GIF akan muncul di galeri gambar</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product Variants Card -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-xl font-bold text-blue-600 mb-6 flex items-center">
+                    <i class="fas fa-list-ul mr-2"></i> Varian Produk
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Left Column -->
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="hasVariants" class="checkbox-custom mr-2">
+                            <label for="hasVariants" class="text-sm font-medium text-gray-700">Produk punya varian warna/ukuran?</label>
+                        </div>
+                        
+                        <div>
+                            <label for="colors" class="block text-sm font-medium text-gray-700 mb-1">Warna (dipisah koma)</label>
+                            <input type="text" id="colors" disabled
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition disabled:opacity-50"
+                                placeholder="Contoh: Brown, Black, Navy">
+                            <p class="text-xs text-gray-500 mt-1">Biarkan kosong jika tidak ada</p>
+                        </div>
+                        
+                        <div>
+                            <label for="sizes" class="block text-sm font-medium text-gray-700 mb-1">Ukuran (dipisah koma)</label>
+                            <input type="text" id="sizes" disabled
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition disabled:opacity-50"
+                                placeholder="Contoh: S, M, L, XL, XXL">
+                            <p class="text-xs text-gray-500 mt-1">Biarkan kosong jika tidak ada</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column -->
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="autoGenerateCombinations" class="checkbox-custom mr-2" disabled>
+                            <label for="autoGenerateCombinations" class="text-sm font-medium text-gray-700">Buat kombinasi otomatis (Warna-Ukuran)</label>
+                        </div>
+                        
+                        <div>
+                            <label for="manualVariantList" class="block text-sm font-medium text-gray-700 mb-1">List Varian Manual (satu per baris)</label>
+                            <textarea id="manualVariantList" disabled rows="3"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition disabled:opacity-50"
+                                placeholder="Contoh: BROWN-S&#10;BROWN-M&#10;BLACK-L"></textarea>
+                            <p class="text-xs text-gray-500 mt-1">Diisi jika ingin varian khusus/manual</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Generate Button -->
+            <div class="text-right">
+                <button type="button" id="generateBtn" 
+                    class="w-full md:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-md transition duration-300 transform hover:scale-105">
+                    <i class="fas fa-magic mr-2"></i> Generate Website
+                </button>
             </div>
         </form>
         
-        <div class="result-section" id="resultSection">
-            <div class="result-label">Hasil HTML Website Toko Online</div>
-            <div class="result-actions">
-                <button id="copyBtn">Salin HTML</button>
-                <button class="download-btn" id="downloadBtn">Download HTML</button>
+        <!-- Result Section (Initially Hidden) -->
+        <div id="resultSection" class="hidden mt-8">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold text-blue-600 flex items-center">
+                    <i class="fas fa-code mr-2"></i> Hasil HTML Website Toko Online
+                </h3>
+                <div class="flex space-x-2">
+                    <button id="copyBtn" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition">
+                        <i class="fas fa-copy mr-1"></i> Salin HTML
+                    </button>
+                    <button id="downloadBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition">
+                        <i class="fas fa-download mr-1"></i> Download HTML
+                    </button>
+                </div>
             </div>
-            <textarea class="result-box" id="result" readonly spellcheck="false"></textarea>
-            <div class="helper-text" style="margin-top:10px;">Upload file HTML ke hosting atau buka langsung di browser untuk uji coba.</div>
+            
+            <textarea id="result" class="w-full h-96 p-4 border border-gray-300 rounded-lg bg-gray-50 font-mono text-sm" readonly spellcheck="false"></textarea>
+            
+            <p class="text-sm text-gray-500 mt-2">
+                <i class="fas fa-info-circle mr-1"></i> Upload file HTML ke hosting atau buka langsung di browser untuk uji coba.
+            </p>
         </div>
-        
-        <div class="footer">
-            &copy; 2025 <b>nexcoAI</b> · Generator Website Toko Online | Simple. Clean. Powerful.
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-100 py-6 mt-12">
+        <div class="container mx-auto px-4 text-center text-gray-600 text-sm">
+            <p>&copy; 2025 <span class="font-bold">nexcoAI</span> · Generator Website Toko Online | Simple. Clean. Powerful.</p>
         </div>
-    </div>
+    </footer>
 
     <script>
-        // Data ongkir per provinsi
+        // Tarif ongkir flat per provinsi
         const ongkirFlat = {
             "Jawa Barat": { tf: 12000, cod: 18000 },
             "DKI Jakarta": { tf: 15000, cod: 21000 },
@@ -415,7 +315,7 @@
             "Sulawesi Selatan": { tf: 35000, cod: 41000 }
         };
 
-        // Data wilayah Indonesia
+        // Indonesian address data
         const indonesiaData = {
             "Jawa Barat": {
                 "Bandung": ["Cidadap", "Cicendo", "Coblong", "Bandung Wetan"],
@@ -465,31 +365,21 @@
             }
         };
 
-        // Handle variant logic
+        // Handle variants logic
         document.getElementById('hasVariants').addEventListener('change', function() {
-            const checked = this.checked;
+            let checked = this.checked;
             document.getElementById('colors').disabled = !checked;
             document.getElementById('sizes').disabled = !checked;
             document.getElementById('autoGenerateCombinations').disabled = !checked;
             document.getElementById('manualVariantList').disabled = !checked;
         });
 
-        // Initialize disabled state
-        document.getElementById('colors').disabled = true;
-        document.getElementById('sizes').disabled = true;
-        document.getElementById('autoGenerateCombinations').disabled = true;
-        document.getElementById('manualVariantList').disabled = true;
-
-        // Generate button event
         document.getElementById('generateBtn').addEventListener('click', function() {
             const getVal = id => (document.getElementById(id) ? document.getElementById(id).value.trim() : '');
-            
-            // Collect form data
             const featuresArr = getVal('features').split(',').map(f => f.trim()).filter(Boolean);
             let imagesArr = getVal('productImages').split(/[\n,]/).map(x => x.trim()).filter(Boolean);
             const gifUrl = getVal('productGif');
             if (gifUrl) imagesArr.push(gifUrl);
-            
             const hasVariants = document.getElementById('hasVariants').checked;
             const autoGen = document.getElementById('autoGenerateCombinations').checked;
             let colors = getVal('colors').split(',').map(c => c.trim()).filter(Boolean);
@@ -539,28 +429,33 @@
             
             const html = generateWebsite(formData);
             document.getElementById('result').value = html;
-            document.getElementById('resultSection').style.display = 'block';
+            document.getElementById('resultSection').classList.remove('hidden');
+            
+            // Scroll to result section
+            document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
         });
 
-        // Copy button
         document.getElementById('copyBtn').addEventListener('click', function() {
             const result = document.getElementById('result');
             result.select();
-            result.setSelectionRange(0, 99999);
-            navigator.clipboard.writeText(result.value).then(() => {
-                this.textContent = "✅ Disalin!";
-                setTimeout(() => { this.textContent = "Salin HTML"; }, 1800);
-            }).catch(() => {
-                document.execCommand("copy");
-                this.textContent = "✅ Disalin!";
-                setTimeout(() => { this.textContent = "Salin HTML"; }, 1800);
-            });
+            document.execCommand("copy");
+            
+            // Show feedback
+            const originalText = this.innerHTML;
+            this.innerHTML = '<i class="fas fa-check mr-1"></i> Disalin!';
+            this.classList.remove('bg-green-600');
+            this.classList.add('bg-green-700');
+            
+            setTimeout(() => {
+                this.innerHTML = originalText;
+                this.classList.remove('bg-green-700');
+                this.classList.add('bg-green-600');
+            }, 2000);
         });
 
-        // Download button
         document.getElementById('downloadBtn').addEventListener('click', function() {
             const code = document.getElementById('result').value;
-            const blob = new Blob([code], { type: "text/html;charset=utf-8" });
+            const blob = new Blob([code], { type: "text/html" });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
@@ -576,37 +471,47 @@
             
             if (formData.variantCombinations && formData.variantCombinations.length > 0) {
                 return `
-                <div class="variant-selection">
-                    <label>Pilih Varian:</label>
-                    <select id="variantSelect" required onchange="updateOrderSummary()">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Pilih Varian:</label>
+                    <select id="variantSelect" required onchange="updateOrderSummary()" 
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
                         <option value="">-- Pilih Varian --</option>
-                        ${formData.variantCombinations.map(variant =>
+                        ${formData.variantCombinations.map(variant => 
                             `<option value="${variant}">${variant}</option>`
                         ).join('')}
                     </select>
                 </div>`;
             } else {
-                let html = `<div class="variant-selection">`;
+                let html = `<div class="space-y-4">`;
+                
                 if (formData.colors && formData.colors.length > 0) {
                     html += `
-                    <div class="form-group">
-                        <label>Pilih Warna:</label>
-                        <select id="colorSelect" required onchange="updateOrderSummary()">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Pilih Warna:</label>
+                        <select id="colorSelect" required onchange="updateOrderSummary()" 
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
                             <option value="">-- Pilih Warna --</option>
-                            ${formData.colors.map(color => `<option value="${color}">${color}</option>`).join('')}
+                            ${formData.colors.map(color => 
+                                `<option value="${color}">${color}</option>`
+                            ).join('')}
                         </select>
                     </div>`;
                 }
+                
                 if (formData.sizes && formData.sizes.length > 0) {
                     html += `
-                    <div class="form-group">
-                        <label>Pilih Ukuran:</label>
-                        <select id="sizeSelect" required onchange="updateOrderSummary()">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Pilih Ukuran:</label>
+                        <select id="sizeSelect" required onchange="updateOrderSummary()" 
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
                             <option value="">-- Pilih Ukuran --</option>
-                            ${formData.sizes.map(size => `<option value="${size}">${size}</option>`).join('')}
+                            ${formData.sizes.map(size => 
+                                `<option value="${size}">${size}</option>`
+                            ).join('')}
                         </select>
                     </div>`;
                 }
+                
                 html += `</div>`;
                 return html;
             }
@@ -623,735 +528,656 @@
             
             let featuresHtml = '';
             if (formData.features && formData.features.length) {
-                featuresHtml = `<ul class="feature-list">${formData.features.map(f => `<li>✔️ ${esc(f)}</li>`).join('')}</ul>`;
+                featuresHtml = `
+                <div class="mb-4">
+                    <h3 class="text-sm font-medium text-gray-700 mb-1">Fitur Produk:</h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        ${formData.features.map(f => `<li class="text-green-600">${esc(f)}</li>`).join('')}
+                    </ul>
+                </div>`;
             }
+            
+            const paymentLogos = `
+                <div class="mt-6">
+                    <h4 class="text-sm font-medium text-gray-700 mb-2">Metode Pembayaran:</h4>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="w-12 h-8 bg-blue-600 rounded flex items-center justify-center">
+                                <span class="text-white text-xs font-bold">BANK</span>
+                            </div>
+                            <span class="text-xs mt-1">Transfer</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-12 h-8 bg-green-600 rounded flex items-center justify-center">
+                                <span class="text-white text-xs font-bold">COD</span>
+                            </div>
+                            <span class="text-xs mt-1">COD</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-12 h-8 bg-purple-600 rounded flex items-center justify-center">
+                                <span class="text-white text-xs font-bold">E-WALLET</span>
+                            </div>
+                            <span class="text-xs mt-1">E-Wallet</span>
+                        </div>
+                    </div>
+                </div>
+            `;
             
             const galleryImgs = formData.images;
             
-            const variantHTML = generateVariantHTML(formData);
-            
-            return `<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${esc(formData.productName)} - ${esc(formData.storeName)}</title>
-    <style>
-        body { 
-            font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-            background: #f8fafc;
-            color: #222;
-            margin: 0;
-            padding: 0;
-        }
-        header { 
-            background: #2563eb; 
-            color: #fff; 
-            margin-bottom: 0; 
-        }
-        .container { 
-            max-width: 1100px; 
-            margin: 0 auto; 
-            padding: 0 12px 30px 12px;
-        }
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-        }
-        .logo { 
-            font-size: 1.4rem; 
-            font-weight: 800; 
-            letter-spacing: -.01em; 
-        }
-        .contact { 
-            font-size: 1.08rem; 
-            display: flex; 
-            align-items: center; 
-            gap: 7px; 
-        }
-        main.product-section {
-            margin-top: 0;
-        }
-        .product-section .container { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 36px; 
-        }
-        .gallery-outer { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            width: 100%; 
-        }
-        .gallery-mainbox {
-            width: 100%; 
-            max-width: 440px; 
-            aspect-ratio: 4/5; 
-            background: #fff;
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            border-radius: 12px; 
-            box-shadow: 0 3px 14px 0 #e5e7eb;
-            overflow: hidden; 
-            margin: 0 auto;
-        }
-        .gallery-mainbox img {
-            max-width: 100%; 
-            max-height: 100%; 
-            object-fit: contain; 
-            background: #fff;
-            display: block; 
-            margin: 0 auto;
-            transition: opacity .18s;
-        }
-        .gallery-thumbs {
-            display: flex; 
-            flex-direction: row; 
-            align-items: center;
-            gap: 10px; 
-            overflow-x: auto; 
-            margin: 14px 0 0 0;
-            width: 100%; 
-            max-width: 440px; 
-            padding-bottom: 4px;
-            scrollbar-width: thin; 
-            scrollbar-color: #2563eb #e5e7eb;
-        }
-        .gallery-thumbimg {
-            width: 70px; 
-            height: 70px; 
-            object-fit: cover; 
-            border-radius: 7px;
-            border: 2px solid #fff; 
-            box-shadow: 0 1px 6px 0 #e5e7eb;
-            cursor: pointer; 
-            background: #f3f4f6; 
-            transition: border .13s;
-            flex-shrink: 0;
-        }
-        .gallery-thumbimg.active, 
-        .gallery-thumbimg:focus { 
-            border: 2px solid #2563eb; 
-        }
-        .product-info { 
-            background: #fff; 
-            border-radius: 13px; 
-            box-shadow: 0 4px 20px 0 #dbeafe; 
-            padding: 28px 18px 18px 18px;
-        }
-        .product-title { 
-            font-size: 1.42rem; 
-            font-weight: 800; 
-            color: #222; 
-            margin-bottom: 6px; 
-        }
-        .price { 
-            font-size: 1.28rem; 
-            color: #2563eb; 
-            font-weight: 800; 
-            margin-bottom: 7px; 
-        }
-        .desc { 
-            color: #444; 
-            margin-bottom: 12px; 
-            font-size: 1.05rem;
-        }
-        .feature-list { 
-            margin: 0 0 17px 0; 
-            padding-left: 19px;
-        }
-        .feature-list li { 
-            font-size: 1rem; 
-            color: #059669; 
-            margin-bottom: 2px;
-        }
-        #orderForm {
-            margin-top: 7px;
-        }
-        input, select, textarea, button {
-            width: 100%; 
-            padding: 12px; 
-            margin-bottom: 10px;
-            border: 1px solid #ddd; 
-            border-radius: 5px;
-            font-size: 1rem;
-            font-family: inherit;
-        }
-        select { 
-            cursor: pointer; 
-        }
-        button { 
-            cursor: pointer; 
-        }
-        .payment-choice {
-            display: flex; 
-            gap: 13px; 
-            margin: 18px 0 10px 0; 
-            justify-content: center;
-        }
-        .payment-btn {
-            padding: 12px 22px; 
-            border-radius: 7px; 
-            font-size: 1.12rem; 
-            font-weight: 700;
-            border: none; 
-            outline: none; 
-            transition: background .13s, color .13s;
-            cursor: pointer; 
-            background: #e5e7eb; 
-            color: #222; 
-            box-shadow: 0 1px 4px 0 #e5e7eb;
-            width: auto;
-            margin-bottom: 0;
-        }
-        .payment-btn.active, 
-        .payment-btn.selected, 
-        .payment-btn[data-method="tf"].active {
-            background: #2563eb !important; 
-            color: #fff !important; 
-            box-shadow: 0 2px 8px 0 #2563eb22;
-        }
-        .payment-btn[data-method="tf"] { 
-            background: #e5e7eb; 
-            color: #2563eb; 
-            border: 2px solid #2563eb;
-        }
-        .payment-btn[data-method="cod"] { 
-            background: #f3f4f6; 
-            color: #444; 
-            border: 2px solid #e5e7eb; 
-        }
-        .payment-btn[data-method="tf"]:hover { 
-            background: #1749b4; 
-            color: #fff;
-        }
-        .payment-btn[data-method="cod"]:hover { 
-            background: #ddd; 
-            color: #222;
-        }
-        .whatsapp-btn {
-            background: #25d366; 
-            color: white; 
-            font-weight: bold;
-            border: none; 
-            padding: 15px; 
-            border-radius: 5px; 
-            cursor: pointer;
-            font-size: 1.13rem; 
-            margin-top: 10px;
-            transition: background 0.15s;
-        }
-        .whatsapp-btn:hover { 
-            background: #1caf5a; 
-        }
-        .quantity { 
-            margin-bottom: 20px; 
-        }
-        .qty-controls {
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
-            margin: 10px 0;
-        }
-        .qty-controls button {
-            width: 36px; 
-            height: 36px; 
-            border-radius: 50%;
-            background: #2563eb; 
-            color: white; 
-            border: none;
-            font-size: 18px; 
-            font-weight: bold; 
-            cursor: pointer;
-            margin-bottom: 0;
-        }
-        .qty-controls input {
-            width: 50px; 
-            text-align: center; 
-            font-size: 16px; 
-            font-weight: bold;
-            margin: 0; 
-            border: 2px solid #ddd;
-        }
-        .qty-info { 
-            color: #666; 
-            font-size: 14px; 
-        }
-        .customer-notes {
-            margin: 20px 0; 
-            padding: 13px 9px; 
-            background: #f0f9ff; 
-            border-radius: 8px;
-            border-left: 4px solid #3b82f6;
-        }
-        .customer-notes label {
-            display: block; 
-            margin-bottom: 8px; 
-            font-weight: 600; 
-            color: #1e40af;
-        }
-        .customer-notes textarea {
-            border-color: #93c5fd; 
-            background: white;
-        }
-        .notes-help {
-            display: block; 
-            margin-top: 5px; 
-            color: #6366f1; 
-            font-size: 12px;
-        }
-        .order-summary {
-            background: #f8fafc; 
-            border: 2px solid #e2e8f0; 
-            border-radius: 12px;
-            padding: 18px 15px; 
-            margin: 20px 0 0 0;
-        }
-        .summary-row {
-            display: flex; 
-            justify-content: space-between; 
-            padding: 8px 0;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        .summary-row.total {
-            border-top: 2px solid #3b82f6; 
-            border-bottom: none;
-            font-size: 18px; 
-            font-weight: bold; 
-            color: #1e40af;
-            margin-top: 10px; 
-            padding-top: 15px;
-        }
-        .payment-methods { 
-            margin: 20px 0 0 0; 
-        }
-        .payment-methods h4 { 
-            margin-bottom: 7px; 
-            font-size: 1.07rem; 
-        }
-        .payment-options { 
-            display: flex; 
-            gap: 16px; 
-            flex-wrap: wrap;
-        }
-        .payment-option { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            gap: 3px;
-        }
-        .payment-option img { 
-            width: 50px; 
-            height: 30px; 
-            border-radius: 5px;
-        }
-        .variant-selection {
-            margin-bottom: 15px;
-        }
-        .variant-selection label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
-        .form-group {
-            margin-bottom: 10px;
-        }
-        @media (max-width: 900px) {
-            .product-section .container { 
-                grid-template-columns: 1fr; 
-            }
-            .gallery-outer { 
-                max-width: 95vw;
-            }
-        }
-        @media (max-width: 600px) {
-            .product-info { 
-                padding: 10px 4px 13px 4px;
-            }
-            .gallery-mainbox {
-                max-width: 99vw;
-            }
-            .gallery-thumbs {
-                max-width: 99vw;
-            }
-            .payment-choice {
-                flex-direction: column;
-                gap: 8px;
-            }
-            .payment-btn {
-                width: 100%;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">${esc(formData.storeName)}</div>
-                <div class="contact">
-                    <span style="font-size:1.2rem;">📱</span>
-                    <span style="margin-left:8px;">${esc(formData.whatsapp)}</span>
-                </div>
-            </div>
-        </div>
-    </header>
-    
-    <main class="product-section">
-        <div class="container">
-            <div>
-                <div class="gallery-outer">
-                    <div class="gallery-mainbox">
-                        <img src="${esc(galleryImgs[0])}" id="galleryMainImage" alt="Gambar Utama Produk">
-                    </div>
-                    <div class="gallery-thumbs">
-                        ${galleryImgs.map((src, idx) => `<img src="${esc(src)}" class="gallery-thumbimg${idx==0?' active':''}" onclick="showGalleryImage(${idx})" alt="Thumbnail ${idx+1}">`).join('')}
-                    </div>
-                </div>
-            </div>
-            <div class="product-info">
-                <div class="product-title">${esc(formData.productName)}</div>
-                <div class="price">Rp ${formData.price.toLocaleString('id-ID')}</div>
-                <div class="desc">${esc(formData.description)}</div>
-                ${featuresHtml}
-                
-                <form id="orderForm" autocomplete="off" onsubmit="return false;">
-                    ${variantHTML}
-                    
-                    <div class="quantity">
-                        <label>Jumlah Pesanan:</label>
-                        <div class="qty-controls">
-                            <button type="button" onclick="changeQty(-1)">-</button>
-                            <input type="number" id="qty" value="1" min="1" max="99" onchange="updateTotal()">
-                            <button type="button" onclick="changeQty(1)">+</button>
-                        </div>
-                        <small class="qty-info">Harga per pcs: Rp <span id="unitPrice">${formData.price.toLocaleString('id-ID')}</span></small>
-                    </div>
-                    
-                    <div class="payment-choice">
-                        <button type="button" class="payment-btn" id="btnTf" data-method="tf" onclick="choosePayment('tf')">Transfer Bank</button>
-                        <button type="button" class="payment-btn" id="btnCod" data-method="cod" onclick="choosePayment('cod')">COD</button>
-                    </div>
-                    
-                    <input type="text" id="customerName" placeholder="Nama Lengkap" required>
-                    <input type="tel" id="customerPhone" placeholder="No. WhatsApp" required>
-                    <textarea id="customerAddress" placeholder="Alamat Lengkap" required rows="3"></textarea>
-                    
-                    <select id="province" onchange="loadCities()" required>
-                        <option value="">Pilih Provinsi</option>
-                    </select>
-                    
-                    <select id="city" onchange="loadDistricts()" required>
-                        <option value="">Pilih Kota</option>
-                    </select>
-                    
-                    <select id="district" required>
-                        <option value="">Pilih Kecamatan</option>
-                    </select>
-                    
-                    <textarea id="catatanWilayah" placeholder="Catatan Wilayah (Tulis manual jika wilayah tidak ada di list)" rows="2"></textarea>
-                    
-                    <div class="customer-notes">
-                        <label>Catatan Tambahan (Opsional):</label>
-                        <textarea id="customerNotes" placeholder="Contoh: Saya pesan 3 pcs - 1 warna merah ukuran L, 2 warna hijau ukuran M dan XL. Atau catatan khusus lainnya..." rows="3"></textarea>
-                        <small class="notes-help">💡 Gunakan catatan ini jika memesan beberapa varian berbeda atau ada permintaan khusus</small>
-                    </div>
-                    
-                    <div class="order-summary">
-                        <div class="summary-row">
-                            <span>Harga per pcs:</span>
-                            <span id="unitPriceDisplay">Rp ${formData.price.toLocaleString('id-ID')}</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Jumlah:</span>
-                            <span id="quantityDisplay">1 pcs</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Subtotal:</span>
-                            <span id="subtotal">Rp ${formData.price.toLocaleString('id-ID')}</span>
-                        </div>
-                        <div class="summary-row" id="ongkirRow">
-                            <span>Ongkir:</span>
-                            <span id="ongkirText">-</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Kode Unik:</span>
-                            <span id="uniqueCode">+Rp 123</span>
-                        </div>
-                        <div class="summary-row total">
-                            <span>TOTAL PEMBAYARAN:</span>
-                            <span id="total">Rp ${formData.price.toLocaleString('id-ID')}</span>
-                        </div>
-                        
-                        <div class="payment-methods">
-                            <h4>Metode Pembayaran:</h4>
-                            <div class="payment-options">
-                                <div class="payment-option">
-                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='30' viewBox='0 0 50 30'%3E%3Crect width='50' height='30' rx='4' fill='%232563EB'/%3E%3Ctext x='25' y='18' text-anchor='middle' font-size='10' fill='white' font-weight='bold'%3EBANK%3C/text%3E%3C/svg%3E" alt="Bank Transfer">
-                                    <span>Transfer Bank</span>
-                                </div>
-                                <div class="payment-option">
-                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='30' viewBox='0 0 50 30'%3E%3Crect width='50' height='30' rx='4' fill='%2310B981'/%3E%3Ctext x='25' y='18' text-anchor='middle' font-size='10' fill='white' font-weight='bold'%3ECOD%3C/text%3E%3C/svg%3E" alt="Cash on Delivery">
-                                    <span>COD</span>
-                                </div>
-                                <div class="payment-option">
-                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='30' viewBox='0 0 50 30'%3E%3Crect width='50' height='30' rx='4' fill='%23EC4899'/%3E%3Ctext x='25' y='18' text-anchor='middle' font-size='9' fill='white' font-weight='bold'%3EE-WALLET%3C/text%3E%3C/svg%3E" alt="E-Wallet">
-                                    <span>E-Wallet</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button type="button" onclick="submitOrder()" class="whatsapp-btn">
-                        📱 Pesan via WhatsApp
-                    </button>
-                </form>
-            </div>
-        </div>
-    </main>
-    
-    <footer style="text-align:center; color:#7f8899; font-size:13px; margin:25px 0 15px 0;">
-        &copy; 2025 ${esc(formData.storeName)}. Powered by nexcoAI.
-    </footer>
-
-    <script>
-        const indonesiaData = ${addressDataString};
-        const ongkirFlat = ${ongkirFlatString};
-        const PRODUCT_PRICE = ${formData.price};
-        const productName = "${esc(formData.productName)}";
-        const whatsappNumber = "${esc(formData.whatsapp)}";
-        let galleryImages = ${JSON.stringify(galleryImgs)};
-        let galleryCurrent = 0;
-        
-        // Gallery functions
-        function showGalleryImage(idx) {
-            galleryCurrent = idx;
-            let mainImg = document.getElementById('galleryMainImage');
-            mainImg.src = galleryImages[idx];
-            let thumbImgs = document.querySelectorAll('.gallery-thumbimg');
-            thumbImgs.forEach((img, i) => {
-                if(i === idx) img.classList.add('active');
-                else img.classList.remove('active');
-            });
-        }
-        
-        function prevGalleryImage() {
-            let idx = (galleryCurrent - 1 + galleryImages.length) % galleryImages.length;
-            showGalleryImage(idx);
-        }
-        
-        function nextGalleryImage() {
-            let idx = (galleryCurrent + 1) % galleryImages.length;
-            showGalleryImage(idx);
-        }
-        
-        // Touch events for gallery
-        let startX = 0, endX = 0;
-        function galleryTouchStart(e) { 
-            startX = e.touches[0].clientX; 
-        }
-        function galleryTouchEnd(e) {
-            endX = e.changedTouches[0].clientX;
-            if (endX - startX > 50) prevGalleryImage();
-            else if (startX - endX > 50) nextGalleryImage();
-        }
-        
-        // Quantity functions
-        function changeQty(delta) {
-            const qtyInput = document.getElementById('qty');
-            let newQty = parseInt(qtyInput.value) + delta;
-            if (newQty < 1) newQty = 1;
-            if (newQty > 99) newQty = 99;
-            qtyInput.value = newQty;
-            updateTotal();
-        }
-        
-        // Payment functions
-        let paymentMethod = 'tf';
-        function choosePayment(method) {
-            paymentMethod = method;
-            document.getElementById('btnTf').classList.toggle('active', method==='tf');
-            document.getElementById('btnCod').classList.toggle('active', method==='cod');
-            updateTotal();
-        }
-        
-        // Ongkir calculation
-        function getOngkir(prov, method) {
-            if (!prov || !ongkirFlat[prov]) return null;
-            return ongkirFlat[prov][method];
-        }
-        
-        // Update total calculation
-        function updateTotal() {
-            const qty = parseInt(document.getElementById('qty').value);
-            const basePrice = PRODUCT_PRICE;
-            const subtotal = basePrice * qty;
-            
-            let uniqueCode = window.currentUniqueCode;
-            if (!uniqueCode) {
-                uniqueCode = Math.floor(Math.random() * 800) + 100;
-                window.currentUniqueCode = uniqueCode;
-            }
-            
-            // Ongkir logic
-            const province = document.getElementById('province').value;
-            let ongkir = getOngkir(province, paymentMethod);
-            let ongkirText = '';
-            
-            if (ongkir === null || typeof ongkir === "undefined") {
-                ongkirText = '<span style="color:#dc2626;">Ongkir akan diinformasikan admin</span>';
-                ongkir = 0;
-            } else {
-                ongkirText = 'Rp ' + ongkir.toLocaleString('id-ID');
-            }
-            
-            document.getElementById('ongkirRow').innerHTML = '<span>Ongkir:</span><span id="ongkirText">'+ongkirText+'</span>';
-            
-            const total = subtotal + uniqueCode + ongkir;
-            
-            document.getElementById('unitPriceDisplay').textContent = 'Rp ' + basePrice.toLocaleString('id-ID');
-            document.getElementById('quantityDisplay').textContent = qty + ' pcs';
-            document.getElementById('subtotal').textContent = 'Rp ' + subtotal.toLocaleString('id-ID');
-            document.getElementById('uniqueCode').textContent = '+Rp ' + uniqueCode;
-            document.getElementById('total').textContent = 'Rp ' + total.toLocaleString('id-ID');
-        }
-        
-        // Address functions
-        function loadCities() {
-            const province = document.getElementById('province').value;
-            const citySelect = document.getElementById('city');
-            const districtSelect = document.getElementById('district');
-            
-            if (province && indonesiaData[province]) {
-                citySelect.innerHTML = '<option value="">Pilih Kota</option>';
-                Object.keys(indonesiaData[province]).forEach(city => {
-                    citySelect.innerHTML += '<option value="'+city+'">'+city+'</option>';
-                });
-                citySelect.disabled = false;
-            } else {
-                citySelect.innerHTML = '<option value="">Pilih Kota</option>';
-                citySelect.disabled = true;
-            }
-            loadDistricts();
-            updateTotal();
-        }
-        
-        function loadDistricts() {
-            const province = document.getElementById('province').value;
-            const city = document.getElementById('city').value;
-            const districtSelect = document.getElementById('district');
-            
-            if (province && city && indonesiaData[province] && indonesiaData[province][city]) {
-                districtSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
-                indonesiaData[province][city].forEach(district => {
-                    districtSelect.innerHTML += '<option value="'+district+'">'+district+'</option>';
-                });
-                districtSelect.disabled = false;
-            } else {
-                districtSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
-                districtSelect.disabled = true;
-            }
-            updateTotal();
-        }
-        
-        function updateOrderSummary() { 
-            updateTotal(); 
-        }
-        
-        // Initialize page
-        window.onload = function() {
-            const provinceSelect = document.getElementById('province');
-            provinceSelect.innerHTML = '<option value="">Pilih Provinsi</option>';
-            Object.keys(indonesiaData).forEach(prov => {
-                provinceSelect.innerHTML += '<option value="'+prov+'">'+prov+'</option>';
-            });
-            
-            document.getElementById('city').disabled = true;
-            document.getElementById('district').disabled = true;
-            
-            showGalleryImage(0);
-            
-            let mainImg = document.getElementById('galleryMainImage');
-            mainImg.addEventListener('touchstart', galleryTouchStart, {passive:true});
-            mainImg.addEventListener('touchend', galleryTouchEnd, {passive:true});
-            
-            updateTotal();
-            choosePayment('tf');
-        };
-        
-        // Submit order - FIXED WhatsApp function
-        function submitOrder() {
-            // Get variant selection
-            let selectedVariant = '';
-            const variantSelect = document.getElementById('variantSelect');
-            const colorSelect = document.getElementById('colorSelect');
-            const sizeSelect = document.getElementById('sizeSelect');
-            
-            if (variantSelect && variantSelect.value) {
-                selectedVariant = variantSelect.value;
-            } else if (colorSelect && sizeSelect) {
-                const color = colorSelect.value || '';
-                const size = sizeSelect.value || '';
-                if (color || size) {
-                    selectedVariant = [color, size].filter(v => v).join(' - ');
+            const generatedCss = `
+            <style>
+                body {
+                    font-family: 'Inter', sans-serif;
+                    background-color: #f8fafc;
+                    color: #1f2937;
+                    margin: 0;
+                    padding: 0;
                 }
-            }
+                
+                .container {
+                    max-width: 1100px;
+                    margin: 0 auto;
+                    padding: 0 1rem;
+                }
+                
+                header {
+                    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+                    color: white;
+                    padding: 1rem 0;
+                    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                }
+                
+                .header-inner {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    max-width: 1100px;
+                    margin: 0 auto;
+                    padding: 0 1rem;
+                }
+                
+                .logo {
+                    font-size: 1.5rem;
+                    font-weight: 800;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+                
+                .contact {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    font-size: 1rem;
+                }
+                
+                .product-section {
+                    padding: 2rem 0;
+                }
+                
+                .product-grid {
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    gap: 2rem;
+                }
+                
+                @media (min-width: 1024px) {
+                    .product-grid {
+                        grid-template-columns: 1fr 1fr;
+                    }
+                }
+                
+                .gallery-outer {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+                
+                .gallery-mainbox {
+                    width: 100%;
+                    max-width: 500px;
+                    aspect-ratio: 4/5;
+                    background: white;
+                    border-radius: 0.75rem;
+                    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 auto;
+                }
+                
+                .gallery-mainbox img {
+                    max-width: 100%;
+                    max-height: 100%;
+                    object-fit: contain;
+                    transition: opacity 0.2s;
+                }
+                
+                .gallery-thumbs {
+                    display: flex;
+                    gap: 0.5rem;
+                    overflow-x: auto;
+                    padding: 1rem 0;
+                    width: 100%;
+                    max-width: 500px;
+                    scrollbar-width: thin;
+                    scrollbar-color: #2563eb #e5e7eb;
+                }
+                
+                .gallery-thumbimg {
+                    width: 70px;
+                    height: 70px;
+                    object-fit: cover;
+                    border-radius: 0.5rem;
+                    border: 2px solid white;
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                    cursor: pointer;
+                    background: #f3f4f6;
+                    transition: all 0.2s;
+                }
+                
+                .gallery-thumbimg.active, .gallery-thumbimg:focus {
+                    border-color: #2563eb;
+                    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
+                }
+                
+                .product-info {
+                    background: white;
+                    border-radius: 0.75rem;
+                    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                    padding: 1.5rem;
+                }
+                
+                .product-title {
+                    font-size: 1.5rem;
+                    font-weight: 800;
+                    color: #111827;
+                    margin-bottom: 0.5rem;
+                }
+                
+                .price {
+                    font-size: 1.25rem;
+                    color: #2563eb;
+                    font-weight: 800;
+                    margin-bottom: 0.5rem;
+                }
+                
+                .desc {
+                    color: #4b5563;
+                    margin-bottom: 1rem;
+                    font-size: 1rem;
+                    line-height: 1.5;
+                }
+                
+                .feature-list {
+                    margin: 0 0 1rem 0;
+                    padding-left: 1.25rem;
+                }
+                
+                .feature-list li {
+                    font-size: 1rem;
+                    color: #059669;
+                    margin-bottom: 0.25rem;
+                }
+                
+                #orderForm {
+                    margin-top: 1rem;
+                }
+                
+                input, select, textarea {
+                    width: 100%;
+                    padding: 0.75rem;
+                    margin-bottom: 0.75rem;
+                    border: 1px solid #d1d5db;
+                    border-radius: 0.5rem;
+                    font-size: 1rem;
+                    transition: all 0.2s;
+                }
+                
+                input:focus, select:focus, textarea:focus {
+                    outline: none;
+                    border-color: #2563eb;
+                    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+                }
+                
+                select {
+                    cursor: pointer;
+                }
+                
+                .payment-choice {
+                    display: flex;
+                    gap: 0.75rem;
+                    margin: 1rem 0;
+                    justify-content: center;
+                }
+                
+                .payment-btn {
+                    padding: 0.75rem 1.25rem;
+                    border-radius: 0.5rem;
+                    font-size: 1rem;
+                    font-weight: 600;
+                    border: none;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                }
+                
+                .payment-btn.active {
+                    background: #2563eb !important;
+                    color: white !important;
+                    box-shadow: 0 2px 8px 0 rgba(37, 99, 235, 0.2);
+                }
+                
+                .payment-btn[data-method="tf"] {
+                    background: #e0e7ff;
+                    color: #2563eb;
+                    border: 1px solid #2563eb;
+                }
+                
+                .payment-btn[data-method="cod"] {
+                    background: #f3f4f6;
+                    color: #4b5563;
+                    border: 1px solid #d1d5db;
+                }
+                
+                .payment-btn[data-method="tf"]:hover {
+                    background: #2563eb;
+                    color: white;
+                }
+                
+                .payment-btn[data-method="cod"]:hover {
+                    background: #e5e7eb;
+                    color: #111827;
+                }
+                
+                .whatsapp-btn {
+                    background: #25d366;
+                    color: white;
+                    font-weight: 600;
+                    border: none;
+                    padding: 1rem;
+                    border-radius: 0.5rem;
+                    cursor: pointer;
+                    font-size: 1rem;
+                    margin-top: 1rem;
+                    width: 100%;
+                    transition: all 0.2s;
+                }
+                
+                .whatsapp-btn:hover {
+                    background: #1caf5a;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+                }
+                
+                .quantity {
+                    margin-bottom: 1rem;
+                }
+                
+                .qty-controls {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    margin: 0.5rem 0;
+                }
+                
+                .qty-controls button {
+                    width: 2.5rem;
+                    height: 2.5rem;
+                    border-radius: 50%;
+                    background: #2563eb;
+                    color: white;
+                    border: none;
+                    font-size: 1rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                
+                .qty-controls input {
+                    width: 4rem;
+                    text-align: center;
+                    font-size: 1rem;
+                    font-weight: 600;
+                    margin: 0;
+                    border: 2px solid #d1d5db;
+                }
+                
+                .qty-info {
+                    color: #6b7280;
+                    font-size: 0.875rem;
+                }
+                
+                .customer-notes {
+                    margin: 1rem 0;
+                    padding: 0.75rem;
+                    background: #f0f9ff;
+                    border-radius: 0.5rem;
+                    border-left: 4px solid #3b82f6;
+                }
+                
+                .customer-notes label {
+                    display: block;
+                    margin-bottom: 0.5rem;
+                    font-weight: 600;
+                    color: #1e40af;
+                }
+                
+                .customer-notes textarea {
+                    border-color: #93c5fd;
+                    background: white;
+                }
+                
+                .notes-help {
+                    display: block;
+                    margin-top: 0.25rem;
+                    color: #6366f1;
+                    font-size: 0.75rem;
+                }
+                
+                .order-summary {
+                    background: #f8fafc;
+                    border: 2px solid #e2e8f0;
+                    border-radius: 0.75rem;
+                    padding: 1rem;
+                    margin: 1rem 0 0 0;
+                }
+                
+                .summary-row {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 0.5rem 0;
+                    border-bottom: 1px solid #e2e8f0;
+                }
+                
+                .summary-row.total {
+                    border-top: 2px solid #3b82f6;
+                    border-bottom: none;
+                    font-size: 1.125rem;
+                    font-weight: 700;
+                    color: #1e40af;
+                    margin-top: 0.5rem;
+                    padding-top: 0.75rem;
+                }
+                
+                .payment-methods {
+                    margin: 1rem 0 0 0;
+                }
+                
+                .payment-methods h4 {
+                    margin-bottom: 0.5rem;
+                    font-size: 1rem;
+                }
+                
+                .payment-options {
+                    display: flex;
+                    gap: 1rem;
+                }
+                
+                .payment-option {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 0.25rem;
+                }
+                
+                .payment-option img {
+                    width: 3rem;
+                    height: 2rem;
+                    border-radius: 0.25rem;
+                }
+                
+                input[id*="manual"] {
+                    border-color: #f59e0b;
+                    background-color: #fffbeb;
+                }
+                
+                input[id*="manual"]:focus {
+                    border-color: #d97706;
+                    box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+                }
+                
+                footer {
+                    text-align: center;
+                    color: #6b7280;
+                    font-size: 0.875rem;
+                    padding: 1.5rem 0;
+                    margin-top: 2rem;
+                }
+            </style>
+            `;
             
-            // Get form data
-            const province = document.getElementById('province').value;
-            const city = document.getElementById('city').value;
-            const district = document.getElementById('district').value;
-            const catatanWilayah = document.getElementById('catatanWilayah').value.trim();
-            const customerName = document.getElementById('customerName').value.trim();
-            const customerPhone = document.getElementById('customerPhone').value.trim();
-            const customerAddress = document.getElementById('customerAddress').value.trim();
-            const customerNotes = document.getElementById('customerNotes').value.trim();
-            
-            // Validation
-            if (!customerName || !customerPhone || !customerAddress) {
-                alert('Mohon lengkapi semua data yang diperlukan (nama, WhatsApp, alamat lengkap)');
-                return;
-            }
-            
-            if (!paymentMethod) {
-                alert('Pilih metode pembayaran!');
-                return;
-            }
-            
-            // Calculate totals
-            const qty = parseInt(document.getElementById('qty').value);
-            const basePrice = PRODUCT_PRICE;
-            const subtotal = basePrice * qty;
-            const uniqueCode = window.currentUniqueCode || Math.floor(Math.random() * 800) + 100;
-            window.currentUniqueCode = uniqueCode;
-            
-            let ongkir = getOngkir(province, paymentMethod);
-            let ongkirMsg = '';
-            if (ongkir === null || typeof ongkir === "undefined") {
-                ongkirMsg = "Ongkir akan diinformasikan admin";
-                ongkir = 0;
-            } else {
-                ongkirMsg = "Rp " + ongkir.toLocaleString('id-ID');
-            }
-            
-            const total = subtotal + uniqueCode + ongkir;
-            
-            // Payment method text
-            let paymentText = paymentMethod === 'tf'
-                ? 'Transfer Bank (BCA, Mandiri, BRI, BNI)'
-                : 'COD (Cash on Delivery)';
-            
-            // Address text
-            let wilayahText = '';
-            if (district || city || province) {
-                wilayahText = (district ? district+', ' : '') + (city ? city+', ' : '') + (province ? province : '');
-            }
-            
-            // Create WhatsApp message - FIXED encoding
-            const message = \`🛒 PESANAN \${productName}
+            const generatedJs = `
+            <script>
+                const indonesiaData = ${addressDataString};
+                const ongkirFlat = ${ongkirFlatString};
+                const PRODUCT_PRICE = ${formData.price};
+                const productName = "${esc(formData.productName)}";
+                const whatsappNumber = "${esc(formData.whatsapp)}";
+                let galleryImages = ${JSON.stringify(galleryImgs)};
+                let galleryCurrent = 0;
+                
+                function showGalleryImage(idx) {
+                    galleryCurrent = idx;
+                    let mainImg = document.getElementById('galleryMainImage');
+                    mainImg.src = galleryImages[idx];
+                    
+                    let thumbImgs = document.querySelectorAll('.gallery-thumbimg');
+                    thumbImgs.forEach((img, i) => {
+                        if(i === idx) img.classList.add('active');
+                        else img.classList.remove('active');
+                    });
+                }
+                
+                function prevGalleryImage() {
+                    let idx = (galleryCurrent - 1 + galleryImages.length) % galleryImages.length;
+                    showGalleryImage(idx);
+                }
+                
+                function nextGalleryImage() {
+                    let idx = (galleryCurrent + 1) % galleryImages.length;
+                    showGalleryImage(idx);
+                }
+                
+                let startX = 0, endX = 0;
+                
+                function galleryTouchStart(e) {
+                    startX = e.touches[0].clientX;
+                }
+                
+                function galleryTouchEnd(e) {
+                    endX = e.changedTouches[0].clientX;
+                    if (endX - startX > 50) prevGalleryImage();
+                    else if (startX - endX > 50) nextGalleryImage();
+                }
+                
+                function changeQty(delta) {
+                    const qtyInput = document.getElementById('qty');
+                    let newQty = parseInt(qtyInput.value) + delta;
+                    if (newQty < 1) newQty = 1;
+                    if (newQty > 99) newQty = 99;
+                    qtyInput.value = newQty;
+                    updateTotal();
+                }
+                
+                let paymentMethod = 'tf';
+                
+                function choosePayment(method) {
+                    paymentMethod = method;
+                    document.getElementById('btnTf').classList.toggle('active', method==='tf');
+                    document.getElementById('btnCod').classList.toggle('active', method==='cod');
+                    updateTotal();
+                }
+                
+                function getOngkir(prov, method) {
+                    if (!prov || !ongkirFlat[prov]) return null;
+                    return ongkirFlat[prov][method];
+                }
+                
+                function updateTotal() {
+                    const qty = parseInt(document.getElementById('qty').value);
+                    const basePrice = PRODUCT_PRICE;
+                    const subtotal = basePrice * qty;
+                    
+                    let uniqueCode = window.currentUniqueCode;
+                    if (!uniqueCode) {
+                        uniqueCode = Math.floor(Math.random() * 800) + 100;
+                        window.currentUniqueCode = uniqueCode;
+                    }
+                    
+                    // Ongkir logic
+                    const province = document.getElementById('province').value;
+                    let ongkir = getOngkir(province, paymentMethod);
+                    let ongkirText = '';
+                    
+                    if (ongkir === null || typeof ongkir === "undefined") {
+                        ongkirText = '<span style="color:#dc2626;">Ongkir akan diinformasikan admin</span>';
+                        ongkir = 0;
+                    } else {
+                        ongkirText = 'Rp ' + ongkir.toLocaleString('id-ID');
+                    }
+                    
+                    document.getElementById('ongkirRow').innerHTML = '<span>Ongkir:</span><span id="ongkirText">'+ongkirText+'</span>';
+                    
+                    const total = subtotal + uniqueCode + ongkir;
+                    
+                    document.getElementById('unitPriceDisplay').textContent = 'Rp ' + basePrice.toLocaleString('id-ID');
+                    document.getElementById('quantityDisplay').textContent = qty + ' pcs';
+                    document.getElementById('subtotal').textContent = 'Rp ' + subtotal.toLocaleString('id-ID');
+                    document.getElementById('uniqueCode').textContent = '+Rp ' + uniqueCode;
+                    document.getElementById('total').textContent = 'Rp ' + total.toLocaleString('id-ID');
+                }
+                
+                function loadCities() {
+                    const province = document.getElementById('province').value;
+                    const citySelect = document.getElementById('city');
+                    const districtSelect = document.getElementById('district');
+                    
+                    if (province && indonesiaData[province]) {
+                        citySelect.innerHTML = '<option value="">Pilih Kota</option>';
+                        Object.keys(indonesiaData[province]).forEach(city => {
+                            citySelect.innerHTML += '<option value="'+city+'">'+city+'</option>';
+                        });
+                        citySelect.disabled = false;
+                    } else {
+                        citySelect.innerHTML = '<option value="">Pilih Kota</option>';
+                        citySelect.disabled = true;
+                    }
+                    
+                    loadDistricts();
+                    updateTotal();
+                }
+                
+                function loadDistricts() {
+                    const province = document.getElementById('province').value;
+                    const city = document.getElementById('city').value;
+                    const districtSelect = document.getElementById('district');
+                    
+                    if (province && city && indonesiaData[province] && indonesiaData[province][city]) {
+                        districtSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
+                        indonesiaData[province][city].forEach(district => {
+                            districtSelect.innerHTML += '<option value="'+district+'">'+district+'</option>';
+                        });
+                        districtSelect.disabled = false;
+                    } else {
+                        districtSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
+                        districtSelect.disabled = true;
+                    }
+                    
+                    updateTotal();
+                }
+                
+                function updateOrderSummary() {
+                    updateTotal();
+                }
+                
+                window.onload = function() {
+                    const provinceSelect = document.getElementById('province');
+                    provinceSelect.innerHTML = '<option value="">Pilih Provinsi</option>';
+                    
+                    Object.keys(indonesiaData).forEach(prov => {
+                        provinceSelect.innerHTML += '<option value="'+prov+'">'+prov+'</option>';
+                    });
+                    
+                    document.getElementById('city').disabled = true;
+                    document.getElementById('district').disabled = true;
+                    
+                    showGalleryImage(0);
+                    
+                    let mainImg = document.getElementById('galleryMainImage');
+                    mainImg.addEventListener('touchstart', galleryTouchStart, {passive:true});
+                    mainImg.addEventListener('touchend', galleryTouchEnd, {passive:true});
+                    
+                    updateTotal();
+                    choosePayment('tf');
+                };
+                
+                function submitOrder() {
+                    let selectedVariant = '';
+                    const variantSelect = document.getElementById('variantSelect');
+                    const colorSelect = document.getElementById('colorSelect');
+                    const sizeSelect = document.getElementById('sizeSelect');
+                    
+                    if (variantSelect && variantSelect.style.display !== 'none' && variantSelect.value) {
+                        selectedVariant = variantSelect.value;
+                    } else if (colorSelect && sizeSelect) {
+                        const color = colorSelect.value || '';
+                        const size = sizeSelect.value || '';
+                        if (color || size) {
+                            selectedVariant = [color, size].filter(v => v).join(' - ');
+                        }
+                    }
+                    
+                    const province = document.getElementById('province').value;
+                    const city = document.getElementById('city').value;
+                    const district = document.getElementById('district').value;
+                    const catatanWilayah = document.getElementById('catatanWilayah').value.trim();
+                    const customerName = document.getElementById('customerName').value;
+                    const customerPhone = document.getElementById('customerPhone').value;
+                    const customerAddress = document.getElementById('customerAddress').value;
+                    const customerNotes = document.getElementById('customerNotes').value;
+                    
+                    if (!customerName || !customerPhone || !customerAddress) {
+                        alert('Mohon lengkapi semua data yang diperlukan (nama, WhatsApp, alamat lengkap)');
+                        return;
+                    }
+                    
+                    if (!paymentMethod) {
+                        alert('Pilih metode pembayaran!');
+                        return;
+                    }
+                    
+                    const qty = parseInt(document.getElementById('qty').value);
+                    const basePrice = PRODUCT_PRICE;
+                    const subtotal = basePrice * qty;
+                    const uniqueCode = window.currentUniqueCode || Math.floor(Math.random() * 800) + 100;
+                    window.currentUniqueCode = uniqueCode;
+                    
+                    let ongkir = getOngkir(province, paymentMethod);
+                    let ongkirMsg = '';
+                    
+                    if (ongkir === null || typeof ongkir === "undefined") {
+                        ongkirMsg = "Ongkir akan diinformasikan admin";
+                        ongkir = 0;
+                    } else {
+                        ongkirMsg = "Rp " + ongkir.toLocaleString('id-ID');
+                    }
+                    
+                    const total = subtotal + uniqueCode + ongkir;
+                    
+                    let paymentText = paymentMethod === 'tf' 
+                        ? 'Transfer Bank (BCA, Mandiri, BRI, BNI)'
+                        : 'COD (Cash on Delivery)';
+                    
+                    let wilayahText = '';
+                    if (district || city || province) {
+                        wilayahText = (district ? district+', ' : '') + (city ? city+', ' : '') + (province ? province : '');
+                    }
+                    
+                    const message = \`🛒 PESANAN \${productName}
 
 📋 DETAIL PESANAN:
 • Produk: \${productName}
@@ -1369,30 +1195,161 @@
 • Alamat: \${customerAddress}
 • Wilayah: \${wilayahText}
 \${catatanWilayah ? '• Catatan Wilayah: ' + catatanWilayah : ''}
+
 \${customerNotes ? \`📝 CATATAN TAMBAHAN:
 \${customerNotes}
 
-\` : ''}💳 METODE PEMBAYARAN: 
+\` : ''}💳 METODE PEMBAYARAN:
 • \${paymentText}
 
 Mohon konfirmasi pesanan ini. Terima kasih! 🙏\`;
+                    
+                    const encodedMessage = encodeURIComponent(message);
+                    const whatsappUrl = \`https://wa.me/\${whatsappNumber}?text=\${encodedMessage}\`;
+                    window.open(whatsappUrl, '_blank');
+                }
+            <\/script>
+            `;
             
-            // FIXED: Proper URL encoding and WhatsApp format
-            const cleanWhatsappNumber = whatsappNumber.replace(/[^0-9]/g, '');
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = \`https://wa.me/\${cleanWhatsappNumber}?text=\${encodedMessage}\`;
+            const galleryHtml = `
+                <div class="gallery-outer">
+                    <div class="gallery-mainbox">
+                        <img src="${esc(galleryImgs[0])}" id="galleryMainImage" alt="Gambar Utama Produk">
+                    </div>
+                    <div class="gallery-thumbs">
+                        ${galleryImgs.map((src, idx) => 
+                            `<img src="${esc(src)}" class="gallery-thumbimg${idx==0?' active':''}" onclick="showGalleryImage(${idx})" alt="Thumbnail ${idx+1}">`
+                        ).join('')}
+                    </div>
+                </div>
+            `;
             
-            // Debug log (remove in production)
-            console.log('WhatsApp URL:', whatsappUrl);
-            console.log('Phone number:', cleanWhatsappNumber);
-            
-            // Open WhatsApp
-            window.open(whatsappUrl, '_blank');
-        }
-    <\/script>
-</body>
-</html>\`;
-        }
-    </script>
+            return `<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${esc(formData.productName)} - ${esc(formData.storeName)}</title>
+    ${generatedCss}
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="logo">
+                <i class="fas fa-store"></i>
+                ${esc(formData.storeName)}
+            </div>
+            <div class="contact">
+                <i class="fas fa-phone-alt"></i>
+                <span>${esc(formData.whatsapp)}</span>
+            </div>
+        </div>
+    </header>
+    
+    <main class="product-section">
+        <div class="container">
+            <div class="product-grid">
+                <div>
+                    ${galleryHtml}
+                </div>
+                
+                <div class="product-info">
+                    <h1 class="product-title">${esc(formData.productName)}</h1>
+                    <div class="price">Rp ${formData.price.toLocaleString('id-ID')}</div>
+                    <div class="desc">${esc(formData.description)}</div>
+                    
+                    ${featuresHtml}
+                    
+                    <form id="orderForm" autocomplete="off" onsubmit="return false;">
+                        ${generateVariantHTML(formData)}
+                        
+                        <div class="quantity">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Jumlah Pesanan:</label>
+                            <div class="qty-controls">
+                                <button type="button" onclick="changeQty(-1)">-</button>
+                                <input type="number" id="qty" value="1" min="1" max="99" onchange="updateTotal()">
+                                <button type="button" onclick="changeQty(1)">+</button>
+                            </div>
+                            <small class="qty-info">Harga per pcs: Rp <span id="unitPrice">${formData.price.toLocaleString('id-ID')}</span></small>
+                        </div>
+                        
+                        <div class="payment-choice">
+                            <button type="button" class="payment-btn" id="btnTf" data-method="tf" onclick="choosePayment('tf')">
+                                <i class="fas fa-university mr-1"></i> Transfer Bank
+                            </button>
+                            <button type="button" class="payment-btn" id="btnCod" data-method="cod" onclick="choosePayment('cod')">
+                                <i class="fas fa-money-bill-wave mr-1"></i> COD
+                            </button>
+                        </div>
+                        
+                        <input type="text" id="customerName" placeholder="Nama Lengkap" required>
+                        <input type="tel" id="customerPhone" placeholder="No. WhatsApp" required>
+                        <textarea id="customerAddress" placeholder="Alamat Lengkap" required></textarea>
+                        
+                        <select id="province" onchange="loadCities()" required>
+                            <option value="">Pilih Provinsi</option>
+                        </select>
+                        
+                        <select id="city" onchange="loadDistricts()" required>
+                            <option value="">Pilih Kota</option>
+                        </select>
+                        
+                        <select id="district" required>
+                            <option value="">Pilih Kecamatan</option>
+                        </select>
+                        
+                        <textarea id="catatanWilayah" placeholder="Catatan Wilayah (Tulis manual jika wilayah tidak ada di list)" rows="2"></textarea>
+                        
+                        <div class="customer-notes">
+                            <label>Catatan Tambahan (Opsional):</label>
+                            <textarea id="customerNotes" placeholder="Contoh: Saya pesan 3 pcs - 1 warna merah ukuran L, 2 warna hijau ukuran M dan XL. Atau catatan khusus lainnya..." rows="3"></textarea>
+                            <small class="notes-help">
+                                <i class="fas fa-lightbulb mr-1"></i> Gunakan catatan ini jika memesan beberapa varian berbeda atau ada permintaan khusus
+                            </small>
+                        </div>
+                        
+                        <div class="order-summary">
+                            <div class="summary-row">
+                                <span>Harga per pcs:</span>
+                                <span id="unitPriceDisplay">Rp ${formData.price.toLocaleString('id-ID')}</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Jumlah:</span>
+                                <span id="quantityDisplay">1 pcs</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Subtotal:</span>
+                                <span id="subtotal">Rp ${formData.price.toLocaleString('id-ID')}</span>
+                            </div>
+                            <div class="summary-row" id="ongkirRow">
+                                <span>Ongkir:</span>
+                                <span id="ongkirText">-</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Kode Unik:</span>
+                                <span id="uniqueCode">+Rp 123</span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>TOTAL PEMBAYARAN:</span>
+                                <span id="total">Rp ${formData.price.toLocaleString('id-ID')}</span>
+                            </div>
+                            
+                            ${paymentLogos}
+                        </div>
+                        
+                        <button type="button" onclick="submitOrder()" class="whatsapp-btn">
+                            <i class="fab fa-whatsapp mr-2"></i> Pesan via WhatsApp
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        &copy; 2025 ${esc(formData.storeName)}. Powered by nexcoAI.
+    </footer>
+    
+    ${generatedJs}
 </body>
 </html>
