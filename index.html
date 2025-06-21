@@ -1,1209 +1,563 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hijab Prompt Generator - AI Landing Page Creator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.03;
-            z-index: 0;
-            background-image: 
-                radial-gradient(circle at 25% 25%, #3b82f6 3px, transparent 3px),
-                radial-gradient(circle at 75% 75%, #10b981 2px, transparent 2px),
-                linear-gradient(45deg, transparent 40%, rgba(59, 130, 246, 0.05) 50%, transparent 60%);
-            background-size: 80px 80px, 60px 60px, 120px 120px;
-            animation: bgFloat 25s ease-in-out infinite;
-        }
-
-        @keyframes bgFloat {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            33% { transform: translateY(-20px) rotate(120deg); }
-            66% { transform: translateY(20px) rotate(240deg); }
-        }
-
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
-            color: white;
-            padding: 80px 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 60px;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
-            animation: headerGlow 8s ease-in-out infinite;
-        }
-
-        @keyframes headerGlow {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .header-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .emoji {
-            font-size: 80px;
-            margin-bottom: 30px;
-            display: block;
-            animation: emojiFloat 4s ease-in-out infinite;
-        }
-
-        @keyframes emojiFloat {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(10deg); }
-        }
-
-        .header h1 {
-            font-size: 56px;
-            margin-bottom: 20px;
-            font-weight: 800;
-            letter-spacing: -2px;
-            line-height: 1.1;
-        }
-
-        .header .subtitle {
-            font-size: 24px;
-            opacity: 0.95;
-            margin-bottom: 30px;
-            font-weight: 400;
-        }
-
-        .header .description {
-            font-size: 18px;
-            opacity: 0.8;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 80px;
-        }
-
-        .form-section {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(20px);
-            padding: 50px;
-            border-radius: 32px;
-            box-shadow: 0 32px 64px rgba(0,0,0,0.08);
-            border: 1px solid rgba(255,255,255,0.8);
-            animation: slideInLeft 1s ease-out;
-        }
-
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        .preview-section {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(20px);
-            padding: 50px;
-            border-radius: 32px;
-            box-shadow: 0 32px 64px rgba(0,0,0,0.08);
-            border: 1px solid rgba(255,255,255,0.8);
-            animation: slideInRight 1s ease-out;
-        }
-
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        .section-title {
-            font-size: 32px;
-            font-weight: 800;
-            margin-bottom: 30px;
-            color: #1e293b;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 80px;
-            height: 6px;
-            background: linear-gradient(45deg, #3b82f6, #2563eb);
-            border-radius: 3px;
-        }
-
-        .form-group {
-            margin-bottom: 35px;
-            animation: formSlideIn 0.8s ease-out;
-            animation-fill-mode: both;
-        }
-
-        .form-group:nth-child(1) { animation-delay: 0.1s; }
-        .form-group:nth-child(2) { animation-delay: 0.2s; }
-        .form-group:nth-child(3) { animation-delay: 0.3s; }
-        .form-group:nth-child(4) { animation-delay: 0.4s; }
-        .form-group:nth-child(5) { animation-delay: 0.5s; }
-
-        @keyframes formSlideIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 12px;
-            font-weight: 700;
-            color: #1e293b;
-            font-size: 16px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 18px 24px;
-            border: 2px solid #e2e8f0;
-            border-radius: 16px;
-            font-size: 16px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background: white;
-            font-family: inherit;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
-            transform: translateY(-2px);
-        }
-
-        .form-input:hover:not(:focus) {
-            border-color: #cbd5e1;
-            transform: translateY(-1px);
-        }
-
-        textarea.form-input {
-            resize: vertical;
-            min-height: 120px;
-            line-height: 1.6;
-        }
-
-        .form-select {
-            width: 100%;
-            padding: 18px 24px;
-            border: 2px solid #e2e8f0;
-            border-radius: 16px;
-            font-size: 16px;
-            background: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        .form-select:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
-        }
-
-        .specs-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 20px;
-        }
-
-        .color-variants-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .add-color-btn-small {
-            background: linear-gradient(45deg, #10b981, #059669);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .add-color-btn-small:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-        }
-
-        .color-variants-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .color-variant-item {
-            background: white;
-            border: 2px solid #f1f5f9;
-            border-radius: 16px;
-            padding: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .color-variant-item:hover {
-            border-color: #e2e8f0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-
-        .color-inputs-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 15px;
-        }
-
-        .color-input-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .color-label {
-            font-size: 14px;
-            font-weight: 600;
-            color: #64748b;
-            margin-bottom: 8px;
-        }
-
-        .remove-color-btn {
-            background: linear-gradient(45deg, #ef4444, #dc2626);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            align-self: flex-start;
-        }
-
-        .remove-color-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-        }
-
-        .checkbox-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin-top: 16px;
-        }
-
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px 20px;
-            background: white;
-            border: 2px solid #f1f5f9;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .checkbox-item:hover {
-            border-color: #3b82f6;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.15);
-        }
-
-        .checkbox-item input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-
-        .generate-btn {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
-            color: white;
-            border: none;
-            padding: 24px 48px;
-            border-radius: 20px;
-            font-size: 20px;
-            font-weight: 800;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            letter-spacing: 1px;
-        }
-
-        .generate-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.8s ease;
-        }
-
-        .generate-btn:hover::before {
-            left: 100%;
-        }
-
-        .generate-btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 50px rgba(59, 130, 246, 0.4);
-        }
-
-        .prompt-output {
-            background: linear-gradient(145deg, #0f172a, #1e293b);
-            color: #e2e8f0;
-            padding: 40px;
-            border-radius: 20px;
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 14px;
-            line-height: 1.7;
-            max-height: 600px;
-            overflow-y: auto;
-            margin-top: 30px;
-            white-space: pre-wrap;
-            position: relative;
-            display: none;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .prompt-output::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 40px;
-            background: linear-gradient(90deg, #ef4444, #f59e0b, #10b981, #3b82f6);
-            border-radius: 20px 20px 0 0;
-        }
-
-        .prompt-output::after {
-            content: '● ● ●';
-            position: absolute;
-            top: 12px;
-            left: 20px;
-            color: #ffffff;
-            font-size: 12px;
-            letter-spacing: 4px;
-            font-family: sans-serif;
-        }
-
-        .prompt-content {
-            margin-top: 50px;
-        }
-
-        .copy-btn {
-            background: linear-gradient(45deg, #10b981, #059669);
-            color: white;
-            border: none;
-            padding: 16px 32px;
-            border-radius: 12px;
-            cursor: pointer;
-            margin-top: 20px;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .copy-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .copy-btn:hover::before {
-            left: 100%;
-        }
-
-        .copy-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 24px;
-            box-shadow: 0 16px 32px rgba(0,0,0,0.06);
-            border: 1px solid rgba(255,255,255,0.8);
-            text-align: center;
-            transition: all 0.3s ease;
-            animation: featureSlideUp 0.8s ease-out;
-            animation-fill-mode: both;
-        }
-
-        .feature-card:nth-child(1) { animation-delay: 0.2s; }
-        .feature-card:nth-child(2) { animation-delay: 0.4s; }
-        .feature-card:nth-child(3) { animation-delay: 0.6s; }
-
-        @keyframes featureSlideUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.12);
-        }
-
-        .feature-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .feature-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: #1e293b;
-        }
-
-        .feature-desc {
-            font-size: 16px;
-            color: #64748b;
-            line-height: 1.6;
-        }
-
-        .cta-section {
-            text-align: center;
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            padding: 80px 0;
-            border-radius: 32px;
-            margin-bottom: 60px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.1) 0%, transparent 50%);
-        }
-
-        .cta-content {
-            position: relative;
-            z-index: 2;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .cta-title {
-            font-size: 42px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .cta-desc {
-            font-size: 20px;
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-
-        @media (max-width: 1024px) {
-            .main-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-            
-            .header h1 {
-                font-size: 42px;
-            }
-            
-            .form-section,
-            .preview-section {
-                padding: 30px;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .header {
-                padding: 50px 0;
-            }
-            
-            .header h1 {
-                font-size: 32px;
-            }
-            
-            .header .subtitle {
-                font-size: 20px;
-            }
-            
-            .form-section,
-            .preview-section {
-                padding: 25px;
-            }
-            
-            .section-title {
-                font-size: 24px;
-            }
-            
-            .checkbox-group {
-                grid-template-columns: 1fr;
-            }
-            
-            .cta-title {
-                font-size: 32px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hijab Prompt Generator - AI Landing Page Creator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #3b82f6;
+      --secondary-blue: #2563eb;
+      --dark-blue: #1d4ed8;
+      --success-green: #10b981;
+      --danger-red: #ef4444;
+      --text-dark: #1e293b;
+      --bg-light: #f8fafc;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: var(--bg-light);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    .bg-animation {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.03;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><circle cx="40" cy="40" r="20" fill="%233b82f6"/></svg>') repeat;
+      animation: bgFloat 25s infinite ease-in-out;
+    }
+
+    @keyframes bgFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33% { transform: translateY(-20px) rotate(120deg); }
+      66% { transform: translateY(20px) rotate(240deg); }
+    }
+
+    @keyframes emojiFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(10deg); }
+    }
+
+    @keyframes formSlideIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .header {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+      color: white;
+      padding: 3rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .emoji {
+      font-size: 4rem;
+      display: inline-block;
+      animation: emojiFloat 4s ease-in-out infinite;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin: 1rem 0;
+    }
+
+    .subtitle {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .header .description {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px);
+      animation: formSlideIn 0.5s ease-out forwards;
+    }
+
+    .main-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .form-section, .preview-section {
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      animation: formSlideIn 0.6s ease-out forwards;
+    }
+
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      padding: 18px 24px;
+      border: 2px solid #e2e8f0;
+      border-radius: 16px;
+      font-size: 16px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background: white;
+      margin-bottom: 1rem;
+    }
+
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .form-textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .specs-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .color-variants-container {
+      margin: 1rem 0;
+    }
+
+    .color-variant-item {
+      background: white;
+      border: 2px solid #f1f5f9;
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .color-inputs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      border: none;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-danger {
+      background: var(--danger-red);
+      color: white;
+    }
+
+    .cta-section {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+      color: white;
+      padding: 3rem 2rem;
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .preview-section pre {
+      background: #1e293b;
+      color: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      max-height: 600px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    @media (max-width: 767px) {
+      .main-content {
+        grid-template-columns: 1fr;
+      }
+      .specs-row, .color-inputs-grid, .checkbox-grid {
+        grid-template-columns: 1fr;
+      }
+      .header h1 {
+        font-size: 2rem;
+      }
+      .emoji {
+        font-size: 3rem;
+      }
+    }
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .main-content {
+        grid-template-columns: 1fr;
+      }
+      .specs-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="bg-animation"></div>
-    
-    <div class="header">
-        <div class="header-content">
-            <span class="emoji">🧕</span>
-            <h1>Hijab Prompt Generator</h1>
-            <p class="subtitle">AI-Powered Landing Page Creator</p>
-            <p class="description">Generate custom prompts untuk membuat landing page hijab yang stunning dan high-converting menggunakan AI apapun!</p>
-        </div>
+  <div class="bg-animation"></div>
+  <div class="header">
+    <div class="header-content">
+      <span class="emoji">🧕</span>
+      <h1>Hijab Prompt Generator</h1>
+      <p class="subtitle">AI-Powered Landing Page Creator</p>
+      <p class="description">Generate custom prompts untuk membuat landing page hijab yang stunning dan high-converting menggunakan AI apapun!</p>
     </div>
-
-    <div class="container">
-        <div class="feature-grid">
-            <div class="feature-card">
-                <span class="feature-icon">⚡</span>
-                <h3 class="feature-title">Super Cepat</h3>
-                <p class="feature-desc">Generate prompt lengkap dalam hitungan detik, siap paste ke AI manapun</p>
-            </div>
-            <div class="feature-card">
-                <span class="feature-icon">🎨</span>
-                <h3 class="feature-title">Design Premium</h3>
-                <p class="feature-desc">Hasil landing page dengan kualitas profesional seperti marketplace besar</p>
-            </div>
-            <div class="feature-card">
-                <span class="feature-icon">📱</span>
-                <h3 class="feature-title">Mobile Perfect</h3>
-                <p class="feature-desc">Responsive design yang sempurna di semua device dan browser</p>
-            </div>
-        </div>
-
-        <div class="main-content">
-            <div class="form-section">
-                <h2 class="section-title">🛍️ Hijab Product Details</h2>
-                
-                <div class="form-group">
-                    <label class="form-label">Brand/Store Name</label>
-                    <input type="text" class="form-input" id="brandName" placeholder="NESHIJAB" value="NESHIJAB">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Product Name</label>
-                    <input type="text" class="form-input" id="productName" placeholder="Eliza Scarf - Hijab Segiempat Premium" value="Eliza Scarf - Hijab Segiempat Premium">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Product Price (IDR)</label>
-                    <input type="number" class="form-input" id="productPrice" placeholder="300000" value="300000">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Order Online Link</label>
-                    <input type="url" class="form-input" id="orderLink" placeholder="https://mila.orderonline.id/mira-inner-pahmina" value="https://mila.orderonline.id/mira-inner-pahmina">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Slider Images (Enter 3 URLs, one per line)</label>
-                    <textarea class="form-input" id="sliderImages" placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg&#10;https://example.com/image3.jpg" style="min-height: 120px;">https://d2kchovjbwlftk.cloudfront.net/vendor/5812/product/_0009_SKY_1741420296125.jpg
-https://d2kchovjbwlftk.cloudfront.net/vendor/5812/product/_0009_SKY_17414202961256516.jpg
-https://d2kchovjbwlftk.cloudfront.net/vendor/5812/product/_0009_SKY_17414202961256517.jpg</textarea>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Product Description</label>
-                    <textarea class="form-input" id="productDesc" placeholder="Hijab ini memancarkan effortless beauty..." style="min-height: 100px;">Hijab ini memancarkan effortless beauty, dengan sentuhan renda dan motif bunga, serta pita di setiap sisi yang menambah kesan manis. Terbuat dari bahan berkualitas, Eliza Scarf nyaman dipakai dan tetap tegak di bagian dahi. Sempurna untuk berbagai kesempatan, mulai dari acara formal hingga casual.</textarea>
-                </div>
-
-                <div class="specs-row">
-                    <div class="form-group">
-                        <label class="form-label">Material</label>
-                        <input type="text" class="form-input" id="material" placeholder="Voal Premium" value="Voal Premium">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Size (cm)</label>
-                        <input type="text" class="form-input" id="size" placeholder="115x115" value="115x115">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Weight (gram)</label>
-                        <input type="number" class="form-input" id="weight" placeholder="300" value="300">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="color-variants-header">
-                        <label class="form-label">Color Variants</label>
-                        <button type="button" class="add-color-btn-small" onclick="addColorVariant()">+ Add Color</button>
-                    </div>
-                    <div id="colorVariants" class="color-variants-container">
-                        <div class="color-variant-item">
-                            <div class="color-inputs-grid">
-                                <div class="color-input-group">
-                                    <label class="color-label">Color Name</label>
-                                    <input type="text" class="form-input" placeholder="Rose Smoke" value="Rose Smoke">
-                                </div>
-                                <div class="color-input-group">
-                                    <label class="color-label">Thumbnail URL</label>
-                                    <input type="url" class="form-input" placeholder="https://d2kchovjbwlftk.cloudfront.net/..." value="https://d2kchovjbwlftk.cloudfront.net/vendor/5812/product/thumb_rose.jpg">
-                                </div>
-                                <div class="color-input-group">
-                                    <label class="color-label">Main Image URL</label>
-                                    <input type="url" class="form-input" placeholder="https://d2kchovjbwlftk.cloudfront.net/..." value="https://d2kchovjbwlftk.cloudfront.net/vendor/5812/product/main_rose.jpg">
-                                </div>
-                            </div>
-                            <button type="button" class="remove-color-btn" onclick="removeColorVariant(this)">Remove</button>
-                        </div>
-                        <div class="color-variant-item">
-                            <div class="color-inputs-grid">
-                                <div class="color-input-group">
-                                    <label class="color-label">Color Name</label>
-                                    <input type="text" class="form-input" placeholder="Sky" value="Sky">
-                                </div>
-                                <div class="color-input-group">
-                                    <label class="color-label">Thumbnail URL</label>
-                                    <input type="url" class="form-input" placeholder="https://d2kchovjbwlftk.cloudfront.net/..." value="https://d2kchovjbwlftk.cloudfront.net/vendor/5812/product/thumb_sky.jpg">
-                                </div>
-                                <div class="color-input-group">
-                                    <label class="color-label">Main Image URL</label>
-                                    <input type="url" class="form-input" placeholder="https://d2kchovjbwlftk.cloudfront.net/..." value="https://d2kchovjbwlftk.cloudfront.net/vendor/5812/product/main_sky.jpg">
-                                </div>
-                            </div>
-                            <button type="button" class="remove-color-btn" onclick="removeColorVariant(this)">Remove</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Target AI Platform</label>
-                    <select class="form-select" id="aiPlatform">
-                        <option value="chatgpt">ChatGPT</option>
-                        <option value="claude">Claude AI</option>
-                        <option value="gemini">Google Gemini</option>
-                        <option value="universal">Universal (Semua AI)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Advanced Features</label>
-                    <div class="checkbox-grid">
-                        <label class="checkbox-item">
-                            <input type="checkbox" id="colorPicker" checked>
-                            <span>Interactive Color Picker</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" id="imageGallery" checked>
-                            <span>Image Gallery Slider</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" id="trustBadges" checked>
-                            <span>Trust Badges & Guarantee</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" id="mobileOptimized" checked>
-                            <span>Mobile Optimization</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" id="animations" checked>
-                            <span>Premium Animations</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" id="seoOptimized">
-                            <span>SEO Optimization</span>
-                        </label>
-                    </div>
-                </div>
-
-                <button class="generate-btn" onclick="generatePrompt()">
-                    🚀 Generate AI Prompt
-                </button>
-            </div>
-
-            <div class="preview-section">
-                <h2 class="section-title">📋 Preview Prompt</h2>
-                <p style="color: #64748b; margin-bottom: 30px; font-size: 16px; line-height: 1.6;">
-                    Prompt yang dihasilkan siap untuk di-copy dan paste ke platform AI manapun. Hasil akan berupa landing page hijab yang professional dan siap deploy!
-                </p>
-
-                <div class="prompt-output" id="promptOutput">
-                    <div class="prompt-content" id="promptContent">
-                        <!-- Generated prompt will appear here -->
-                    </div>
-                </div>
-
-                <button class="copy-btn" onclick="copyPrompt()" id="copyBtn" style="display: none;">
-                    📋 Copy Prompt
-                </button>
-            </div>
-        </div>
-
-        <div class="cta-section">
-            <div class="cta-content">
-                <h2 class="cta-title">Ready to Build Your Hijab Store?</h2>
-                <p class="cta-desc">Generate prompt sekarang dan dapatkan landing page professional yang siap convert visitors menjadi customers!</p>
-            </div>
-        </div>
+  </div>
+  <div class="container">
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>⚡ Super Cepat</h3>
+        <p>Generate prompt lengkap dalam hitungan detik</p>
+      </div>
+      <div class="feature-card">
+        <h3>🎨 Design Premium</h3>
+        <p>Hasil landing page dengan kualitas profesional</p>
+      </div>
+      <div class="feature-card">
+        <h3>📱 Mobile Perfect</h3>
+        <p>Responsive design yang sempurna di semua device</p>
+      </div>
     </div>
+    <div class="main-content">
+      <div class="form-section">
+        <h2>🛍️ Hijab Product Details</h2>
+        <label>Brand/Store Name</label>
+        <input type="text" class="form-input" id="brandName" value="NESHIJAB" placeholder="NESHIJAB">
+        
+        <label>Product Name</label>
+        <input type="text" class="form-input" id="productName" value="Eliza Scarf - Hijab Segiempat Premium" placeholder="Eliza Scarf - Hijab Segiempat Premium">
+        
+        <label>Product Price (IDR)</label>
+        <input type="number" class="form-input" id="price" value="300000" placeholder="300000">
+        
+        <label>Order Online Link</label>
+        <input type="url" class="form-input" id="orderLink" value="https://mila.orderonline.id/mira-inner-pahmina" placeholder="https://mila.orderonline.id/mira-inner-pahmina">
+        
+        <label>Slider Images (Enter 3 URLs, one per line)</label>
+        <textarea class="form-textarea" id="sliderImages" rows="4">https://d1csarkz8obe9u.cloudfront.net/hijab1.jpg
+https://d1csarkz8obe9u.cloudfront.net/hijab2.jpg
+https://d1csarkz8obe9u.cloudfront.net/hijab3.jpg</textarea>
+        
+        <label>Product Description</label>
+        <textarea class="form-textarea" id="description" rows="5">Hijab ini memancarkan effortless beauty dengan material Voal Premium yang lembut dan flowy. Desain segiempat memberikan coverage maksimal dengan kenyamanan sepanjang hari.</textarea>
+        
+        <div class="specs-row">
+          <div>
+            <label>Material</label>
+            <input type="text" class="form-input" id="material" value="Voal Premium" placeholder="Voal Premium">
+          </div>
+          <div>
+            <label>Size (cm)</label>
+            <input type="text" class="form-input" id="size" value="115x115" placeholder="115x115">
+          </div>
+          <div>
+            <label>Weight (gram)</label>
+            <input type="number" class="form-input" id="weight" value="300" placeholder="300">
+          </div>
+        </div>
+        
+        <div class="color-variants-container">
+          <h3>Color Variants</h3>
+          <button class="btn btn-primary" onclick="addColorVariant()">+ Add Color</button>
+          <div id="colorVariants">
+            <div class="color-variant-item">
+              <div class="color-inputs-grid">
+                <input type="text" class="form-input color-name" value="Rose Smoke" placeholder="Color Name">
+                <input type="url" class="form-input color-thumb" value="https://d1csarkz8obe9u.cloudfront.net/rose-smoke-thumb.jpg" placeholder="Thumbnail URL">
+                <input type="url" class="form-input color-main" value="https://d1csarkz8obe9u.cloudfront.net/rose-smoke-main.jpg" placeholder="Main Image URL">
+              </div>
+              <button class="btn btn-danger" onclick="removeColorVariant(this)">Remove</button>
+            </div>
+            <div class="color-variant-item">
+              <div class="color-inputs-grid">
+                <input type="text" class="form-input color-name" value="Sky" placeholder="Color Name">
+                <input type="url" class="form-input color-thumb" value="https://d1csarkz8obe9u.cloudfront.net/sky-thumb.jpg" placeholder="Thumbnail URL">
+                <input type="url" class="form-input color-main" value="https://d1csarkz8obe9u.cloudfront.net/sky-main.jpg" placeholder="Main Image URL">
+              </div>
+              <button class="btn btn-danger" onclick="removeColorVariant(this)">Remove</button>
+            </div>
+          </div>
+        </div>
+        
+        <label>Target AI Platform</label>
+        <select class="form-select" id="aiPlatform">
+          <option value="chatgpt" selected>ChatGPT</option>
+          <option value="claude">Claude AI</option>
+          <option value="gemini">Google Gemini</option>
+          <option value="universal">Universal (Semua AI)</option>
+        </select>
+        
+        <div class="checkbox-grid">
+          <label><input type="checkbox" id="colorPicker" checked> Interactive Color Picker</label>
+          <label><input type="checkbox" id="imageSlider" checked> Image Gallery Slider</label>
+          <label><input type="checkbox" id="trustBadges" checked> Trust Badges & Guarantee</label>
+          <label><input type="checkbox" id="mobileOpt" checked> Mobile Optimization</label>
+          <label><input type="checkbox" id="premiumAnims" checked> Premium Animations</label>
+          <label><input type="checkbox" id="seoOpt"> SEO Optimization</label>
+        </div>
+        
+        <button class="btn btn-primary" onclick="generatePrompt()">🚀 Generate AI Prompt</button>
+      </div>
+      <div class="preview-section">
+        <h2>📋 Preview Prompt</h2>
+        <p>Generated prompt will appear here after clicking "Generate AI Prompt"</p>
+        <pre id="promptOutput"></pre>
+        <button class="btn btn-primary" id="copyButton" style="display: none;" onclick="copyPrompt()">Copy Prompt</button>
+      </div>
+    </div>
+    <div class="cta-section">
+      <h2>Ready to Build Your Hijab Store?</h2>
+      <p>Create stunning, high-converting landing pages with our AI-powered prompt generator. Start building your professional hijab store today!</p>
+    </div>
+  </div>
+  <script>
+    function addColorVariant() {
+      const container = document.getElementById('colorVariants');
+      const variant = document.createElement('div');
+      variant.className = 'color-variant-item';
+      variant.innerHTML = `
+        <div class="color-inputs-grid">
+          <input type="text" class="form-input color-name" placeholder="Color Name">
+          <input type="url" class="form-input color-thumb" placeholder="Thumbnail URL">
+          <input type="url" class="form-input color-main" placeholder="Main Image URL">
+        </div>
+        <button class="btn btn-danger" onclick="removeColorVariant(this)">Remove</button>
+      `;
+      container.appendChild(variant);
+      updatePrompt();
+    }
 
-    <script>
-        function addColorVariant() {
-            const container = document.getElementById('colorVariants');
-            const colorItem = document.createElement('div');
-            colorItem.className = 'color-variant-item';
-            colorItem.innerHTML = `
-                <div class="color-inputs-grid">
-                    <div class="color-input-group">
-                        <label class="color-label">Color Name</label>
-                        <input type="text" class="form-input" placeholder="Color Name">
-                    </div>
-                    <div class="color-input-group">
-                        <label class="color-label">Thumbnail URL</label>
-                        <input type="url" class="form-input" placeholder="https://d2kchovjbwlftk.cloudfront.net/...">
-                    </div>
-                    <div class="color-input-group">
-                        <label class="color-label">Main Image URL</label>
-                        <input type="url" class="form-input" placeholder="https://d2kchovjbwlftk.cloudfront.net/...">
-                    </div>
-                </div>
-                <button type="button" class="remove-color-btn" onclick="removeColorVariant(this)">Remove</button>
-            `;
-            container.appendChild(colorItem);
-        }
+    function removeColorVariant(button) {
+      if (document.querySelectorAll('.color-variant-item').length > 1) {
+        button.parentElement.remove();
+        updatePrompt();
+      }
+    }
 
-        function removeColorVariant(button) {
-            const colorItem = button.closest('.color-variant-item');
-            colorItem.remove();
-        }
+    function generatePrompt() {
+      const brand = document.getElementById('brandName').value;
+      const product = document.getElementById('productName').value;
+      const price = document.getElementById('price').value;
+      const orderLink = document.getElementById('orderLink').value;
+      const sliderImages = document.getElementById('sliderImages').value.split('\n').filter(url => url.trim());
+      const description = document.getElementById('description').value;
+      const material = document.getElementById('material').value;
+      const size = document.getElementById('size').value;
+      const weight = document.getElementById('weight').value;
+      const aiPlatform = document.getElementById('aiPlatform').value;
+      const features = {
+        colorPicker: document.getElementById('colorPicker').checked,
+        imageSlider: document.getElementById('imageSlider').checked,
+        trustBadges: document.getElementById('trustBadges').checked,
+        mobileOpt: document.getElementById('mobileOpt').checked,
+        premiumAnims: document.getElementById('premiumAnims').checked,
+        seoOpt: document.getElementById('seoOpt').checked
+      };
 
-        function generatePrompt() {
-            const brandName = document.getElementById('brandName').value;
-            const productName = document.getElementById('productName').value;
-            const productPrice = document.getElementById('productPrice').value;
-            const orderLink = document.getElementById('orderLink').value;
-            const sliderImages = document.getElementById('sliderImages').value;
-            const productDesc = document.getElementById('productDesc').value;
-            const material = document.getElementById('material').value;
-            const size = document.getElementById('size').value;
-            const weight = document.getElementById('weight').value;
-            const aiPlatform = document.getElementById('aiPlatform').value;
+      const colorVariants = Array.from(document.querySelectorAll('.color-variant-item')).map(item => ({
+        name: item.querySelector('.color-name').value,
+        thumb: item.querySelector('.color-thumb').value,
+        main: item.querySelector('.color-main').value
+      }));
 
-            // Get color variants
-            const colorVariants = [];
-            document.querySelectorAll('.color-variant-item').forEach(item => {
-                const inputs = item.querySelectorAll('input');
-                if (inputs.length >= 3) {
-                    colorVariants.push({
-                        name: inputs[0].value,
-                        thumbnail: inputs[1].value,
-                        mainImage: inputs[2].value
-                    });
-                }
-            });
+      let platformInstructions = '';
+      if (aiPlatform === 'chatgpt') {
+        platformInstructions = 'Optimize for ChatGPT: Use clear, structured prompts with specific sections and detailed requirements.';
+      } else if (aiPlatform === 'claude') {
+        platformInstructions = 'Optimize for Claude: Use conversational tone with detailed context and explicit instructions.';
+      } else if (aiPlatform === 'gemini') {
+        platformInstructions = 'Optimize for Gemini: Focus on concise instructions with clear output format expectations.';
+      } else {
+        platformInstructions = 'Universal format: Create a versatile prompt compatible with any AI platform.';
+      }
 
-            // Get selected features
-            const features = [];
-            if (document.getElementById('colorPicker').checked) features.push('Interactive color picker with image preview');
-            if (document.getElementById('imageGallery').checked) features.push('Image slider gallery with thumbnails');
-            if (document.getElementById('trustBadges').checked) features.push('Trust badges and quality guarantees');
-            if (document.getElementById('mobileOptimized').checked) features.push('Mobile-first responsive design');
-            if (document.getElementById('animations').checked) features.push('Premium animations and micro-interactions');
-            if (document.getElementById('seoOptimized').checked) features.push('SEO optimization and meta tags');
-
-            const prompt = `# Premium Hijab Landing Page Generator
-
-Create a professional, high-converting landing page for "${productName}" from "${brandName}". This should be a complete HTML file with embedded CSS and JavaScript that looks like a premium e-commerce store.
+      const prompt = `
+# Premium Hijab Landing Page Generator
 
 ## 🎯 Product Information
+- Brand: ${brand}
+- Product: ${product}
+- Price: Rp ${Number(price).toLocaleString('id-ID')}
+- Order Link: ${orderLink}
 
-**Brand:** ${brandName}
-**Product:** ${productName}
-**Price:** Rp ${parseInt(productPrice).toLocaleString('id-ID')}
-**Order Link:** ${orderLink}
+## Product Images:
+${sliderImages.map((url, i) => `- Slider Image ${i + 1}: ${url}`).join('\n')}
 
-**Product Images:**
-${sliderImages.split('\n').filter(img => img.trim()).map((img, index) => `- Slider Image ${index + 1}: ${img.trim()}`).join('\n')}
+## Available Colors:
+${colorVariants.map(v => `- ${v.name}: Thumbnail (${v.thumb}) | Main Image (${v.main})`).join('\n')}
 
-**Available Colors:**
-${colorVariants.map(color => `- ${color.name}: Thumbnail (${color.thumbnail}) | Main Image (${color.mainImage})`).join('\n')}
-
-**Specifications:**
+## Specifications:
 - Material: ${material}
 - Size: ${size} cm
 - Weight: ${weight} gram
 
-**Product Description:**
-${productDesc}
+## Product Description:
+${description}
 
 ## 🎨 Design Requirements
-
-### Visual Style
-- **Modern Premium Design**: Clean, professional, Instagram-worthy aesthetic
-- **Color Scheme**: White background with blue accents (#3b82f6, #2563eb, #1d4ed8)
-- **Typography**: Inter font family with proper hierarchy and readable sizes
-- **Layout**: Two-column desktop layout (product gallery left, info right), single column mobile
-- **Effects**: Glassmorphism, subtle animations, professional micro-interactions
-
-### Required Features
-${features.map(feature => `- ${feature}`).join('\n')}
+- Modern, clean design with blue accent colors (#3b82f6, #2563eb, #1d4ed8)
+- Inter font family with proper hierarchy
+- Glassmorphism effects for premium feel
+- Smooth animations and transitions
+- Responsive layout for all devices
 
 ## 📱 Layout Structure
-
-### Header Section
-- Sticky header with gradient background
-- Brand name "${brandName}" prominently displayed
-- Premium badge or tagline
-- Professional styling with backdrop blur
-
-### Main Product Section (Two-Column Grid)
-
-**Left Column - Product Gallery:**
-- Large main product image (600x800px) with hover zoom
-- Thumbnail gallery below with these images:
-${sliderImages.split('\n').filter(img => img.trim()).map((img, index) => `  - Thumbnail ${index + 1}: ${img.trim()}`).join('\n')}
-- Professional product badges (Ada Stok, New Arrival, Premium)
-- Smooth transitions and hover effects
-
-**Right Column - Product Information:**
-- Product title: "${productName}"
-- Price: "Rp ${parseInt(productPrice).toLocaleString('id-ID')}" with animated glow effect
-- Promotional banner with special offers
-- Color selection with these options:
-${colorVariants.map(color => `  - ${color.name}: Preview thumbnail (${color.thumbnail})`).join('\n')}
-- Quantity selector with +/- buttons
-- Large order button linking to: ${orderLink}
-- Trust indicators (free shipping, guarantee, fast delivery)
-
-### Product Description Section
-- Full-width glassmorphism card
-- Rich product description: "${productDesc}"
-- Specifications grid:
-  - Material: ${material}
-  - Size: ${size} cm
-  - Weight: ${weight} gram
-- Professional styling with hover effects
+- Header with brand logo and navigation
+- Hero section with main product image and CTA
+- Product details section with specifications
+- Color variants gallery
+- Product description and features
+- Order section with clear CTA
+- Footer with trust badges and contact info
 
 ## 🔧 Interactive Features
-
-### Color Selection System
-${colorVariants.map(color => `- **${color.name}**: When clicked, updates main image to ${color.mainImage}`).join('\n')}
-- Active state highlighting and hover effects
-- Smooth transition animations
-
-### Image Gallery
-- Main image displays: ${sliderImages.split('\n')[0]?.trim() || 'First slider image'}
-- Clickable thumbnail navigation with these images:
-${sliderImages.split('\n').filter(img => img.trim()).map((img, index) => `  - Thumbnail ${index + 1}: ${img.trim()}`).join('\n')}
-- Smooth image switching and professional layout
-
-### Order Integration
-- Primary CTA button links to: ${orderLink}
-- Opens in new tab for seamless checkout
-- Professional styling with gradient background
-- Hover effects and click animations
+${Object.entries(features)
+  .filter(([_, enabled]) => enabled)
+  .map(([key, _]) => {
+    const featureMap = {
+      colorPicker: '- Interactive color picker for variant selection',
+      imageSlider: '- Image gallery slider with smooth transitions',
+      trustBadges: '- Trust badges and guarantee seals',
+      mobileOpt: '- Full mobile optimization with touch-friendly controls',
+      premiumAnims: '- Premium animations for enhanced user experience',
+      seoOpt: '- SEO optimization with proper meta tags and structure'
+    };
+    return featureMap[key];
+  })
+  .join('\n')}
 
 ## 💻 Technical Specifications
-
-### HTML Structure
-- Single HTML file with embedded CSS and JavaScript
-- Semantic markup for SEO optimization
-- Meta tags for social sharing
-- Responsive viewport configuration
-
-### CSS Requirements
-- Mobile-first responsive design
-- Smooth 60fps animations
-- Glassmorphism and modern effects
-- Professional color palette
-- Inter font family integration
-
-### JavaScript Functionality
-- Image gallery navigation with specific URLs provided
-- Color selection updating to exact image URLs specified
-- Quantity controls with validation
-- Smooth scrolling and interactions
-- Loading animations and performance optimization
+- Clean, semantic HTML5
+- CSS3 with modern properties
+- Vanilla JavaScript for interactivity
+- Fast loading (under 3 seconds)
+- Cross-browser compatibility
 
 ## 📱 Responsive Design
-
-### Desktop (768px+)
-- Two-column grid layout
-- Sticky product gallery positioning
-- Enhanced hover effects
-- Larger images and typography
-
-### Mobile (767px and below)
-- Single column stacked layout
-- Touch-optimized interactions
-- Simplified animations for performance
-- Optimized tap targets (minimum 44px)
+- Desktop: Two-column layout with enhanced animations
+- Tablet: Adjusted spacing with touch-friendly elements
+- Mobile: Single-column layout with simplified animations
 
 ## 🎯 Conversion Optimization
-
-### Trust Building Elements
-- Professional product badges
-- Quality guarantees and certifications
-- Shipping promises and policies
-- Customer testimonials space (optional)
-
-### Call-to-Action Optimization
-- Single, prominent order button linking to ${orderLink}
-- Clear value proposition
-- Urgency indicators (limited stock, special offers)
-- Multiple trust signals throughout the page
+- Clear CTAs with high contrast
+- Fast checkout process
+- Trust signals throughout
+- Mobile-first approach
 
 ## 🖼️ Image Implementation
-
-### Exact Image URLs to Use
-**Slider Images:**
-${sliderImages.split('\n').filter(img => img.trim()).map((img, index) => `- Image ${index + 1}: ${img.trim()}`).join('\n')}
-
-**Color Variants:**
-${colorVariants.map(color => `- ${color.name} Thumbnail: ${color.thumbnail}\n- ${color.name} Main Image: ${color.mainImage}`).join('\n')}
-
-### Image Specifications
-- Main product images: Use provided URLs exactly as specified
-- Thumbnail images: Use provided thumbnail URLs
-- Maintain aspect ratios and optimize for web performance
-- Implement lazy loading for better performance
+- Optimize images for fast loading
+- Use provided URLs for slider and color variants
+- Implement lazy loading
+- Ensure responsive image sizes
 
 ## 📊 Performance Requirements
-
-- Fast loading (under 3 seconds on mobile)
+- Page load under 3 seconds
 - Smooth 60fps animations
-- Optimized images with proper compression
-- Minimal external dependencies
-- Cross-browser compatibility (Chrome, Firefox, Safari, Edge)
+- Minimal JavaScript execution time
+- Efficient DOM manipulation
 
 ## 🔗 Integration Requirements
-
-### Order Platform Integration
-- All order buttons link to: ${orderLink}
-- Pass product information via URL parameters if possible
-- Professional handoff to checkout process
-- Track conversion events for analytics
-
-### Content Customization
-- Use exact product information provided
-- Implement exact image URLs specified
-- Flexible color and image management
-- Professional presentation standards
-
-## 🎨 Quality Standards
-
-The landing page should:
-- Look identical to premium Shopify/marketplace stores
-- Convert visitors to customers effectively
-- Work flawlessly on all devices and browsers
-- Load quickly with smooth performance
-- Represent the "${brandName}" brand professionally
-- Be ready for immediate deployment
-
-### Success Criteria
-- Professional appearance comparable to major e-commerce sites
-- High conversion rate optimization
-- Perfect mobile responsiveness
-- Fast loading and smooth performance
-- Easy customization for future products
+- Seamless integration with order link
+- Support for e-commerce platform tracking
+- Clean URL structure
 
 ## 📋 Implementation Notes
+${platformInstructions}
+      `.trim();
 
-${aiPlatform === 'chatgpt' ? '**For ChatGPT Users:**\n- Request the complete HTML file in one response\n- Ask for embedded CSS and JavaScript\n- Specify mobile-first responsive design\n- Request professional e-commerce styling' : ''}${aiPlatform === 'claude' ? '**For Claude AI Users:**\n- Request the complete HTML file with embedded styles\n- Ask for artifact format for easy copying\n- Specify professional e-commerce design\n- Request mobile optimization and smooth animations' : ''}${aiPlatform === 'gemini' ? '**For Google Gemini Users:**\n- Request a complete, production-ready HTML file\n- Ask for embedded CSS and JavaScript\n- Specify responsive design requirements\n- Request professional styling and interactions' : ''}${aiPlatform === 'universal' ? '**For Any AI Platform:**\n- Request a complete HTML file with embedded CSS/JS\n- Specify mobile-first responsive design\n- Ask for professional e-commerce styling\n- Request smooth animations and interactions' : ''}
+      const output = document.getElementById('promptOutput');
+      output.textContent = prompt;
+      output.style.display = 'block';
+      document.getElementById('copyButton').style.display = 'block';
+    }
 
-### Important Notes
-- Use EXACT image URLs provided above
-- Implement color selection with EXACT image mappings specified
-- Ensure order button links to EXACT URL: ${orderLink}
-- Display price as: Rp ${parseInt(productPrice).toLocaleString('id-ID')}
+    function copyPrompt() {
+      const prompt = document.getElementById('promptOutput').textContent;
+      navigator.clipboard.writeText(prompt).then(() => {
+        const button = document.getElementById('copyButton');
+        button.textContent = '✅ Copied!';
+        setTimeout(() => {
+          button.textContent = 'Copy Prompt';
+        }, 2000);
+      });
+    }
 
----
+    function updatePrompt() {
+      if (document.getElementById('promptOutput').style.display === 'block') {
+        generatePrompt();
+      }
+    }
 
-**Expected Output:** A complete, production-ready HTML file that creates a stunning hijab product landing page optimized for conversions and professional presentation, specifically for "${productName}" from "${brandName}".
-
-**Deployment:** The generated HTML file should be ready to upload to any web hosting service and start selling immediately.`;
-
-            document.getElementById('promptContent').textContent = prompt;
-            document.getElementById('promptOutput').style.display = 'block';
-            document.getElementById('copyBtn').style.display = 'block';
-            
-            // Smooth scroll to output
-            document.getElementById('promptOutput').scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'start' 
-            });
-        } (Ada Stok, New Arrival, Premium)
-- Smooth transitions and hover effects
-
-**Right Column - Product Information:**
-- Product title: "${productName}"
-- Price: "${productPrice}" with animated glow effect
-- Promotional banner with special offers
-- Color selection with preview thumbnails
-- Quantity selector with +/- buttons
-- Large order button linking to: ${orderLink}
-- Trust indicators (free shipping, guarantee, fast delivery)
-
-### Product Description Section
-- Full-width glassmorphism card
-- Rich product description: "${productDesc}"
-- Specifications grid layout
-- Professional styling with hover effects
-
-## 🔧 Interactive Features
-
-### Color Selection System
-- Color options: ${colorVariants}
-- Each color updates the main product image
-- Active state highlighting and hover effects
-- Smooth transition animations
-
-### Image Gallery
-- Main image with zoom effect on hover
-- Clickable thumbnail navigation
-- Smooth image switching
-- Professional product photography layout
-
-### Order Integration
-- Primary CTA button links to: ${orderLink}
-- Opens in new tab for seamless checkout
-- Professional styling with gradient background
-- Hover effects and click animations
-
-## 💻 Technical Specifications
-
-### HTML Structure
-- Single HTML file with embedded CSS and JavaScript
-- Semantic markup for SEO optimization
-- Meta tags for social sharing
-- Responsive viewport configuration
-
-### CSS Requirements
-- Mobile-first responsive design
-- Smooth 60fps animations
-- Glassmorphism and modern effects
-- Professional color palette
-- Inter font family integration
-
-### JavaScript Functionality
-- Image gallery navigation
-- Color selection with image updates
-- Quantity controls with validation
-- Smooth scrolling and interactions
-- Loading animations and performance optimization
-
-## 📱 Responsive Design
-
-### Desktop (768px+)
-- Two-column grid layout
-- Sticky product gallery positioning
-- Enhanced hover effects
-- Larger images and typography
-
-### Mobile (767px and below)
-- Single column stacked layout
-- Touch-optimized interactions
-- Simplified animations for performance
-- Optimized tap targets (minimum 44px)
-
-## 🎯 Conversion Optimization
-
-### Trust Building Elements
-- Professional product badges
-- Quality guarantees and certifications
-- Shipping promises and policies
-- Customer testimonials space (optional)
-
-### Call-to-Action Optimization
-- Single, prominent order button
-- Clear value proposition
-- Urgency indicators (limited stock, special offers)
-- Multiple trust signals throughout the page
-
-## 🖼️ Image Specifications
-
-Use high-quality Unsplash images for hijab/fashion content:
-- Main product images: 600x800px
-- Thumbnail images: 100x100px
-- Color variant images: 70x70px
-- Professional photography with consistent lighting
-
-Suggested Unsplash photo IDs for hijab content:
-- 1583391733956-6c78276477e2 (rose/pink hijab)
-- 1594736797933-d0ebebaa6726 (blue hijab)
-- 1588392382834-a891154bca4d (brown/caramel hijab)
-- 1600298881974-6be191ceeda1 (gray hijab)
-
-## 📊 Performance Requirements
-
-- Fast loading (under 3
+    document.addEventListener('DOMContentLoaded', function() {
+      const inputs = document.querySelectorAll('.form-input, .form-textarea, .form-select, input[type="checkbox"]');
+      inputs.forEach(input => {
+        input.addEventListener('input', updatePrompt);
+        input.addEventListener('change', updatePrompt);
+      });
+    });
+  </script>
+</body>
+</html>
