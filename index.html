@@ -12,7 +12,6 @@
       --bg-light: #ffffff;
       --text-dark: #1f2937;
       --border-light: #e5e7eb;
-      --glass-bg: rgba(255, 255, 255, 0.1);
     }
 
     * {
@@ -34,79 +33,6 @@
       padding: 2rem 1rem;
       text-align: center;
       animation: fadeIn 1s ease-out;
-      position: relative;
-    }
-
-    .ai-assistant {
-      max-width: 600px;
-      margin: 0 auto;
-      background: var(--glass-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .ai-assistant .chat-log {
-      max-height: 200px;
-      overflow-y: auto;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 0.5rem;
-      border-radius: 4px;
-      margin-bottom: 0.5rem;
-    }
-
-    .ai-assistant .message {
-      margin: 0.25rem 0;
-      padding: 0.25rem;
-      border-radius: 4px;
-    }
-
-    .ai-assistant .user-message {
-      background: rgba(255, 255, 255, 0.2);
-      text-align: right;
-    }
-
-    .ai-assistant .ai-message {
-      background: rgba(212, 175, 55, 0.2); /* Gold tint for Nexco */
-      text-align: left;
-      color: #d4af37;
-    }
-
-    .ai-assistant .input-area {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .ai-assistant input {
-      flex-grow: 1;
-      padding: 0.5rem;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 4px;
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-    }
-
-    .ai-assistant input:focus {
-      outline: none;
-      border-color: rgba(255, 255, 255, 0.4);
-    }
-
-    .ai-assistant button {
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 4px;
-      background: #d4af37;
-      color: white;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .ai-assistant button:hover {
-      background: #b8972f;
     }
 
     .container {
@@ -352,13 +278,6 @@
 </head>
 <body>
   <div class="header">
-    <div class="ai-assistant">
-      <div class="chat-log" id="chatLog"></div>
-      <div class="input-area">
-        <input type="text" id="aiInput" placeholder="Tanyakan sesuatu kepada Nexco...">
-        <button onclick="sendMessage()">Kirim</button>
-      </div>
-    </div>
   </div>
   <div class="container">
     <div class="feature-grid">
@@ -712,42 +631,11 @@ ${platformInstructions}
       }
     }
 
-    function sendMessage() {
-      const input = document.getElementById('aiInput');
-      const message = input.value.trim();
-      if (message) {
-        const chatLog = document.getElementById('chatLog');
-        const userMessage = document.createElement('div');
-        userMessage.className = 'message user-message';
-        userMessage.textContent = `You: ${message}`;
-        chatLog.appendChild(userMessage);
-        chatLog.scrollTop = chatLog.scrollHeight;
-
-        // Simulating Nexco response
-        setTimeout(() => {
-          const aiResponse = document.createElement('div');
-          aiResponse.className = 'message ai-message';
-          aiResponse.textContent = `Nexco: Saya membantu Anda! Tanyakan apa saja tentang desain hijab atau prompt AI.`;
-          chatLog.appendChild(aiResponse);
-          chatLog.scrollTop = chatLog.scrollHeight;
-        }, 500);
-
-        input.value = '';
-      }
-    }
-
     document.addEventListener('DOMContentLoaded', function() {
       const inputs = document.querySelectorAll('.form-input, .form-textarea, .form-select, input[type="checkbox"]');
       inputs.forEach(input => {
         input.addEventListener('input', updatePrompt);
         input.addEventListener('change', updatePrompt);
-      });
-
-      // Add enter key support for AI input
-      document.getElementById('aiInput').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-          sendMessage();
-        }
       });
     });
   </script>
