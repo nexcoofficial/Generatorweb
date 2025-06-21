@@ -2,11 +2,9 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Hijab Landing Generator</title>
-  <meta name="description" content="Buat landing page hijab profesional secara instan. Generator visual untuk toko online hijab dan fashion muslimah.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary-blue: #3b82f6;
@@ -16,1086 +14,362 @@
       --danger-red: #ef4444;
       --text-dark: #1e293b;
       --bg-light: #f8fafc;
-      --glass: rgba(255,255,255,0.72);
-      --shadow: 0 8px 32px 0 rgba(31,38,135,0.09);
-      --radius: 18px;
-      --gradient: linear-gradient(90deg,#3b82f6 0,#1d4ed8 100%);
-      --gradient2: linear-gradient(120deg, #2563eb 0, #3b82f6 100%);
     }
-    html, body {
-      height: 100%;
-      margin: 0; padding: 0;
+    body {
       font-family: 'Inter', Arial, sans-serif;
       background: var(--bg-light);
       color: var(--text-dark);
-      scroll-behavior: smooth;
-      min-height: 100vh;
-    }
-    body {
-      position: relative;
-      overflow-x: hidden;
-    }
-    .bg-animation {
-      position: fixed;
-      top: -80px; left: -80px;
-      width: 700px; height: 700px;
-      background: radial-gradient(circle at 40% 30%, #3b82f6 0 40%, #1d4ed8 90%);
-      opacity: 0.14;
-      filter: blur(60px);
-      z-index: 0;
-      animation: bgFloat 14s ease-in-out infinite alternate;
-      pointer-events: none;
-    }
-    @keyframes bgFloat { 
-      0% { transform: translateY(0px) rotate(0deg);}
-      50% { transform: translateY(-60px) rotate(20deg);}
-      100% { transform: translateY(0px) rotate(0deg);}
+      margin:0; padding:0;
     }
     .container {
-      max-width: 1140px;
+      max-width: 1080px;
       margin: 0 auto;
-      padding: 32px 12px 64px 12px;
-      position: relative;
-      z-index: 2;
+      padding: 24px 10px 40px 10px;
     }
     .header {
-      background: var(--gradient);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 36px 28px 28px 28px;
-      margin-bottom: 38px;
-      position: relative;
-      overflow: hidden;
+      background: linear-gradient(90deg,#3b82f6 0,#1d4ed8 100%);
+      border-radius: 20px;
       text-align: center;
-      animation: containerIn 0.7s 0.05s both;
-    }
-    @keyframes containerIn {
-      from { opacity: 0; transform: translateY(50px) scale(0.95);}
-      to { opacity: 1; transform: translateY(0) scale(1);}
+      padding: 32px 12px 24px 12px;
+      color: #fff;
+      margin-bottom: 32px;
+      position: relative;
     }
     .header .emoji {
-      font-size: 68px;
-      display: inline-block;
-      animation: emojiFloat 3.5s ease-in-out infinite;
-      margin-bottom: 8px;
-      filter: drop-shadow(0 4px 24px #2563eb33);
+      font-size: 60px;
+      animation: float 3s ease-in-out infinite;
+      display: block;
     }
-    @keyframes emojiFloat { 0%, 100% {transform: translateY(0px);} 50% { transform: translateY(-10px);} }
+    @keyframes float {
+      0%,100%{transform:translateY(0);}
+      50%{transform:translateY(-10px);}
+    }
     .header-title {
-      font-size: 2.2rem;
+      font-size: 2rem;
       font-weight: 700;
-      color: #fff;
-      margin-bottom: 8px;
       letter-spacing: -0.5px;
-      text-shadow: 0 4px 32px #1d4ed888;
+      margin-bottom: 7px;
     }
     .header-subtitle {
-      font-size: 1.16rem;
-      color: #e0edfb;
+      font-size: 1.13rem;
+      opacity: 0.96;
       margin-bottom: 0;
-      letter-spacing: 0.01em;
-      font-weight: 400;
-      max-width: 480px;
-      margin: 0 auto;
-    }
-    .header-bg-pattern {
-      position: absolute;
-      right: -100px; bottom: -80px;
-      width: 320px; height: 320px;
-      opacity: .16;
-      pointer-events: none;
-      z-index: 0;
     }
     .main {
       display: flex;
-      flex-direction: row;
-      gap: 36px;
+      gap: 28px;
       align-items: flex-start;
-      justify-content: center;
     }
-    @media (max-width: 980px) {
-      .main { flex-direction: column; gap: 28px;}
-      .form-section, .preview-section { width: 100%;}
-    }
+    @media (max-width:900px) {.main{flex-direction:column;}}
     .form-section {
-      background: var(--glass);
-      box-shadow: var(--shadow);
-      border-radius: var(--radius);
-      padding: 28px 24px 24px 24px;
-      min-width: 330px;
-      max-width: 440px;
-      width: 100%;
-      margin-bottom: 18px;
-      z-index: 3;
-      animation: containerIn 0.5s 0.1s both;
-      position: relative;
-    }
-    .form-section .feature-highlight {
-      background: linear-gradient(90deg, #1d4ed8 0, #3b82f6 100%);
-      color: #fff;
-      border-radius: 12px;
-      padding: 13px 18px;
-      font-size: 1.04rem;
-      font-weight: 600;
-      margin-bottom: 18px;
-      box-shadow: 0 6px 16px #3b82f62c;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      letter-spacing: 0.01em;
-    }
-    .form-section .section-title {
-      font-size: 1.09rem;
-      font-weight: 700;
-      margin: 28px 0 4px 0;
-      position: relative;
-      color: var(--dark-blue);
-      display: inline-block;
-    }
-    .form-section .section-title:after {
-      content: '';
-      display: block;
-      width: 42px;
-      height: 3px;
-      background: var(--gradient2);
-      border-radius: 2px;
-      margin-top: 3px;
-    }
-    .form-group {
-      margin-bottom: 16px;
-      animation: slideUp .5s;
-      animation-fill-mode: both;
-    }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(32px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-    label {
-      display: block;
-      font-size: 0.97rem;
-      font-weight: 600;
-      margin-bottom: 5px;
-      color: var(--text-dark);
-    }
-    input[type="text"], input[type="number"], input[type="url"], textarea {
-      width: 100%;
-      border: 1.7px solid #e0e7ef;
-      border-radius: 8px;
-      background: #f8fafc;
-      padding: 10px 14px;
-      font-size: 1rem;
-      font-family: inherit;
-      transition: border 0.18s, box-shadow 0.18s;
-      margin-bottom: 1px;
-      outline: none;
-      box-sizing: border-box;
-      color: var(--text-dark);
-    }
-    input:focus, textarea:focus {
-      border-color: var(--primary-blue);
+      flex:1.1;
       background: #fff;
-      box-shadow: 0 4px 18px #3b82f644;
-    }
-    textarea {
-      min-height: 66px;
-      resize: vertical;
-    }
-    .color-variants-list {
-      margin-top: 10px;
-      margin-bottom: 8px;
-    }
-    .color-variant-row {
-      display: flex;
-      align-items: flex-end;
-      gap: 8px;
-      margin-bottom: 8px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid #e0e7ef;
-      animation: slideUp .3s;
-      animation-fill-mode: both;
-    }
-    .color-variant-row:last-child {border-bottom: none;}
-    .color-variant-row input[type="text"] {
-      width: 110px;
-    }
-    .color-variant-row input[type="url"] {
-      width: 180px;
-      font-size: 0.92rem;
-    }
-    .variant-thumb {
-      width: 30px; height: 30px;
-      border-radius: 7px;
-      object-fit: cover;
-      border: 1.5px solid #d1d5db;
-      box-shadow: 0 1px 6px #2563eb13;
-      margin-right: 3px;
-      background: #f1f5f9;
-    }
-    .remove-color-btn {
-      background: var(--danger-red);
-      color: #fff;
-      border: none;
-      border-radius: 7px;
-      padding: 0 12px;
-      font-size: 1.15em;
-      cursor: pointer;
-      transition: background .18s;
-      margin-left: 2px;
-      height: 31px;
-    }
-    .remove-color-btn:hover {
-      background: #c82d2d;
-    }
-    .add-color-btn {
-      background: var(--success-green);
-      color: #fff;
-      border: none;
-      border-radius: 7px;
-      padding: 8px 22px;
-      font-size: 1.04em;
-      font-weight: 600;
-      margin-top: 4px;
-      cursor: pointer;
-      box-shadow: 0 2px 12px #10b98133;
-      transition: background .18s, box-shadow .18s;
-    }
-    .add-color-btn:hover {
-      background: #0e9460;
-      box-shadow: 0 4px 24px #10b98144;
-    }
-    .generate-btn {
-      background: var(--gradient2);
-      color: #fff;
-      font-weight: 700;
-      font-size: 1.07rem;
-      padding: 13px 0;
-      border: none;
-      border-radius: 9px;
-      width: 100%;
-      margin-top: 18px;
-      cursor: pointer;
-      box-shadow: 0 6px 32px #3b82f629;
-      transition: transform .19s, box-shadow .19s;
-      letter-spacing: 0.01em;
-    }
-    .generate-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 16px 40px rgba(59, 130, 246, 0.3);
-    }
-    .copy-btn {
-      background: var(--primary-blue);
-      color: #fff;
-      font-weight: 600;
-      border: none;
-      border-radius: 8px;
-      padding: 8px 20px;
-      font-size: 0.99rem;
-      cursor: pointer;
-      margin: 0 0 0 12px;
-      transition: background .18s;
-    }
-    .copy-btn:hover {
-      background: var(--dark-blue);
-    }
-    /* Preview Section */
-    .preview-section {
+      border-radius: 15px;
+      box-shadow: 0 4px 18px #3b82f611;
+      padding: 22px 16px 18px 16px;
+      margin-bottom: 14px;
       min-width: 320px;
+      max-width: 410px;
+    }
+    .form-section label {
+      font-weight:600; font-size:.96em; display:block; margin-bottom:3px;
+    }
+    .form-section input, .form-section textarea {
+      width:100%; font-family:inherit;
+      border:1.5px solid #e0e7ef; border-radius:7px;
+      padding:8px 11px; margin-bottom:11px;
+      font-size:1em; background: #f8fafc;
+      transition: border .16s;
+    }
+    .form-section input:focus, .form-section textarea:focus {border-color:var(--primary-blue);background:#fff;}
+    .form-section textarea {min-height:52px;resize:vertical;}
+    .form-section .color-row {display:flex;gap:6px;margin-bottom:7px;}
+    .form-section .color-row input[type=text]{width:100px;}
+    .form-section .color-row input[type=url]{width:140px;}
+    .form-section .color-row .remove-btn{
+      background:var(--danger-red);color:#fff;border:none;border-radius:5px;padding:0 12px;font-size:1.1em;cursor:pointer;
+    }
+    .form-section .add-color-btn{
+      background:var(--success-green);color:#fff;border:none;border-radius:5px;padding:6px 18px;margin-top:5px;cursor:pointer;font-weight:600;
+    }
+    .form-section .section-title{font-weight:700;padding-top:7px;font-size:1.04em;color:var(--dark-blue);}
+    .generate-btn{
+      background:linear-gradient(90deg,#3b82f6 0,#1d4ed8 100%);
+      color:#fff;font-weight:700;font-size:1.08em;padding:12px 0;border:none;border-radius:8px;width:100%;margin-top:8px;
+      cursor:pointer;box-shadow:0 4px 18px #3b82f616;transition:transform .16s;
+    }
+    .generate-btn:hover{transform:translateY(-3px);}
+    .preview-section {
+      flex:1;
       max-width: 420px;
-      width: 100%;
-      text-align: center;
-      position: sticky;
-      top: 24px;
-      z-index: 2;
-      animation: containerIn 0.6s 0.13s both;
+      min-width:280px;
+      text-align:center;
+      position:sticky; top:30px;
     }
     .phone-mockup {
-      width: 370px;
-      max-width: 96vw;
-      margin: 0 auto 16px auto;
-      padding: 30px 0 16px 0;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      width:330px;max-width:96vw;margin:0 auto;
+      padding:22px 0 12px 0; position:relative;
+      display:flex;justify-content:center;
       animation: phoneFloat 4.2s infinite ease-in-out;
-      transition: box-shadow .2s;
-      box-shadow: 0 10px 36px #2563eb20, 0 2px 10px #1e293b09;
-      border-radius: 48px;
-      background: rgba(255,255,255,0.29);
-      backdrop-filter: blur(0.5px);
     }
-    @media (max-width: 768px) {
-      .container {padding: 16px 2px;}
-      .main {gap: 18px;}
-      .form-section, .preview-section {padding: 16px 6px;}
-      .phone-mockup {width: 98vw; max-width: 98vw;}
+    @keyframes phoneFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+    .phone-frame {
+      width:288px;height:570px;background:#111;border-radius:28px;box-shadow:0 12px 38px #0002;
+      border: 6px solid #fff;overflow:hidden;position:relative;
+      display:flex;align-items:flex-start;justify-content:center;
     }
-    @keyframes phoneFloat { 0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);} }
-    .phone-mockup-frame {
-      width: 320px; height: 670px;
-      background: #111;
-      border-radius: 38px;
-      box-shadow: 0 12px 44px #00000036, 0 2px 10px #1e293b19;
-      border: 6px solid #fff;
-      overflow: hidden;
-      position: relative;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
+    .phone-frame:before{
+      content:"";display:block;position:absolute;left:50%;top:9px;transform:translateX(-50%);
+      width:60px;height:6px;border-radius:4px;background:#e6e6e6;opacity:.7;
     }
-    .phone-mockup-frame:before {
-      content: '';
-      display: block;
-      position: absolute;
-      left: 50%; top: 14px;
-      transform: translateX(-50%);
-      width: 80px; height: 8px;
-      border-radius: 5px;
-      background: #e6e6e6;
-      z-index: 3;
-      opacity: 0.7;
-      box-shadow: 0 1px 8px #1e293b22;
+    .preview-html{
+      width:100%;height:552px;background:#fff;border-radius:24px;box-shadow:0 3px 16px #1e293b0c;
+      overflow:hidden;border:none;display:block;margin-top:6px;font-size:13.5px;
     }
-    .phone-mockup-frame:after {
-      content: '';
-      display: block;
-      position: absolute;
-      left: 50%; top: 0;
-      transform: translateX(-50%);
-      width: 130px; height: 22px;
-      background: #222428;
-      opacity: 0.54;
-      border-radius: 0 0 22px 22px;
-      z-index: 2;
-    }
-    .preview-html {
-      width: 100%;
-      height: 656px;
-      background: #fff;
-      border-radius: 32px;
-      box-shadow: 0 3px 24px #1e293b0c;
-      overflow: hidden;
-      border: none;
-      display: block;
-      margin-top: 12px;
-      font-size: 13.5px;
-    }
-    .preview-label {
-      font-size: 1.09em;
-      font-weight: 600;
-      color: var(--primary-blue);
-      margin: 0 0 5px 0;
-      letter-spacing: 0.01em;
-    }
-    .output-section {
-      margin-top: 32px;
-      text-align: left;
-      background: #f3f9ff;
-      border-radius: 11px;
-      padding: 14px 0 2px 0;
-      box-shadow: 0 4px 16px #3b82f611;
-      font-size: 0.97em;
-    }
-    .output-section pre {
-      white-space: pre-wrap;
-      word-break: break-all;
-      overflow-x: auto;
-      background: transparent;
-      font-family: "Fira Mono", Menlo, monospace;
-      font-size: 0.98em;
-      margin: 0; padding: 10px 16px;
-      color: #1e293b;
-      border-radius: 6px;
-      user-select: all;
-    }
-    .output-section .copy-btn {
-      float: right;
-      margin: 4px 16px 8px 0;
-    }
-    @media (max-width: 650px) {
-      .main {flex-direction: column;}
-      .form-section, .preview-section {max-width: 100%;}
-      .phone-mockup-frame {width: 99vw; height: 420px;}
-      .preview-html {height: 320px;}
-    }
-    /* Hide number input arrows */
-    input[type=number]::-webkit-inner-spin-button, 
-    input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0;}
-    input[type=number] { -moz-appearance: textfield;}
-    /* Accessibility: focus states */
-    input:focus, textarea:focus, .add-color-btn:focus, .remove-color-btn:focus, .generate-btn:focus, .copy-btn:focus {
-      outline: 2px solid var(--primary-blue);
-      outline-offset: 1px;
-    }
-    /* Badges for preview */
-    .badge {
-      display: inline-block;
-      font-size: 0.82em;
-      font-weight: 700;
-      padding: 4px 13px;
-      border-radius: 13px;
-      margin-right: 7px;
-      margin-bottom: 2px;
-      color: #fff;
-      background: linear-gradient(90deg, #10b981 0, #3b82f6 100%);
-      letter-spacing: 0.02em;
-      box-shadow: 0 1px 8px #3b82f619;
-      animation: containerIn 0.5s;
-    }
-    /* Animations for output section */
-    .output-section {
-      animation: containerIn .5s 0.18s both;
+    .output-section{margin-top:30px;text-align:left;background:#f3f9ff;border-radius:9px;padding:13px 0 2px 0;}
+    .output-section pre{white-space:pre-wrap;word-break:break-all;overflow-x:auto;background:transparent;font-family:monospace;font-size:1em;margin:0;padding:10px 16px;color:#1e293b;border-radius:6px;}
+    .copy-btn{background:var(--primary-blue);color:#fff;font-weight:600;border:none;border-radius:7px;padding:8px 20px;font-size:.99em;cursor:pointer;float:right; margin:4px 16px 8px 0;}
+    .copy-btn:hover{background:var(--dark-blue);}
+    @media (max-width:700px){
+      .container{padding:6px 2px;}
+      .main{gap:9px;}
+      .form-section,.preview-section{padding:10px 3px;min-width:0;max-width:100%;}
+      .phone-mockup{width:99vw;}
+      .phone-frame{width:99vw;height:340px;}
+      .preview-html{height:270px;}
     }
   </style>
 </head>
 <body>
-  <div class="bg-animation"></div>
   <div class="container">
     <div class="header">
       <span class="emoji" aria-label="Hijab">🧕</span>
       <div class="header-title">Hijab Landing Generator</div>
-      <div class="header-subtitle">Buat landing page hijab premium siap pakai untuk toko online Anda. Input produk ➜ preview ➜ generate kode HTML siap upload!</div>
-      <svg class="header-bg-pattern" viewBox="0 0 220 220" fill="none">
-        <circle cx="110" cy="110" r="96" fill="#2563eb" fill-opacity="0.16"/>
-        <circle cx="110" cy="110" r="82" fill="#3b82f6" fill-opacity="0.12"/>
-        <circle cx="110" cy="110" r="62" fill="#60a5fa" fill-opacity="0.16"/>
-      </svg>
+      <div class="header-subtitle">Isi data produk hijabmu &amp; dapatkan landing page siap upload!</div>
     </div>
     <div class="main">
-      <!-- FORM SECTION -->
+      <!-- FORM -->
       <form class="form-section" id="generator-form" autocomplete="off" onsubmit="return false;">
-        <div class="feature-highlight">
-          <span>✨</span> Landing page instan, modern, dan siap upload!
-        </div>
-        <div class="section-title">Info Produk Utama</div>
-        <div class="form-group">
-          <label for="brandName">Nama Brand/Toko</label>
-          <input type="text" id="brandName" placeholder="Contoh: HIJAB PREMIUM" value="HIJAB PREMIUM" required>
-        </div>
-        <div class="form-group">
-          <label for="productName">Nama Produk</label>
-          <input type="text" id="productName" placeholder="Contoh: Eliza Scarf - Hijab Segiempat Premium" value="Eliza Scarf - Hijab Segiempat Premium" required>
-        </div>
-        <div class="form-group">
-          <label for="productPrice">Harga Produk (Rp)</label>
-          <input type="number" id="productPrice" min="1" placeholder="300000" value="300000" required>
-        </div>
-        <div class="form-group">
-          <label for="orderLink">Link Order Online (orderonline.id)</label>
-          <input type="url" id="orderLink" placeholder="https://orderonline.id/toko-kamu" required>
-        </div>
-        <div class="section-title">Gambar Produk Slider</div>
-        <div class="form-group">
-          <label for="sliderImages">URL Gambar (3 baris, 1 URL per baris)</label>
-          <textarea id="sliderImages" required rows="4" placeholder="https://images.unsplash.com/photo-1
-https://images.unsplash.com/photo-2
-https://images.unsplash.com/photo-3">https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80
+        <div class="section-title">Info Produk</div>
+        <label>Nama Brand/Toko</label>
+        <input type="text" id="brandName" value="HIJAB PREMIUM" required>
+        <label>Nama Produk</label>
+        <input type="text" id="productName" value="Eliza Scarf - Hijab Segiempat Premium" required>
+        <label>Harga (Rp)</label>
+        <input type="number" id="productPrice" value="300000" min="1" required>
+        <label>Link Order Online</label>
+        <input type="url" id="orderLink" placeholder="https://orderonline.id/toko-kamu" required>
+        <label>Gambar Slider <small>(max 3 URL, 1 baris per url)</small></label>
+        <textarea id="sliderImages" rows="3">https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80
 https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80
 https://images.unsplash.com/photo-1524253482453-3fed8d2fe12b?auto=format&fit=crop&w=800&q=80</textarea>
-        </div>
         <div class="section-title">Varian Warna</div>
-        <div id="colorVariantsList" class="color-variants-list"></div>
-        <button type="button" class="add-color-btn" onclick="addColor()">+ Tambah Warna</button>
-        <div class="section-title">Detail Produk</div>
-        <div class="form-group">
-          <label for="productDesc">Deskripsi Produk</label>
-          <textarea id="productDesc" rows="5">Hijab premium dengan bahan Voal lembut, motif eksklusif, dan finishing rapi. Nyaman dipakai seharian, mudah dibentuk, dan anti kusut. Cocok untuk tampilan syar'i yang modern & elegan.
-          </textarea>
-        </div>
-        <div class="form-group">
-          <label for="material">Material</label>
-          <input type="text" id="material" value="Voal Premium">
-        </div>
-        <div class="form-group">
-          <label for="size">Ukuran</label>
-          <input type="text" id="size" value="115 x 115 cm">
-        </div>
-        <div class="form-group">
-          <label for="weight">Berat</label>
-          <input type="text" id="weight" value="300 gram">
-        </div>
+        <div id="colorList"></div>
+        <button type="button" class="add-color-btn" onclick="addColor()">+ Warna</button>
+        <div class="section-title">Detail</div>
+        <label>Deskripsi</label>
+        <textarea id="productDesc" rows="4">Hijab premium bahan voal lembut, motif eksklusif, finishing rapi. Nyaman dipakai, mudah dibentuk, anti kusut. Cocok untuk tampilan syar'i modern & elegan.</textarea>
+        <label>Material</label>
+        <input type="text" id="material" value="Voal Premium">
+        <label>Ukuran</label>
+        <input type="text" id="size" value="115 x 115 cm">
+        <label>Berat</label>
+        <input type="text" id="weight" value="300 gram">
         <button type="button" class="generate-btn" onclick="generateLandingPage()">Generate Landing Page</button>
       </form>
-      <!-- PREVIEW SECTION -->
+      <!-- PREVIEW -->
       <div class="preview-section">
-        <div class="preview-label">Preview Langsung</div>
         <div class="phone-mockup">
-          <div class="phone-mockup-frame">
-            <iframe title="Preview Landing Page" id="previewHtml" class="preview-html" loading="lazy"></iframe>
+          <div class="phone-frame">
+            <iframe id="previewHtml" class="preview-html" loading="lazy" title="Preview"></iframe>
           </div>
         </div>
       </div>
     </div>
-    <!-- OUTPUT SECTION -->
+    <!-- OUTPUT -->
     <div class="output-section" id="outputSection" style="display:none;">
       <button class="copy-btn" onclick="copyToClipboard()">Salin Kode</button>
       <pre id="outputHtml"></pre>
     </div>
   </div>
   <script>
-    // --- Default color variants ---
-    const defaultColorVariants = [
-      {
-        name: "Rose Smoke",
-        thumb: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=facearea&w=60&h=60&q=80",
-        image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80"
-      },
-      {
-        name: "Sky Blue",
-        thumb: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=facearea&w=60&h=60&q=80",
-        image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80"
-      }
+    // --- Default color variants
+    let colorVariants = [
+      {name:"Rose Smoke",thumb:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=facearea&w=60&h=60&q=80",image:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80"},
+      {name:"Sky Blue",thumb:"https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=facearea&w=60&h=60&q=80",image:"https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80"}
     ];
-
-    let colorVariants = JSON.parse(JSON.stringify(defaultColorVariants));
-
-    function renderColorVariants() {
-      const container = document.getElementById('colorVariantsList');
-      container.innerHTML = '';
-      colorVariants.forEach((variant, idx) => {
-        const row = document.createElement('div');
-        row.className = 'color-variant-row';
-        row.innerHTML = `
-          <input type="text" placeholder="Nama Warna" value="${variant.name}" onchange="updateColorVariant(${idx},'name', this.value)" required>
-          <input type="url" placeholder="URL Thumb 60x60" value="${variant.thumb}" onchange="updateColorVariant(${idx},'thumb', this.value)" required>
-          <input type="url" placeholder="URL Gambar Besar 400x600" value="${variant.image}" onchange="updateColorVariant(${idx},'image', this.value)" required>
-          <button type="button" class="remove-color-btn" aria-label="Hapus Warna" onclick="removeColor(this, ${idx})">&times;</button>
+    function renderColorVariants(){
+      const el=document.getElementById('colorList');
+      el.innerHTML='';
+      colorVariants.forEach((v,i)=>{
+        el.innerHTML+=`
+        <div class="color-row">
+          <input type="text" placeholder="Nama" value="${v.name}" onchange="updateColor(${i},'name',this.value)">
+          <input type="url" placeholder="Thumb 60x60" value="${v.thumb}" onchange="updateColor(${i},'thumb',this.value)">
+          <input type="url" placeholder="Gambar 400x600" value="${v.image}" onchange="updateColor(${i},'image',this.value)">
+          <button type="button" class="remove-btn" onclick="removeColor(${i})">&times;</button>
+        </div>
         `;
-        container.appendChild(row);
       });
     }
-    function updateColorVariant(idx, key, val) {
-      colorVariants[idx][key] = val;
-      updatePreview();
+    function updateColor(i,key,val){colorVariants[i][key]=val;updatePreview();}
+    function addColor(){
+      colorVariants.push({name:'',thumb:'',image:''});
+      renderColorVariants();updatePreview();
     }
-    function addColor() {
-      colorVariants.push({ name: "", thumb: "", image: "" });
-      renderColorVariants();
-      updatePreview();
-    }
-    function removeColor(button, idx) {
-      colorVariants.splice(idx, 1);
-      renderColorVariants();
-      updatePreview();
+    function removeColor(i){
+      colorVariants.splice(i,1);
+      renderColorVariants();updatePreview();
     }
 
-    // --- Form to Preview Sync ---
-    function getFormData() {
+    function getFormData(){
       return {
-        brandName: document.getElementById('brandName').value.trim() || 'HIJAB PREMIUM',
-        productName: document.getElementById('productName').value.trim() || 'Eliza Scarf - Hijab Segiempat Premium',
-        productPrice: parseInt(document.getElementById('productPrice').value, 10) || 300000,
-        orderLink: document.getElementById('orderLink').value.trim() || '',
-        sliderImages: (document.getElementById('sliderImages').value || '').split('\n').map(url => url.trim()).filter(Boolean).slice(0,3),
-        colorVariants: JSON.parse(JSON.stringify(colorVariants)),
-        productDesc: document.getElementById('productDesc').value.trim() || 'Hijab premium dengan bahan Voal lembut, motif eksklusif, dan finishing rapi.',
-        material: document.getElementById('material').value.trim() || 'Voal Premium',
-        size: document.getElementById('size').value.trim() || '115 x 115 cm',
-        weight: document.getElementById('weight').value.trim() || '300 gram'
+        brandName:document.getElementById('brandName').value.trim()||'HIJAB PREMIUM',
+        productName:document.getElementById('productName').value.trim()||'Eliza Scarf - Hijab Segiempat Premium',
+        productPrice:parseInt(document.getElementById('productPrice').value,10)||300000,
+        orderLink:document.getElementById('orderLink').value.trim(),
+        sliderImages:(document.getElementById('sliderImages').value||'').split('\n').map(x=>x.trim()).filter(Boolean).slice(0,3),
+        colorVariants:JSON.parse(JSON.stringify(colorVariants)),
+        productDesc:document.getElementById('productDesc').value.trim(),
+        material:document.getElementById('material').value.trim(),
+        size:document.getElementById('size').value.trim(),
+        weight:document.getElementById('weight').value.trim()
       }
     }
-    // --- Live Preview ---
-    function updatePreview() {
-      // Render preview landing page (mobile)
-      const data = getFormData();
-      const previewDoc = document.getElementById('previewHtml').contentWindow.document;
-      previewDoc.open();
-      previewDoc.write(generateHTML(data, true)); // true = preview mode
-      previewDoc.close();
+    function updatePreview(){
+      const data=getFormData();
+      document.getElementById('previewHtml').srcdoc=generateLandingHTML(data,true);
     }
-
-    // --- Generate full HTML for output ---
-    function generateLandingPage() {
-      const data = getFormData();
-      const html = generateHTML(data, false);
-      document.getElementById('outputHtml').textContent = html;
-      document.getElementById('outputSection').style.display = '';
-      window.scrollTo({top: document.getElementById('outputSection').offsetTop-40, behavior:'smooth'});
+    // --- Output HTML ---
+    function generateLandingPage(){
+      const data=getFormData();
+      document.getElementById('outputHtml').textContent=generateLandingHTML(data,false);
+      document.getElementById('outputSection').style.display='';
+      window.scrollTo({top:document.getElementById('outputSection').offsetTop-40,behavior:'smooth'});
     }
-    function copyToClipboard() {
-      const html = document.getElementById('outputHtml').textContent;
-      navigator.clipboard.writeText(html).then(() => {
-        const btn = document.querySelector('.copy-btn');
-        btn.textContent = "Tersalin!";
-        setTimeout(() => btn.textContent = "Salin Kode", 1400);
+    function copyToClipboard(){
+      navigator.clipboard.writeText(document.getElementById('outputHtml').textContent).then(()=>{
+        const btn=document.querySelector('.copy-btn');
+        btn.textContent="Tersalin!";
+        setTimeout(()=>btn.textContent="Salin Kode",1200);
       });
     }
-
-    // --- Code Generation Function (Landing Page) ---
-    function generateHTML(data, previewMode) {
-      // --- Escape HTML for preview, not for output
-      const esc = s => s.replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'})[c]);
-      // --- Slider Images
-      const sliderImgs = data.sliderImages.length 
-        ? data.sliderImages
-        : [
-            "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1524253482453-3fed8d2fe12b?auto=format&fit=crop&w=800&q=80"
-          ];
-
-      // --- Color Variants
-      const variants = (data.colorVariants && data.colorVariants.length)
-        ? data.colorVariants
-        : defaultColorVariants;
-
-      // --- Main Image for preview (first variant or first slider)
-      const mainImage = variants[0]?.image || sliderImgs[0];
-
-      // --- Format price
-      function formatRp(num) {
-        return 'Rp ' + num.toLocaleString('id-ID');
-      }
-
-      // --- Generate slider dots
-      const sliderDots = sliderImgs.map((_,i)=>`<button class="slider-dot" data-idx="${i}" aria-label="Gambar ${i+1}"></button>`).join('');
-
-      // --- Generate color pickers
-      const colorPicker = variants.map((v,i)=>`
-        <button class="color-thumb" data-idx="${i}" style="background-image:url('${esc(v.thumb)}')" aria-label="${esc(v.name)}" title="${esc(v.name)}"></button>
-      `).join('');
-
-      // --- Generate badges
-      const badges = [
-        `<span class="badge badge-green">Ada Stok</span>`,
-        `<span class="badge badge-blue">Premium</span>`,
-        `<span class="badge badge-new">New Arrival</span>`
-      ].join('');
-
-      // --- Generate HTML Template ---
+    // --- Code Template ---
+    function generateLandingHTML(data,preview){
+      // Escape for preview
+      const esc = s => s.replace(/[<>&]/g, c=>({'<':'&lt;','>':'&gt;','&':'&amp;'})[c]);
+      const sliderImgs = data.sliderImages.length?data.sliderImages:[
+        "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1524253482453-3fed8d2fe12b?auto=format&fit=crop&w=800&q=80"
+      ];
+      const variants = data.colorVariants&&data.colorVariants.length?data.colorVariants:colorVariants;
+      function formatRp(n){return 'Rp '+n.toLocaleString('id-ID');}
+      // Color picker
+      const colorHTML=variants.map((v,i)=>`<button class="c-thumb${i===0?' active':''}" style="background-image:url('${esc(v.thumb)}')" data-i="${i}" aria-label="${esc(v.name)}"></button>`).join('');
       return `<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${esc(data.productName)} | ${esc(data.brandName)}</title>
-  <meta name="description" content="${esc(data.productDesc.slice(0,160))}">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary-blue: #3b82f6;
-      --secondary-blue: #2563eb;
-      --dark-blue: #1d4ed8;
-      --success-green: #10b981;
-      --danger-red: #ef4444;
-      --badge-new: #f59e42;
-      --text-dark: #1e293b;
-      --bg-light: #f8fafc;
-      --glass: rgba(255,255,255,0.78);
-      --shadow: 0 8px 32px 0 rgba(31,38,135,0.10);
-      --radius: 28px;
-      --gradient: linear-gradient(90deg,#3b82f6 0,#1d4ed8 100%);
-      --gradient2: linear-gradient(120deg, #2563eb 0, #3b82f6 100%);
-    }
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', Arial, sans-serif;
-      background: var(--bg-light);
-      color: var(--text-dark);
-      min-height: 100vh;
-      line-height: 1.55;
-      -webkit-font-smoothing: antialiased;
-    }
-    .landing-container {
-      max-width: 440px;
-      margin: 0 auto;
-      background: var(--glass);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 0 0 32px 0;
-      min-height: 100vh;
-      position: relative;
-      overflow: hidden;
-    }
-    .lp-header {
-      background: var(--gradient);
-      border-radius: 0 0 32px 32px;
-      padding: 36px 22px 22px 22px;
-      box-shadow: 0 8px 32px #3b82f61a;
-      text-align: center;
-      position: relative;
-    }
-    .lp-header .brand {
-      color: #fff;
-      font-size: 1.06rem;
-      font-weight: 700;
-      margin-bottom: 3px;
-      letter-spacing: 0.08em;
-      text-shadow: 0 2px 16px #2563eb41;
-    }
-    .lp-header .lp-title {
-      color: #fff;
-      font-size: 1.31rem;
-      font-weight: 800;
-      margin-bottom: 5px;
-      letter-spacing: -0.5px;
-      text-shadow: 0 4px 32px #1d4ed878;
-    }
-    .lp-header .badges {
-      margin-top: 12px;
-      margin-bottom: 0;
-    }
-    .badge {
-      display: inline-block;
-      font-size: 0.81em;
-      font-weight: 700;
-      padding: 3.5px 14px;
-      border-radius: 13px;
-      margin-right: 6px;
-      margin-bottom: 2px;
-      color: #fff;
-      background: linear-gradient(90deg, #10b981 0, #3b82f6 100%);
-      letter-spacing: 0.02em;
-      box-shadow: 0 1px 7px #3b82f61a;
-      vertical-align: middle;
-      animation: fadeIn .5s;
-    }
-    .badge-blue { background: linear-gradient(90deg, #2563eb 0, #3b82f6 100%);}
-    .badge-green { background: linear-gradient(90deg, #10b981 0, #3b82f6 100%);}
-    .badge-new { background: linear-gradient(90deg, #f59e42 0, #3b82f6 100%);}
-    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
-    .slider-section {
-      position: relative;
-      width: 100%;
-      margin: 0 auto 0 auto;
-      height: 320px;
-      max-width: 380px;
-      overflow: hidden;
-      border-radius: 19px;
-      background: #e7f2ff;
-      box-shadow: 0 2px 14px #3b82f61c;
-      margin-top: -33px;
-      z-index: 6;
-    }
-    .slider-imgs {
-      width: 100%;
-      height: 320px;
-      display: flex;
-      transition: transform .55s cubic-bezier(.56,.03,.39,.96);
-      will-change: transform;
-    }
-    .slider-imgs img {
-      width: 100%;
-      height: 320px;
-      object-fit: cover;
-      border-radius: 19px;
-      background: #f3f7fa;
-      user-select: none;
-      pointer-events: none;
-    }
-    .slider-dot-row {
-      text-align: center;
-      margin-top: -30px;
-      position: relative;
-      z-index: 9;
-    }
-    .slider-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #c7e1fa;
-      border: none;
-      display: inline-block;
-      margin: 0 3.5px;
-      cursor: pointer;
-      transition: background .17s, transform .14s;
-      outline: none;
-      box-shadow: 0 1px 5px #2563eb22;
-    }
-    .slider-dot.active {
-      background: var(--primary-blue);
-      transform: scale(1.26);
-    }
-    .color-picker-row {
-      display: flex;
-      flex-direction: row;
-      gap: 12px;
-      margin: 22px 0 0 0;
-      justify-content: center;
-      align-items: center;
-    }
-    .color-thumb {
-      width: 36px; height: 36px;
-      border-radius: 7px;
-      border: 2.3px solid #e7e7e7;
-      background-size: cover;
-      background-position: center;
-      margin: 0 1.5px;
-      cursor: pointer;
-      transition: border .17s, box-shadow .14s;
-      box-shadow: 0 1px 7px #3b82f613;
-      outline: none;
-      position: relative;
-    }
-    .color-thumb.active, .color-thumb:focus {
-      border: 2.3px solid var(--primary-blue);
-      box-shadow: 0 2px 10px #3b82f646;
-    }
-    .color-thumb:after {
-      content: '';
-      display: block;
-      position: absolute;
-      inset: 0;
-      border-radius: 7px;
-      pointer-events: none;
-    }
-    .lp-product {
-      padding: 0 18px;
-      margin-top: 30px;
-      text-align: left;
-    }
-    .lp-product-title {
-      font-size: 1.14rem;
-      font-weight: 700;
-      margin: 12px 0 3px 0;
-      letter-spacing: -.3px;
-      color: var(--text-dark);
-    }
-    .lp-product-price {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--primary-blue);
-      margin-bottom: 7px;
-    }
-    .promo-banner {
-      background: var(--gradient2);
-      color: #fff;
-      border-radius: 8px;
-      font-size: .99em;
-      font-weight: 600;
-      padding: 8px 14px;
-      margin: 12px 0 7px 0;
-      letter-spacing: .01em;
-      box-shadow: 0 3px 13px #3b82f616;
-      display: inline-block;
-      animation: fadeIn 0.6s;
-    }
-    .spec-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 9px 0 12px 0;
-      font-size: 0.99em;
-    }
-    .spec-table td {
-      padding: 6px 0;
-      color: #475569;
-      vertical-align: top;
-    }
-    .spec-table .spec-label {
-      font-weight: 600;
-      width: 34%;
-      color: #2563eb;
-    }
-    .lp-desc {
-      margin: 10px 0 4px 0;
-      font-size: 1.01em;
-      color: #374151;
-      line-height: 1.6;
-      white-space: pre-line;
-    }
-    .quantity-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 22px 0 14px 0;
-    }
-    .qty-btn {
-      width: 34px; height: 34px;
-      border-radius: 8px;
-      border: none;
-      background: #f1f5f9;
-      color: var(--primary-blue);
-      font-size: 1.2em;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 1px 7px #3b82f613;
-      transition: background .18s, color .18s;
-      outline: none;
-      user-select: none;
-    }
-    .qty-btn:hover, .qty-btn:focus {
-      background: var(--primary-blue);
-      color: #fff;
-    }
-    .qty-input {
-      width: 44px;
-      text-align: center;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 7px;
-      height: 34px;
-      font-size: 1.04em;
-      color: #1e293b;
-      background: #fff;
-      margin: 0 2px;
-      outline: none;
-      font-family: inherit;
-    }
-    .order-btn {
-      display: block;
-      width: 100%;
-      background: var(--gradient2);
-      color: #fff;
-      font-weight: 700;
-      font-size: 1.1rem;
-      padding: 15px 0;
-      border: none;
-      border-radius: 12px;
-      margin: 17px 0 0 0;
-      cursor: pointer;
-      box-shadow: 0 6px 32px #3b82f629;
-      transition: transform .18s, box-shadow .19s;
-      letter-spacing: 0.01em;
-      text-align: center;
-      text-decoration: none;
-      outline: none;
-    }
-    .order-btn:hover, .order-btn:focus {
-      transform: translateY(-2px) scale(1.01);
-      box-shadow: 0 14px 38px #2563eb33;
-      background: var(--gradient);
-    }
-    /* Responsive */
-    @media (max-width: 500px) {
-      .landing-container { max-width: 99vw; border-radius: 0; }
-      .slider-section, .slider-imgs img { height: 210px; }
-      .lp-header { padding: 24px 6px 13px 6px; }
-      .lp-product { padding: 0 6px; }
-    }
-    /* Accessibility & Focus */
-    .slider-dot:focus, .color-thumb:focus, .qty-btn:focus, .order-btn:focus { outline: 2px solid var(--primary-blue);}
-  </style>
-</head>
-<body>
-  <div class="landing-container">
-    <div class="lp-header">
-      <div class="brand">${esc(data.brandName)}</div>
-      <div class="lp-title">${esc(data.productName)}</div>
-      <div class="badges">${badges}</div>
-    </div>
-    <div class="slider-section" id="sliderSection">
-      <div class="slider-imgs" id="sliderImgs">
-        ${sliderImgs.map((url,i)=>`<img src="${esc(url)}" alt="Hijab Image ${i+1}" draggable="false" loading="lazy">`).join('')}
-      </div>
-      <div class="slider-dot-row" id="sliderDots">${sliderDots}</div>
-    </div>
-    <div class="color-picker-row" id="colorPicker">
-      ${colorPicker}
-    </div>
-    <div class="lp-product">
-      <div class="lp-product-title">${esc(data.productName)}</div>
-      <div class="lp-product-price">${formatRp(data.productPrice)}</div>
-      <div class="promo-banner">Diskon spesial &amp; ready stock! Order sekarang 🚚</div>
-      <div class="quantity-row">
-        <button class="qty-btn" id="qtyMinus" aria-label="Kurangi jumlah">-</button>
-        <input type="number" class="qty-input" id="qtyInput" value="1" min="1" max="20" aria-label="Jumlah" autocomplete="off">
-        <button class="qty-btn" id="qtyPlus" aria-label="Tambah jumlah">+</button>
-      </div>
-      <table class="spec-table" aria-label="Spesifikasi Produk">
-        <tr><td class="spec-label">Material</td><td>${esc(data.material)}</td></tr>
-        <tr><td class="spec-label">Ukuran</td><td>${esc(data.size)}</td></tr>
-        <tr><td class="spec-label">Berat</td><td>${esc(data.weight)}</td></tr>
-        <tr><td class="spec-label">Varian Warna</td><td>${variants.map(v => esc(v.name)).join(', ')}</td></tr>
-      </table>
-      <div class="lp-desc">${esc(data.productDesc)}</div>
-      <a href="${esc(data.orderLink)}" target="_blank" rel="noopener" class="order-btn" id="orderBtn">
-        Pesan Sekarang
-      </a>
+<html lang="id"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>${esc(data.productName)} | ${esc(data.brandName)}</title>
+<style>
+body{margin:0;padding:0;font-family:'Inter',Arial,sans-serif;background:#f8fafc;}
+.lp-container{max-width:460px;margin:0 auto;background:#fff;border-radius:22px;box-shadow:0 4px 20px #3b82f61b;padding:0 0 28px 0;}
+.lp-header{background:linear-gradient(90deg,#3b82f6 0,#1d4ed8 100%);border-radius:0 0 22px 22px;padding:30px 18px 18px 18px;text-align:center;}
+.lp-header .brand{color:#fff;font-size:1.04em;font-weight:700;margin-bottom:2px;}
+.lp-header .title{color:#fff;font-size:1.21em;font-weight:800;margin-bottom:6px;}
+.badge{display:inline-block;font-size:.81em;font-weight:700;padding:3.5px 13px;border-radius:13px;margin-right:6px;margin-bottom:2px;color:#fff;background:linear-gradient(90deg,#10b981 0,#3b82f6 100%);letter-spacing:.02em;}
+.badge-blue{background:linear-gradient(90deg,#2563eb 0,#3b82f6 100%);}
+.badge-new{background:linear-gradient(90deg,#f59e42 0,#3b82f6 100%);}
+.slider{position:relative;width:100%;margin:0 auto;height:230px;overflow:hidden;border-radius:14px;background:#e7f2ff;box-shadow:0 2px 14px #3b82f61c;margin-top:-30px;}
+.slider-imgs{width:100%;height:230px;display:flex;transition:transform .4s cubic-bezier(.56,.03,.39,.96);}
+.slider-imgs img{width:100%;height:230px;object-fit:cover;background:#f3f7fa;user-select:none;}
+.slider-dot-row{text-align:center;margin-top:-22px;position:relative;z-index:2;}
+.slider-dot{width:11px;height:11px;border-radius:50%;background:#c7e1fa;border:none;display:inline-block;margin:0 3px;cursor:pointer;transition:background .13s;}
+.slider-dot.active{background:#3b82f6;}
+.c-picker{display:flex;gap:10px;justify-content:center;margin:19px 0 0 0;}
+.c-thumb{width:32px;height:32px;border-radius:7px;border:2.1px solid #e7e7e7;background-size:cover;background-position:center;cursor:pointer;transition:border .12s;}
+.c-thumb.active{border:2.1px solid #3b82f6;}
+.lp-product{padding:0 12px;margin-top:21px;}
+.lp-title{font-size:1.07em;font-weight:700;margin:10px 0 3px 0;}
+.lp-price{font-size:1.01em;font-weight:700;color:#3b82f6;margin-bottom:7px;}
+.promo{background:linear-gradient(90deg,#2563eb 0,#3b82f6 100%);color:#fff;border-radius:7px;font-size:.97em;font-weight:600;padding:7px 11px;display:inline-block;margin:11px 0 5px 0;}
+.spec{width:100%;border-collapse:collapse;margin:6px 0 8px 0;font-size:.97em;}
+.spec td{padding:4px 0;color:#475569;vertical-align:top;}
+.spec .sp-l{font-weight:600;width:32%;color:#2563eb;}
+.lp-desc{margin:7px 0 4px 0;font-size:.98em;color:#374151;line-height:1.6;white-space:pre-line;}
+.qty-row{display:flex;align-items:center;gap:7px;margin:16px 0 12px 0;}
+.qty-btn{width:29px;height:29px;border-radius:7px;border:none;background:#f1f5f9;color:#3b82f6;font-size:1.1em;font-weight:700;cursor:pointer;}
+.qty-btn:hover{background:#3b82f6;color:#fff;}
+.qty-input{width:35px;text-align:center;border:1.3px solid #e2e8f0;border-radius:6px;height:29px;font-size:1em;color:#1e293b;background:#fff;margin:0 1px;}
+.order-btn{display:block;width:100%;background:linear-gradient(90deg,#3b82f6 0,#1d4ed8 100%);color:#fff;font-weight:700;font-size:1.07em;padding:12px 0;border:none;border-radius:10px;margin:13px 0 0 0;cursor:pointer;text-align:center;text-decoration:none;}
+.order-btn:hover{background:linear-gradient(90deg,#1d4ed8 0,#3b82f6 100%);}
+@media(max-width:500px){.lp-container{max-width:99vw;border-radius:0;}.slider,.slider-imgs img{height:140px;}.lp-header{padding:17px 3px 8px 3px;}.lp-product{padding:0 3px;}}
+</style>
+</head><body>
+<div class="lp-container">
+  <div class="lp-header">
+    <div class="brand">${esc(data.brandName)}</div>
+    <div class="title">${esc(data.productName)}</div>
+    <div>
+      <span class="badge">Ada Stok</span>
+      <span class="badge badge-blue">Premium</span>
+      <span class="badge badge-new">New Arrival</span>
     </div>
   </div>
-  <script>
-    // --- Slider logic ---
-    const images = Array.from(document.querySelectorAll('#sliderImgs img'));
-    const dots = Array.from(document.querySelectorAll('.slider-dot'));
-    let currentIdx = 0, sliderTimer;
-    function showSlide(idx) {
-      currentIdx = idx;
-      document.getElementById('sliderImgs').style.transform = 'translateX(' + (-idx * 100) + '%)';
-      dots.forEach((d,i)=>d.classList.toggle('active', i===idx));
+  <div class="slider" id="slider">
+    <div class="slider-imgs" id="sliderImgs">
+      ${sliderImgs.map((url,i)=>`<img src="${esc(url)}" alt="Hijab ${i+1}" draggable="false">`).join('')}
+    </div>
+    <div class="slider-dot-row" id="sliderDots">
+      ${sliderImgs.map((_,i)=>`<button class="slider-dot${i===0?' active':''}" data-i="${i}"></button>`).join('')}
+    </div>
+  </div>
+  <div class="c-picker" id="cPicker">
+    ${colorHTML}
+  </div>
+  <div class="lp-product">
+    <div class="lp-title">${esc(data.productName)}</div>
+    <div class="lp-price">${formatRp(data.productPrice)}</div>
+    <div class="promo">Diskon spesial &amp; ready stock! Order sekarang 🚚</div>
+    <div class="qty-row">
+      <button class="qty-btn" id="qtyMinus">-</button>
+      <input type="number" id="qtyInput" class="qty-input" value="1" min="1" max="20" aria-label="Jumlah">
+      <button class="qty-btn" id="qtyPlus">+</button>
+    </div>
+    <table class="spec"><tr><td class="sp-l">Material</td><td>${esc(data.material)}</td></tr>
+    <tr><td class="sp-l">Ukuran</td><td>${esc(data.size)}</td></tr>
+    <tr><td class="sp-l">Berat</td><td>${esc(data.weight)}</td></tr>
+    <tr><td class="sp-l">Varian</td><td>${variants.map(v=>esc(v.name)).join(', ')}</td></tr></table>
+    <div class="lp-desc">${esc(data.productDesc)}</div>
+    <a href="${esc(data.orderLink)}" target="_blank" rel="noopener" class="order-btn" id="orderBtn">Pesan Sekarang</a>
+  </div>
+</div>
+<script>
+let imgLen=${sliderImgs.length},cur=0,timer;
+function showSlide(i){
+  cur=i;document.getElementById('sliderImgs').style.transform='translateX('+-i*100+'%)';
+  document.querySelectorAll('.slider-dot').forEach((d,idx)=>d.classList.toggle('active',idx===i));
+}
+document.querySelectorAll('.slider-dot').forEach((dot,i)=>{dot.onclick=()=>{showSlide(i);}});
+function nextSlide(){showSlide((cur+1)%imgLen);}
+function startSlider(){if(timer)clearInterval(timer);timer=setInterval(nextSlide,4500);}
+startSlider();
+document.getElementById('slider').addEventListener('touchstart',e=>{window.sx=e.touches[0].clientX;});
+document.getElementById('slider').addEventListener('touchend',e=>{
+  let dx=(e.changedTouches[0].clientX-window.sx);if(Math.abs(dx)>40){showSlide(dx>0?(cur-1+imgLen)%imgLen:(cur+1)%imgLen);startSlider();}
+});
+let cBtns=document.querySelectorAll('.c-thumb');
+cBtns.forEach((b,i)=>b.onclick=()=>{cBtns.forEach(x=>x.classList.remove('active'));b.classList.add('active');});
+let qty=document.getElementById('qtyInput');
+document.getElementById('qtyPlus').onclick=()=>{qty.value=Math.min(20,+qty.value+1);};
+document.getElementById('qtyMinus').onclick=()=>{qty.value=Math.max(1,+qty.value-1);};
+</script>
+</body></html>`;
     }
-    function nextSlide() {
-      let idx = (currentIdx + 1) % images.length;
-      showSlide(idx);
-    }
-    function startSlider() {
-      if (sliderTimer) clearInterval(sliderTimer);
-      sliderTimer = setInterval(nextSlide, 5000);
-    }
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => {
-        showSlide(i); startSlider();
-      });
-    });
-    // --- Touch swipe for mobile slider ---
-    let startX = 0, moved = false;
-    const sliderSection = document.getElementById('sliderSection');
-    sliderSection.addEventListener('touchstart', e => {
-      startX = e.touches[0].clientX; moved = false;
-    });
-    sliderSection.addEventListener('touchmove', e => {
-      if (!moved && Math.abs(e.touches[0].clientX - startX) > 25) {
-        moved = true;
-        if (e.touches[0].clientX > startX) showSlide((currentIdx-1+images.length)%images.length);
-        else showSlide((currentIdx+1)%images.length);
-        startSlider();
-      }
-    });
-    // --- Color Variant Picker ---
-    const colorThumbs = Array.from(document.querySelectorAll('.color-thumb'));
-    colorThumbs.forEach((btn,i)=>{
-      btn.addEventListener('click',()=>{
-        colorThumbs.forEach(x=>x.classList.remove('active'));
-        btn.classList.add('active');
-        // Change main slider to this color's image
-        if (images[0] && ${!!variants[0].image}) {
-          images[0].src = btn.style.backgroundImage.replace('url("','').replace('")','').replace(/60x60/,'400x600');
-        }
-      });
-      if (i===0) btn.classList.add('active');
-    });
-    // --- Quantity Selector ---
-    const qtyInput = document.getElementById('qtyInput');
-    document.getElementById('qtyPlus').onclick = ()=>{ 
-      let v = Math.min(parseInt(qtyInput.value||'1',10)+1, 20); qtyInput.value = v;
-      qtyInput.dispatchEvent(new Event('change'));
-    };
-    document.getElementById('qtyMinus').onclick = ()=>{ 
-      let v = Math.max(parseInt(qtyInput.value||'1',10)-1, 1); qtyInput.value = v;
-      qtyInput.dispatchEvent(new Event('change'));
-    };
-    qtyInput.addEventListener('input', ()=>{ 
-      let v = parseInt(qtyInput.value||'1',10); 
-      if (isNaN(v)||v<1) v=1;
-      if (v>20) v=20;
-      qtyInput.value = v;
-    });
-    // --- Order Button: open in new tab with UTM ---
-    const orderBtn = document.getElementById('orderBtn');
-    orderBtn.addEventListener('click',e=>{
-      orderBtn.href = '${esc(data.orderLink)}?qty='+qtyInput.value;
-    });
-    // --- Init slider
-    showSlide(0); startSlider();
-  </script>
-</body>
-</html>
-`;
-    }
-
-    // --- Input event bindings ---
-    function bindLiveUpdate() {
-      [
-        'brandName','productName','productPrice','orderLink','sliderImages',
-        'productDesc','material','size','weight'
-      ].forEach(id => {
-        document.getElementById(id).addEventListener('input', updatePreview);
-      });
-    }
-
-    // --- Init ---
-    renderColorVariants();
-    bindLiveUpdate();
-    updatePreview();
+    // --- Live update binding
+    ['brandName','productName','productPrice','orderLink','sliderImages','productDesc','material','size','weight']
+      .forEach(id=>{document.getElementById(id).addEventListener('input',updatePreview);});
+    renderColorVariants();updatePreview();
   </script>
 </body>
 </html>
