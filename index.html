@@ -3,17 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hijab Prompt Generator - AI Landing Page Creator</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <title>Generator Prompt Hijab - Pembuat Halaman Landing AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary-blue: #3b82f6;
-      --secondary-blue: #2563eb;
-      --dark-blue: #1d4ed8;
-      --success-green: #10b981;
-      --danger-red: #ef4444;
-      --text-dark: #1e293b;
-      --bg-light: #f8fafc;
+      --primary-gray: #4a4a4a;
+      --secondary-gray: #6b7280;
+      --bg-light: #ffffff;
+      --text-dark: #1f2937;
+      --border-light: #e5e7eb;
+      --glass-bg: rgba(255, 255, 255, 0.1);
     }
 
     * {
@@ -29,125 +28,144 @@
       overflow-x: hidden;
     }
 
-    .bg-animation {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      opacity: 0.03;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><circle cx="40" cy="40" r="20" fill="%233b82f6"/></svg>') repeat;
-      animation: bgFloat 25s infinite ease-in-out;
-    }
-
-    @keyframes bgFloat {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      33% { transform: translateY(-20px) rotate(120deg); }
-      66% { transform: translateY(20px) rotate(240deg); }
-    }
-
-    @keyframes emojiFloat {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-15px) rotate(10deg); }
-    }
-
-    @keyframes formSlideIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     .header {
-      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+      background: var(--primary-gray);
       color: white;
-      padding: 3rem 2rem;
+      padding: 2rem 1rem;
       text-align: center;
+      animation: fadeIn 1s ease-out;
       position: relative;
-      overflow: hidden;
     }
 
-    .header-content {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .emoji {
-      font-size: 4rem;
-      display: inline-block;
-      animation: emojiFloat 4s ease-in-out infinite;
-    }
-
-    .header h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      margin: 1rem 0;
-    }
-
-    .subtitle {
-      font-size: 1.5rem;
-      font-weight: 500;
-      margin-bottom: 1rem;
-    }
-
-    .header .description {
-      font-size: 1.1rem;
-      opacity: 0.9;
+    .ai-assistant {
       max-width: 600px;
       margin: 0 auto;
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .ai-assistant .chat-log {
+      max-height: 200px;
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.5rem;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+
+    .ai-assistant .message {
+      margin: 0.25rem 0;
+      padding: 0.25rem;
+      border-radius: 4px;
+    }
+
+    .ai-assistant .user-message {
+      background: rgba(255, 255, 255, 0.2);
+      text-align: right;
+    }
+
+    .ai-assistant .ai-message {
+      background: rgba(212, 175, 55, 0.2); /* Gold tint for Nexco */
+      text-align: left;
+      color: #d4af37;
+    }
+
+    .ai-assistant .input-area {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .ai-assistant input {
+      flex-grow: 1;
+      padding: 0.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    .ai-assistant input:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .ai-assistant button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      background: #d4af37;
+      color: white;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .ai-assistant button:hover {
+      background: #b8972f;
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 2rem auto;
       padding: 0 1rem;
     }
 
     .feature-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      margin-bottom: 3rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
     }
 
     .feature-card {
       background: white;
-      border-radius: 16px;
-      padding: 2rem;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 1.5rem;
       text-align: center;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(5px);
-      animation: formSlideIn 0.5s ease-out forwards;
+      animation: fadeInUp 0.8s ease-out;
+      transition: transform 0.2s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      animation: pulse 0.5s ease-in-out;
     }
 
     .main-content {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      margin-bottom: 3rem;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
     }
 
     .form-section, .preview-section {
-      background: rgba(255, 255, 255, 0.7);
-      border-radius: 16px;
-      padding: 2rem;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(10px);
-      animation: formSlideIn 0.6s ease-out forwards;
+      background: white;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 1.5rem;
+      animation: fadeInUp 0.9s ease-out;
     }
 
     .form-input, .form-textarea, .form-select {
       width: 100%;
-      padding: 18px 24px;
-      border: 2px solid #e2e8f0;
-      border-radius: 16px;
-      font-size: 16px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      background: white;
+      padding: 12px 16px;
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      font-size: 1rem;
       margin-bottom: 1rem;
+      transition: border-color 0.2s, transform 0.2s;
     }
 
     .form-input:focus, .form-textarea:focus, .form-select:focus {
       outline: none;
-      border-color: var(--primary-blue);
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
-      transform: translateY(-2px);
+      border-color: var(--primary-gray);
+      transform: scale(1.01);
     }
 
     .form-textarea {
@@ -168,10 +186,16 @@
 
     .color-variant-item {
       background: white;
-      border: 2px solid #f1f5f9;
-      border-radius: 16px;
-      padding: 1.5rem;
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      padding: 1rem;
       margin-bottom: 1rem;
+      transition: transform 0.2s;
+    }
+
+    .color-variant-item:hover {
+      transform: translateY(-3px);
+      animation: scaleHover 0.3s ease-out forwards;
     }
 
     .color-inputs-grid {
@@ -189,46 +213,122 @@
     }
 
     .btn {
-      padding: 1rem 2rem;
-      border-radius: 12px;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
       border: none;
       font-size: 1rem;
-      font-weight: 600;
+      font-weight: 500;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: background 0.2s, transform 0.2s;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      background: var(--primary-gray);
       color: white;
     }
 
     .btn-primary:hover {
+      background: var(--secondary-gray);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
     }
 
     .btn-danger {
-      background: var(--danger-red);
+      background: #dc2626;
       color: white;
+    }
+
+    .btn-one-click {
+      background: var(--primary-gray);
+      color: white;
+    }
+
+    .btn-one-click:hover {
+      transform: translateY(-2px);
+      animation: pulse 0.5s ease-in-out;
     }
 
     .cta-section {
-      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+      background: var(--primary-gray);
       color: white;
-      padding: 3rem 2rem;
-      border-radius: 16px;
+      padding: 2rem 1rem;
+      border-radius: 8px;
       text-align: center;
+      animation: fadeIn 1s ease-out;
     }
 
     .preview-section pre {
-      background: #1e293b;
-      color: white;
-      padding: 1.5rem;
-      border-radius: 12px;
-      max-height: 600px;
+      background: #f3f4f6;
+      color: var(--text-dark);
+      padding: 1rem;
+      border-radius: 6px;
+      max-height: 500px;
       overflow-y: auto;
       display: none;
+      font-size: 0.9rem;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      max-width: 400px;
+      width: 90%;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .modal-content .form-input {
+      margin-bottom: 1rem;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .close-modal:hover {
+      transform: scale(1.2);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes scaleHover {
+      to { transform: scale(1.02); }
     }
 
     @media (max-width: 767px) {
@@ -237,12 +337,6 @@
       }
       .specs-row, .color-inputs-grid, .checkbox-grid {
         grid-template-columns: 1fr;
-      }
-      .header h1 {
-        font-size: 2rem;
-      }
-      .emoji {
-        font-size: 3rem;
       }
     }
 
@@ -257,122 +351,145 @@
   </style>
 </head>
 <body>
-  <div class="bg-animation"></div>
   <div class="header">
-    <div class="header-content">
-      <span class="emoji">🧕</span>
-      <h1>Hijab Prompt Generator</h1>
-      <p class="subtitle">AI-Powered Landing Page Creator</p>
-      <p class="description">Generate custom prompts untuk membuat landing page hijab yang stunning dan high-converting menggunakan AI apapun!</p>
+    <div class="ai-assistant">
+      <div class="chat-log" id="chatLog"></div>
+      <div class="input-area">
+        <input type="text" id="aiInput" placeholder="Tanyakan sesuatu kepada Nexco...">
+        <button onclick="sendMessage()">Kirim</button>
+      </div>
     </div>
   </div>
   <div class="container">
     <div class="feature-grid">
       <div class="feature-card">
-        <h3>⚡ Super Cepat</h3>
-        <p>Generate prompt lengkap dalam hitungan detik</p>
+        <h3>Cepat Seperti Kilat</h3>
+        <p>Hasilkan prompt premium dalam hitungan detik</p>
       </div>
       <div class="feature-card">
-        <h3>🎨 Design Premium</h3>
-        <p>Hasil landing page dengan kualitas profesional</p>
+        <h3>Desain Mewah</h3>
+        <p>Halaman landing berkualitas profesional dengan keanggunan</p>
       </div>
       <div class="feature-card">
-        <h3>📱 Mobile Perfect</h3>
-        <p>Responsive design yang sempurna di semua device</p>
+        <h3>Responsivitas Sempurna</h3>
+        <p>Tampilan sempurna di setiap perangkat</p>
       </div>
     </div>
     <div class="main-content">
       <div class="form-section">
-        <h2>🛍️ Hijab Product Details</h2>
-        <label>Brand/Store Name</label>
+        <h2>Detail Produk Hijab</h2>
+        <label>Nama Merek/Toko</label>
         <input type="text" class="form-input" id="brandName" value="NESHIJAB" placeholder="NESHIJAB">
         
-        <label>Product Name</label>
+        <label>Nama Produk</label>
         <input type="text" class="form-input" id="productName" value="Eliza Scarf - Hijab Segiempat Premium" placeholder="Eliza Scarf - Hijab Segiempat Premium">
         
-        <label>Product Price (IDR)</label>
+        <label>Harga Produk (IDR)</label>
         <input type="number" class="form-input" id="price" value="300000" placeholder="300000">
         
-        <label>Order Online Link</label>
+        <label>Link Pesan Online</label>
         <input type="url" class="form-input" id="orderLink" value="https://mila.orderonline.id/mira-inner-pahmina" placeholder="https://mila.orderonline.id/mira-inner-pahmina">
         
-        <label>Slider Images (Enter 3 URLs, one per line)</label>
+        <label>Gambar Slider (Masukkan 3 URL, satu per baris)</label>
         <textarea class="form-textarea" id="sliderImages" rows="4">https://d1csarkz8obe9u.cloudfront.net/hijab1.jpg
 https://d1csarkz8obe9u.cloudfront.net/hijab2.jpg
 https://d1csarkz8obe9u.cloudfront.net/hijab3.jpg</textarea>
         
-        <label>Product Description</label>
-        <textarea class="form-textarea" id="description" rows="5">Hijab ini memancarkan effortless beauty dengan material Voal Premium yang lembut dan flowy. Desain segiempat memberikan coverage maksimal dengan kenyamanan sepanjang hari.</textarea>
+        <label>Deskripsi Produk</label>
+        <textarea class="form-textarea" id="description" rows="5">Hijab ini memancarkan keindahan effortless dengan material Voal Premium yang lembut dan flowy. Desain segiempat memberikan coverage maksimal dengan kenyamanan sepanjang hari.</textarea>
         
         <div class="specs-row">
           <div>
-            <label>Material</label>
+            <label>Bahan</label>
             <input type="text" class="form-input" id="material" value="Voal Premium" placeholder="Voal Premium">
           </div>
           <div>
-            <label>Size (cm)</label>
+            <label>Ukuran (cm)</label>
             <input type="text" class="form-input" id="size" value="115x115" placeholder="115x115">
           </div>
           <div>
-            <label>Weight (gram)</label>
+            <label>Berat (gram)</label>
             <input type="number" class="form-input" id="weight" value="300" placeholder="300">
           </div>
         </div>
         
         <div class="color-variants-container">
-          <h3>Color Variants</h3>
-          <button class="btn btn-primary" onclick="addColorVariant()">+ Add Color</button>
+          <h3>Varian Warna</h3>
+          <button class="btn btn-primary" onclick="addColorVariant()">+ Tambah Warna</button>
           <div id="colorVariants">
             <div class="color-variant-item">
               <div class="color-inputs-grid">
-                <input type="text" class="form-input color-name" value="Rose Smoke" placeholder="Color Name">
-                <input type="url" class="form-input color-thumb" value="https://d1csarkz8obe9u.cloudfront.net/rose-smoke-thumb.jpg" placeholder="Thumbnail URL">
-                <input type="url" class="form-input color-main" value="https://d1csarkz8obe9u.cloudfront.net/rose-smoke-main.jpg" placeholder="Main Image URL">
+                <input type="text" class="form-input color-name" value="Rose Smoke" placeholder="Nama Warna">
+                <input type="url" class="form-input color-thumb" value="https://d1csarkz8obe9u.cloudfront.net/rose-smoke-thumb.jpg" placeholder="URL Thumbnail">
+                <input type="url" class="form-input color-main" value="https://d1csarkz8obe9u.cloudfront.net/rose-smoke-main.jpg" placeholder="URL Gambar Utama">
               </div>
-              <button class="btn btn-danger" onclick="removeColorVariant(this)">Remove</button>
+              <button class="btn btn-danger" onclick="removeColorVariant(this)">Hapus</button>
             </div>
             <div class="color-variant-item">
               <div class="color-inputs-grid">
-                <input type="text" class="form-input color-name" value="Sky" placeholder="Color Name">
-                <input type="url" class="form-input color-thumb" value="https://d1csarkz8obe9u.cloudfront.net/sky-thumb.jpg" placeholder="Thumbnail URL">
-                <input type="url" class="form-input color-main" value="https://d1csarkz8obe9u.cloudfront.net/sky-main.jpg" placeholder="Main Image URL">
+                <input type="text" class="form-input color-name" value="Sky" placeholder="Nama Warna">
+                <input type="url" class="form-input color-thumb" value="https://d1csarkz8obe9u.cloudfront.net/sky-thumb.jpg" placeholder="URL Thumbnail">
+                <input type="url" class="form-input color-main" value="https://d1csarkz8obe9u.cloudfront.net/sky-main.jpg" placeholder="URL Gambar Utama">
               </div>
-              <button class="btn btn-danger" onclick="removeColorVariant(this)">Remove</button>
+              <button class="btn btn-danger" onclick="removeColorVariant(this)">Hapus</button>
             </div>
           </div>
         </div>
         
-        <label>Target AI Platform</label>
+        <label>Platform AI Target</label>
         <select class="form-select" id="aiPlatform">
           <option value="chatgpt" selected>ChatGPT</option>
           <option value="claude">Claude AI</option>
           <option value="gemini">Google Gemini</option>
+          <option value="grok">Grok</option>
           <option value="universal">Universal (Semua AI)</option>
+          <option value="bolt">Bolt</option>
+          <option value="deepsite">DeepSite</option>
         </select>
         
         <div class="checkbox-grid">
-          <label><input type="checkbox" id="colorPicker" checked> Interactive Color Picker</label>
-          <label><input type="checkbox" id="imageSlider" checked> Image Gallery Slider</label>
-          <label><input type="checkbox" id="trustBadges" checked> Trust Badges & Guarantee</label>
-          <label><input type="checkbox" id="mobileOpt" checked> Mobile Optimization</label>
-          <label><input type="checkbox" id="premiumAnims" checked> Premium Animations</label>
-          <label><input type="checkbox" id="seoOpt"> SEO Optimization</label>
+          <label><input type="checkbox" id="colorPicker" checked> Pemilih Warna Interaktif</label>
+          <label><input type="checkbox" id="imageSlider" checked> Slider Galeri Gambar</label>
+          <label><input type="checkbox" id="trustBadges" checked> Lencana Kepercayaan & Jaminan</label>
+          <label><input type="checkbox" id="mobileOpt" checked> Optimasi Mobile</label>
+          <label><input type="checkbox" id="premiumAnims" checked> Animasi Premium</label>
+          <label><input type="checkbox" id="seoOpt"> Optimasi SEO</label>
+          <label><input type="checkbox" id="oneClickOrder" checked> Integrasi Pesan Satu Klik</label>
         </div>
         
-        <button class="btn btn-primary" onclick="generatePrompt()">🚀 Generate AI Prompt</button>
+        <button class="btn btn-primary" onclick="generatePrompt()">Hasilkan Prompt AI</button>
+        <button class="btn btn-one-click" onclick="openOneClickModal()">Pratinjau Pesan Satu Klik</button>
       </div>
       <div class="preview-section">
-        <h2>📋 Preview Prompt</h2>
-        <p>Generated prompt will appear here after clicking "Generate AI Prompt"</p>
+        <h2>Pratinjau Prompt</h2>
+        <p>Prompt yang dihasilkan akan muncul di sini setelah mengklik "Hasilkan Prompt AI"</p>
         <pre id="promptOutput"></pre>
-        <button class="btn btn-primary" id="copyButton" style="display: none;" onclick="copyPrompt()">Copy Prompt</button>
+        <button class="btn btn-primary" id="copyButton" style="display: none;" onclick="copyPrompt()">Salin Prompt</button>
       </div>
     </div>
     <div class="cta-section">
-      <h2>Ready to Build Your Hijab Store?</h2>
-      <p>Create stunning, high-converting landing pages with our AI-powered prompt generator. Start building your professional hijab store today!</p>
+      <h2>Luncurkan Toko Hijab Premium Anda</h2>
+      <p>Buat halaman landing yang mewah dan konversi tinggi dengan generator prompt berbasis AI kami. Tingkatkan merek Anda hari ini!</p>
     </div>
   </div>
+
+  <div class="modal" id="oneClickModal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeOneClickModal()">×</span>
+      <h2>Pesan Satu Klik</h2>
+      <label>Nama Pelanggan</label>
+      <input type="text" class="form-input" id="customerName" placeholder="Masukkan nama Anda">
+      <label>Nomor Telepon</label>
+      <input type="tel" class="form-input" id="phoneNumber" placeholder="Masukkan nomor telepon Anda">
+      <label>Warna Terpilih</label>
+      <select class="form-select" id="selectedColor">
+        <option value="Rose Smoke">Rose Smoke</option>
+        <option value="Sky">Sky</option>
+      </select>
+      <button class="btn btn-one-click" onclick="submitOneClickOrder()">Tempatkan Pesanan</button>
+    </div>
+  </div>
+
   <script>
     function addColorVariant() {
       const container = document.getElementById('colorVariants');
@@ -380,21 +497,35 @@ https://d1csarkz8obe9u.cloudfront.net/hijab3.jpg</textarea>
       variant.className = 'color-variant-item';
       variant.innerHTML = `
         <div class="color-inputs-grid">
-          <input type="text" class="form-input color-name" placeholder="Color Name">
-          <input type="url" class="form-input color-thumb" placeholder="Thumbnail URL">
-          <input type="url" class="form-input color-main" placeholder="Main Image URL">
+          <input type="text" class="form-input color-name" placeholder="Nama Warna">
+          <input type="url" class="form-input color-thumb" placeholder="URL Thumbnail">
+          <input type="url" class="form-input color-main" placeholder="URL Gambar Utama">
         </div>
-        <button class="btn btn-danger" onclick="removeColorVariant(this)">Remove</button>
+        <button class="btn btn-danger" onclick="removeColorVariant(this)">Hapus</button>
       `;
       container.appendChild(variant);
       updatePrompt();
+      updateColorOptions();
     }
 
     function removeColorVariant(button) {
       if (document.querySelectorAll('.color-variant-item').length > 1) {
         button.parentElement.remove();
         updatePrompt();
+        updateColorOptions();
       }
+    }
+
+    function updateColorOptions() {
+      const colorSelect = document.getElementById('selectedColor');
+      colorSelect.innerHTML = '';
+      const colors = Array.from(document.querySelectorAll('.color-name')).map(input => input.value).filter(name => name);
+      colors.forEach(color => {
+        const option = document.createElement('option');
+        option.value = color;
+        option.textContent = color;
+        colorSelect.appendChild(option);
+      });
     }
 
     function generatePrompt() {
@@ -414,7 +545,8 @@ https://d1csarkz8obe9u.cloudfront.net/hijab3.jpg</textarea>
         trustBadges: document.getElementById('trustBadges').checked,
         mobileOpt: document.getElementById('mobileOpt').checked,
         premiumAnims: document.getElementById('premiumAnims').checked,
-        seoOpt: document.getElementById('seoOpt').checked
+        seoOpt: document.getElementById('seoOpt').checked,
+        oneClickOrder: document.getElementById('oneClickOrder').checked
       };
 
       const colorVariants = Array.from(document.querySelectorAll('.color-variant-item')).map(item => ({
@@ -425,106 +557,114 @@ https://d1csarkz8obe9u.cloudfront.net/hijab3.jpg</textarea>
 
       let platformInstructions = '';
       if (aiPlatform === 'chatgpt') {
-        platformInstructions = 'Optimize for ChatGPT: Use clear, structured prompts with specific sections and detailed requirements.';
+        platformInstructions = 'Optimalkan untuk ChatGPT: Gunakan prompt yang terstruktur jelas dengan bagian dan persyaratan terperinci.';
       } else if (aiPlatform === 'claude') {
-        platformInstructions = 'Optimize for Claude: Use conversational tone with detailed context and explicit instructions.';
+        platformInstructions = 'Optimalkan untuk Claude: Gunakan nada percakapan dengan konteks terperinci dan instruksi eksplisit.';
       } else if (aiPlatform === 'gemini') {
-        platformInstructions = 'Optimize for Gemini: Focus on concise instructions with clear output format expectations.';
+        platformInstructions = 'Optimalkan untuk Gemini: Fokus pada instruksi singkat dengan ekspektasi format keluaran yang jelas.';
+      } else if (aiPlatform === 'grok') {
+        platformInstructions = 'Optimalkan untuk Grok: Manfaatkan integrasi data real-time dari X, gunakan nada cerdas dan menarik, dan pastikan kompatibilitas dengan kemampuan penalaran canggih dan pembuatan gambar Grok.';
+      } else if (aiPlatform === 'bolt') {
+        platformInstructions = 'Optimalkan untuk Bolt: Gunakan prompt berbasis bahasa alami dengan detail spesifik untuk menghasilkan kode aplikasi full-stack, pastikan kompatibilitas dengan kerangka kerja modern seperti Next.js dan integrasi seperti Netlify.';
+      } else if (aiPlatform === 'deepsite') {
+        platformInstructions = 'Optimalkan untuk DeepSite: Gunakan prompt sederhana untuk menghasilkan situs web atau aplikasi dengan pratinjau real-time, manfaatkan model DeepSeek V3 untuk akurasi kode yang tinggi.';
       } else {
-        platformInstructions = 'Universal format: Create a versatile prompt compatible with any AI platform.';
+        platformInstructions = 'Format universal: Buat prompt yang serbaguna kompatibel dengan semua platform AI.';
       }
 
       const prompt = `
-# Premium Hijab Landing Page Generator
+# Generator Halaman Landing Hijab Premium
 
-## 🎯 Product Information
-- Brand: ${brand}
-- Product: ${product}
-- Price: Rp ${Number(price).toLocaleString('id-ID')}
-- Order Link: ${orderLink}
+## 🎯 Informasi Produk
+- Merek: ${brand}
+- Produk: ${product}
+- Harga: Rp ${Number(price).toLocaleString('id-ID')}
+- Link Pesan: ${orderLink}
 
-## Product Images:
-${sliderImages.map((url, i) => `- Slider Image ${i + 1}: ${url}`).join('\n')}
+## Gambar Produk:
+${sliderImages.map((url, i) => `- Gambar Slider ${i + 1}: ${url}`).join('\n')}
 
-## Available Colors:
-${colorVariants.map(v => `- ${v.name}: Thumbnail (${v.thumb}) | Main Image (${v.main})`).join('\n')}
+## Warna Tersedia:
+${colorVariants.map(v => `- ${v.name}: Thumbnail (${v.thumb}) | Gambar Utama (${v.main})`).join('\n')}
 
-## Specifications:
-- Material: ${material}
-- Size: ${size} cm
-- Weight: ${weight} gram
+## Spesifikasi:
+- Bahan: ${material}
+- Ukuran: ${size} cm
+- Berat: ${weight} gram
 
-## Product Description:
+## Deskripsi Produk:
 ${description}
 
-## 🎨 Design Requirements
-- Modern, clean design with blue accent colors (#3b82f6, #2563eb, #1d4ed8)
-- Inter font family with proper hierarchy
-- Glassmorphism effects for premium feel
-- Smooth animations and transitions
-- Responsive layout for all devices
+## 🎨 Persyaratan Desain
+- Desain mewah dengan aksen emas dan teal (#d4af37, #b8972f, #2b6777)
+- Keluarga font Inter dengan hierarki elegan
+- Efek glassmorphism untuk estetika premium
+- Animasi dan interaksi mikro yang halus
+- Tata letak responsif untuk semua perangkat
 
-## 📱 Layout Structure
-- Header with brand logo and navigation
-- Hero section with main product image and CTA
-- Product details section with specifications
-- Color variants gallery
-- Product description and features
-- Order section with clear CTA
-- Footer with trust badges and contact info
+## 📱 Struktur Tata Letak
+- Header dengan logo merek dan navigasi
+- Bagian hero dengan gambar produk utama dan CTA menonjol
+- Bagian detail produk dengan spesifikasi
+- Galeri varian warna dengan efek hover
+- Deskripsi produk dan fitur
+- Bagian integrasi pesan satu klik
+- Footer dengan lencana kepercayaan dan info kontak
 
-## 🔧 Interactive Features
+## 🔧 Fitur Interaktif
 ${Object.entries(features)
   .filter(([_, enabled]) => enabled)
   .map(([key, _]) => {
     const featureMap = {
-      colorPicker: '- Interactive color picker for variant selection',
-      imageSlider: '- Image gallery slider with smooth transitions',
-      trustBadges: '- Trust badges and guarantee seals',
-      mobileOpt: '- Full mobile optimization with touch-friendly controls',
-      premiumAnims: '- Premium animations for enhanced user experience',
-      seoOpt: '- SEO optimization with proper meta tags and structure'
+      colorPicker: '- Pemilih warna interaktif untuk pemilihan varian',
+      imageSlider: '- Slider galeri gambar dengan transisi halus',
+      trustBadges: '- Lencana kepercayaan dan segel jaminan',
+      mobileOpt: '- Optimasi penuh untuk mobile dengan kontrol ramah sentuh',
+      premiumAnims: '- Animasi premium untuk pengalaman pengguna yang ditingkatkan',
+      seoOpt: '- Optimasi SEO dengan tag meta dan struktur yang tepat',
+      oneClickOrder: '- Integrasi pesan satu klik dengan checkout modal'
     };
     return featureMap[key];
   })
   .join('\n')}
 
-## 💻 Technical Specifications
-- Clean, semantic HTML5
-- CSS3 with modern properties
-- Vanilla JavaScript for interactivity
-- Fast loading (under 3 seconds)
-- Cross-browser compatibility
+## 💻 Spesifikasi Teknis
+- HTML5 semantik yang bersih
+- CSS3 dengan properti dan animasi modern
+- JavaScript vanila untuk interaktivitas dan penanganan modal
+- Muat cepat (di bawah 2 detik)
+- Kompatibilitas lintas-browser
 
-## 📱 Responsive Design
-- Desktop: Two-column layout with enhanced animations
-- Tablet: Adjusted spacing with touch-friendly elements
-- Mobile: Single-column layout with simplified animations
+## 📱 Desain Responsif
+- Desktop: Tata letak multi-kolom dengan animasi yang ditingkatkan
+- Tablet: Penyesuaian spasi dengan elemen ramah sentuh
+- Mobile: Tata letak satu kolom dengan animasi yang dioptimalkan
 
-## 🎯 Conversion Optimization
-- Clear CTAs with high contrast
-- Fast checkout process
-- Trust signals throughout
-- Mobile-first approach
+## 🎯 Optimasi Konversi
+- CTA yang menonjol dengan gaya premium
+- Proses checkout satu klik yang mulus
+- Sinyal kepercayaan dan lencana
+- Pendekatan mobile-first
 
-## 🖼️ Image Implementation
-- Optimize images for fast loading
-- Use provided URLs for slider and color variants
-- Implement lazy loading
-- Ensure responsive image sizes
+## 🖼️ Implementasi Gambar
+- Optimalkan gambar untuk muat cepat
+- Gunakan URL yang disediakan untuk slider dan varian warna
+- Terapkan lazy loading
+- Pastikan ukuran gambar responsif
 
-## 📊 Performance Requirements
-- Page load under 3 seconds
-- Smooth 60fps animations
-- Minimal JavaScript execution time
-- Efficient DOM manipulation
+## 📊 Persyaratan Performa
+- Muat halaman di bawah 2 detik
+- Animasi 60fps yang mulus
+- Waktu eksekusi JavaScript minimal
+- Manipulasi DOM yang efisien
 
-## 🔗 Integration Requirements
-- Seamless integration with order link
-- Support for e-commerce platform tracking
-- Clean URL structure
+## 🔗 Persyaratan Integrasi
+- Integrasi mulus dengan link pesan
+- Modal pesan satu klik dengan nama pelanggan, telepon, dan pemilihan warna
+- Dukungan untuk pelacakan platform e-commerce
+- Struktur URL yang bersih
 
-## 📋 Implementation Notes
+## 📋 Catatan Implementasi
 ${platformInstructions}
       `.trim();
 
@@ -538,11 +678,32 @@ ${platformInstructions}
       const prompt = document.getElementById('promptOutput').textContent;
       navigator.clipboard.writeText(prompt).then(() => {
         const button = document.getElementById('copyButton');
-        button.textContent = '✅ Copied!';
+        button.textContent = '✅ Tersalin!';
         setTimeout(() => {
-          button.textContent = 'Copy Prompt';
+          button.textContent = 'Salin Prompt';
         }, 2000);
       });
+    }
+
+    function openOneClickModal() {
+      updateColorOptions();
+      document.getElementById('oneClickModal').style.display = 'flex';
+    }
+
+    function closeOneClickModal() {
+      document.getElementById('oneClickModal').style.display = 'none';
+    }
+
+    function submitOneClickOrder() {
+      const name = document.getElementById('customerName').value;
+      const phone = document.getElementById('phoneNumber').value;
+      const color = document.getElementById('selectedColor').value;
+      if (name && phone && color) {
+        alert(`Pesanan ditempatkan!\nNama: ${name}\nTelepon: ${phone}\nWarna: ${color}`);
+        closeOneClickModal();
+      } else {
+        alert('Harap isi semua kolom.');
+      }
     }
 
     function updatePrompt() {
@@ -551,11 +712,42 @@ ${platformInstructions}
       }
     }
 
+    function sendMessage() {
+      const input = document.getElementById('aiInput');
+      const message = input.value.trim();
+      if (message) {
+        const chatLog = document.getElementById('chatLog');
+        const userMessage = document.createElement('div');
+        userMessage.className = 'message user-message';
+        userMessage.textContent = `You: ${message}`;
+        chatLog.appendChild(userMessage);
+        chatLog.scrollTop = chatLog.scrollHeight;
+
+        // Simulating Nexco response
+        setTimeout(() => {
+          const aiResponse = document.createElement('div');
+          aiResponse.className = 'message ai-message';
+          aiResponse.textContent = `Nexco: Saya membantu Anda! Tanyakan apa saja tentang desain hijab atau prompt AI.`;
+          chatLog.appendChild(aiResponse);
+          chatLog.scrollTop = chatLog.scrollHeight;
+        }, 500);
+
+        input.value = '';
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
       const inputs = document.querySelectorAll('.form-input, .form-textarea, .form-select, input[type="checkbox"]');
       inputs.forEach(input => {
         input.addEventListener('input', updatePrompt);
         input.addEventListener('change', updatePrompt);
+      });
+
+      // Add enter key support for AI input
+      document.getElementById('aiInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          sendMessage();
+        }
       });
     });
   </script>
