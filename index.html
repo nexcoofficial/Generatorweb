@@ -1,1201 +1,1044 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hijab Landing Generator - Premium</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Premium Hijab Landing Page Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary-gradient: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            --secondary-gradient: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+            --accent-color: #c4a86f;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --dark-bg: #1e293b;
+            --light-bg: #f8fafc;
         }
-
+        
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
         }
-
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.03;
-            z-index: 0;
-            background-image: 
-                radial-gradient(circle at 25% 25%, #3b82f6 2px, transparent 2px),
-                radial-gradient(circle at 75% 75%, #10b981 1px, transparent 1px);
-            background-size: 60px 60px, 40px 40px;
-            animation: bgFloat 20s ease-in-out infinite;
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
-
-        @keyframes bgFloat {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
+        
+        .preview-container {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgaGVpZ2h0PSIxMDAlIiB3aWR0aD0iMTAwJSIvPjwvc3ZnPg==');
         }
-
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 1400px;
-            margin: 20px auto;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            border-radius: 32px;
-            box-shadow: 0 32px 64px rgba(0,0,0,0.08);
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.8);
-            animation: containerIn 1s ease-out;
-        }
-
-        @keyframes containerIn {
-            from { opacity: 0; transform: translateY(50px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        .header {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
-            color: white;
-            padding: 60px 40px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
-            animation: headerGlow 6s ease-in-out infinite;
-        }
-
-        @keyframes headerGlow {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .header-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .emoji {
-            font-size: 72px;
-            margin-bottom: 24px;
-            display: block;
-            animation: emojiFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes emojiFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .header h1 {
-            font-size: 48px;
-            margin-bottom: 16px;
-            font-weight: 800;
-            letter-spacing: -1px;
-        }
-
-        .header p {
-            font-size: 20px;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        .main {
-            display: grid;
-            grid-template-columns: 1fr 450px;
-            min-height: 800px;
-        }
-
-        .form-section {
-            padding: 50px;
-            overflow-y: auto;
-            max-height: 90vh;
-            background: linear-gradient(145deg, #ffffff, #f8fafc);
-        }
-
-        .preview-section {
-            background: linear-gradient(145deg, #f1f5f9, #e2e8f0);
-            padding: 40px;
-            border-left: 1px solid rgba(0,0,0,0.06);
-            overflow-y: auto;
-            max-height: 90vh;
-        }
-
-        .form-group {
-            margin-bottom: 32px;
-            animation: slideUp 0.6s ease-out;
-            animation-fill-mode: both;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .section-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 24px;
-            color: #1e293b;
-            position: relative;
-            padding-bottom: 12px;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(45deg, #3b82f6, #2563eb);
-            border-radius: 2px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 12px;
-            font-weight: 600;
-            color: #1e293b;
-            font-size: 15px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 16px 20px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 15px;
-            transition: all 0.3s ease;
-            background: white;
-            font-family: inherit;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .form-input:hover:not(:focus) {
-            border-color: #cbd5e1;
-        }
-
-        textarea.form-input {
-            resize: vertical;
-            min-height: 120px;
-            line-height: 1.6;
-        }
-
-        .color-variants {
-            display: grid;
-            gap: 20px;
-        }
-
-        .color-item {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr 1.5fr auto;
-            gap: 12px;
-            align-items: center;
-            padding: 20px;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            border: 1px solid #f1f5f9;
-            transition: all 0.3s ease;
-        }
-
-        .color-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
-        }
-
-        .remove-btn {
-            background: linear-gradient(45deg, #ef4444, #dc2626);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 18px;
-            transition: all 0.3s ease;
-        }
-
-        .remove-btn:hover {
-            transform: scale(1.1) rotate(90deg);
-        }
-
-        .add-color-btn {
-            background: linear-gradient(45deg, #10b981, #059669);
-            color: white;
-            border: none;
-            padding: 16px 32px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .add-color-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
-        }
-
-        .generate-btn {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            border: none;
-            padding: 20px 40px;
-            border-radius: 16px;
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .generate-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .generate-btn:hover::before {
-            left: 100%;
-        }
-
-        .generate-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 16px 40px rgba(59, 130, 246, 0.3);
-        }
-
+        
         .phone-mockup {
-            width: 320px;
-            height: 640px;
-            background: linear-gradient(145deg, #1f2937, #111827);
-            border-radius: 36px;
-            padding: 24px;
-            margin: 0 auto;
             position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            animation: phoneFloat 6s ease-in-out infinite;
+            width: 300px;
+            height: 600px;
+            border-radius: 40px;
+            background: #fff;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 12px solid #f5f5f5;
         }
-
-        @keyframes phoneFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
-
-        .phone-mockup::before {
-            content: '';
+        
+        .phone-notch {
             position: absolute;
-            top: 12px;
+            top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
-            height: 6px;
-            background: #374151;
-            border-radius: 3px;
+            width: 140px;
+            height: 25px;
+            background: #000;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 10;
         }
-
+        
         .phone-screen {
-            width: 100%;
-            height: 100%;
-            background: white;
-            border-radius: 28px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .preview-header {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            font-weight: 700;
-            font-size: 16px;
-        }
-
-        .preview-image {
-            width: 100%;
-            height: 180px;
-            background: #f3f4f6;
-            background-image: url('https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=300&h=180&fit=crop');
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-
-        .preview-badges {
             position: absolute;
-            top: 12px;
-            right: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .preview-badge {
-            background: rgba(59, 130, 246, 0.9);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 9px;
-            font-weight: 600;
-        }
-
-        .preview-content {
-            padding: 20px;
-        }
-
-        .preview-title {
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: #1f2937;
-        }
-
-        .preview-price {
-            font-size: 16px;
-            font-weight: 800;
-            color: #3b82f6;
-            margin-bottom: 16px;
-        }
-
-        .preview-colors {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-
-        .preview-color {
-            width: 24px;
-            height: 24px;
-            border-radius: 6px;
-            background: #e5e7eb;
-            border: 2px solid #f3f4f6;
-        }
-
-        .preview-btn {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            color: white;
-            padding: 12px;
-            text-align: center;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .code-output {
-            background: linear-gradient(145deg, #0f172a, #1e293b);
-            color: #e2e8f0;
-            padding: 30px;
-            border-radius: 16px;
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 12px;
-            line-height: 1.6;
-            max-height: 500px;
+            top: 20px;
+            left: 10px;
+            right: 10px;
+            bottom: 20px;
             overflow-y: auto;
-            margin-top: 30px;
-            white-space: pre-wrap;
+            background: white;
+        }
+        
+        .phone-screen::-webkit-scrollbar {
             display: none;
         }
-
-        .copy-btn {
-            background: linear-gradient(45deg, #3b82f6, #2563eb);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 10px;
+        
+        .color-thumbnail {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
             cursor: pointer;
-            margin-top: 16px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .color-thumbnail:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .color-thumbnail.active {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.3);
+        }
+        
+        .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 12px;
             font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .slider-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
             transition: all 0.3s ease;
         }
-
-        .copy-btn:hover {
+        
+        .slider-dot.active {
+            width: 20px;
+            border-radius: 4px;
+            background: white;
+        }
+        
+        .input-highlight {
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.3);
+        }
+        
+        .input-highlight:focus {
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.5);
+        }
+        
+        .btn-gradient {
+            background: var(--primary-gradient);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-gradient:hover {
+            background: var(--secondary-gradient);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 10px 20px rgba(118, 75, 162, 0.3);
         }
-
-        .feature-box {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
-            border: 2px solid rgba(16, 185, 129, 0.2);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 30px;
+        
+        .btn-accent {
+            background: var(--accent-color);
+            transition: all 0.3s ease;
         }
-
-        .feature-box h4 {
-            color: #059669;
-            font-weight: 700;
-            margin-bottom: 8px;
+        
+        .btn-accent:hover {
+            background: #c1915e;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(212, 165, 116, 0.3);
         }
-
-        .feature-box p {
-            color: #065f46;
-            font-size: 14px;
-            line-height: 1.5;
+        
+        .preview-slider {
+            scroll-snap-type: x mandatory;
         }
-
+        
+        .preview-slide {
+            scroll-snap-align: start;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+        
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+        
+        .generated-code {
+            font-family: 'SF Mono', 'Courier New', monospace;
+            background: #1e293b;
+            color: #f8fafc;
+            border-radius: 8px;
+            max-height: 500px;
+            overflow: auto;
+        }
+        
+        .generated-code::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .generated-code::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .toast.show {
+            opacity: 1;
+        }
+        
         @media (max-width: 1024px) {
-            .main {
-                grid-template-columns: 1fr;
-            }
-            
-            .preview-section {
-                border-left: none;
-                border-top: 1px solid rgba(0,0,0,0.06);
-            }
-            
-            .form-section {
-                padding: 30px;
-            }
-            
-            .preview-section {
-                padding: 30px;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .header h1 {
-                font-size: 32px;
-            }
-            
-            .color-item {
-                grid-template-columns: 1fr;
-                gap: 12px;
-                text-align: center;
-            }
-            
             .phone-mockup {
                 width: 280px;
                 height: 560px;
             }
         }
+        
+        @media (max-width: 768px) {
+            .phone-mockup {
+                width: 260px;
+                height: 520px;
+            }
+        }
     </style>
 </head>
-<body>
-    <div class="bg-animation"></div>
-    
-    <div class="container">
-        <div class="header">
-            <div class="header-content">
-                <span class="emoji">🧕</span>
-                <h1>Hijab Landing Generator</h1>
-                <p>Buat landing page hijab yang stunning dan professional dalam hitungan menit! ✨</p>
-            </div>
-        </div>
-
-        <div class="main">
-            <div class="form-section">
-                <div class="feature-box">
-                    <h4>🚀 Generator Premium</h4>
-                    <p>Landing page yang dihasilkan sudah mobile-responsive, modern, dan siap upload ke hosting manapun!</p>
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-gray-100 to-gray-200 text-gray-900 py-8 px-4 md:px-8 border-b border-gray-200">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="text-center md:text-left mb-6 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-2">🧕 Premium Hijab Landing Page Generator</h1>
+                    <p class="text-lg opacity-90">Create stunning product pages for your hijab business in minutes</p>
                 </div>
-                
-                <div class="section-title">📝 Informasi Produk</div>
-                
-                <div class="form-group">
-                    <label class="form-label">Nama Brand/Toko</label>
-                    <input type="text" class="form-input" id="brandName" placeholder="Contoh: HIJAB PREMIUM" value="HIJAB PREMIUM">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Nama Produk</label>
-                    <input type="text" class="form-input" id="productName" placeholder="Contoh: Eliza Scarf - Hijab Segiempat Premium" value="Eliza Scarf - Hijab Segiempat Premium">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Harga (tanpa titik/koma)</label>
-                    <input type="number" class="form-input" id="productPrice" placeholder="300000" value="300000">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Link Order Online</label>
-                    <input type="url" class="form-input" id="orderLink" placeholder="https://orderonline.id/toko-kamu" value="https://orderonline.id/example">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">URL Gambar Slider (3 gambar, pisah dengan enter)</label>
-                    <textarea class="form-input" id="sliderImages" placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg&#10;https://example.com/image3.jpg">https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=400&h=600&fit=crop
-https://images.unsplash.com/photo-1594736797933-d0ebebaa6726?w=400&h=600&fit=crop
-https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=400&h=600&fit=crop</textarea>
-                </div>
-
-                <div class="section-title">🎨 Varian Warna</div>
-                <div id="colorVariants" class="color-variants">
-                    <div class="color-item">
-                        <input type="text" class="form-input" placeholder="Nama Warna" value="Rose Smoke">
-                        <input type="url" class="form-input" placeholder="URL Gambar Kecil" value="https://images.unsplash.com/photo-1583391718956-6c10ad0d0edd?w=60&h=60&fit=crop">
-                        <input type="url" class="form-input" placeholder="URL Gambar Besar" value="https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=400&h=600&fit=crop">
-                        <button class="remove-btn" onclick="removeColor(this)">×</button>
-                    </div>
-                    <div class="color-item">
-                        <input type="text" class="form-input" placeholder="Nama Warna" value="Sky Blue">
-                        <input type="url" class="form-input" placeholder="URL Gambar Kecil" value="https://images.unsplash.com/photo-1594736797875-d0ebebaa6726?w=60&h=60&fit=crop">
-                        <input type="url" class="form-input" placeholder="URL Gambar Besar" value="https://images.unsplash.com/photo-1594736797933-d0ebebaa6726?w=400&h=600&fit=crop">
-                        <button class="remove-btn" onclick="removeColor(this)">×</button>
-                    </div>
-                </div>
-                <button class="add-color-btn" onclick="addColor()">+ Tambah Warna</button>
-
-                <div class="section-title">📋 Deskripsi & Spesifikasi</div>
-                
-                <div class="form-group">
-                    <label class="form-label">Deskripsi Produk</label>
-                    <textarea class="form-input" id="productDescription" placeholder="Deskripsi lengkap produk...">Hijab ini memancarkan effortless beauty, dengan sentuhan renda dan motif bunga, serta pita di setiap sisi yang menambah kesan manis. Terbuat dari bahan berkualitas, Eliza Scarf nyaman dipakai dan tetap tegak di bagian dahi. Sempurna untuk berbagai kesempatan, mulai dari acara formal hingga casual.</textarea>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Material</label>
-                    <input type="text" class="form-input" id="material" placeholder="Voal Premium" value="Voal Premium">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Ukuran</label>
-                    <input type="text" class="form-input" id="size" placeholder="115 x 115 cm" value="115 x 115 cm">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Berat</label>
-                    <input type="text" class="form-input" id="weight" placeholder="300 gram" value="300 gram">
-                </div>
-
-                <button class="generate-btn" onclick="generateLandingPage()">🚀 Generate Landing Page</button>
-
-                <div id="codeOutput" class="code-output"></div>
-                <button class="copy-btn" onclick="copyToClipboard()" style="display: none;" id="copyBtn">📋 Copy Kode</button>
-            </div>
-
-            <div class="preview-section">
-                <div class="section-title">📱 Preview Mobile</div>
-                <div class="phone-mockup">
-                    <div class="phone-screen">
-                        <div class="preview-header" id="previewBrand">HIJAB PREMIUM</div>
-                        <div class="preview-image">
-                            <div class="preview-badges">
-                                <span class="preview-badge">Ada Stok</span>
-                                <span class="preview-badge">New</span>
-                                <span class="preview-badge">Premium</span>
-                            </div>
-                        </div>
-                        <div class="preview-content">
-                            <div class="preview-title" id="previewTitle">Eliza Scarf - Hijab Segiempat Premium</div>
-                            <div class="preview-price" id="previewPrice">Rp 300,000</div>
-                            <div class="preview-colors">
-                                <div class="preview-color"></div>
-                                <div class="preview-color"></div>
-                                <div class="preview-color"></div>
-                            </div>
-                            <div class="preview-btn">🛒 Order Sekarang</div>
-                        </div>
-                    </div>
+                <div class="glass-effect px-6 py-3 rounded-full flex items-center">
+                    <i class="fas fa-magic text-xl mr-2"></i>
+                    <span>No Coding Required</span>
                 </div>
             </div>
         </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Generator Form -->
+            <div class="bg-white rounded-xl shadow-xl p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Hijab Product Details</h2>
+                
+                <form id="generatorForm" class="space-y-6">
+                    <!-- Brand Name -->
+                    <div>
+                        <label for="brandName" class="block text-sm font-medium text-gray-700 mb-1">Brand/Store Name</label>
+                        <input type="text" id="brandName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 input-highlight" placeholder="e.g. HIJAB PREMIUM" value="HIJAB PREMIUM">
+                    </div>
+                    
+                    <!-- Product Name -->
+                    <div>
+                        <label for="productName" class="block text-sm font-medium text-gray-700 mb-1">Product Name</label>
+                        <input type="text" id="productName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 input-highlight" placeholder="e.g. Eliza Scarf - Hijab Segiempat Premium" value="Eliza Scarf - Hijab Segiempat Premium">
+                    </div>
+                    
+                    <!-- Product Price -->
+                    <div>
+                        <label for="productPrice" class="block text-sm font-medium text-gray-700 mb-1">Product Price (IDR)</label>
+                        <input type="number" id="productPrice" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 input-highlight" placeholder="e.g. 300000" value="300000">
+                    </div>
+                    
+                    <!-- Order Link -->
+                    <div>
+                        <label for="orderLink" class="block text-sm font-medium text-gray-700 mb-1">Order Online Link</label>
+                        <input type="url" id="orderLink" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 input-highlight" placeholder="https://orderonline.id/your-product" value="https://orderonline.id/hijab-premium">
+                    </div>
+                    
+                    <!-- Slider Images -->
+                    <div>
+                        <label for="sliderImages" class="block text-sm font-medium text-gray-700 mb-1">Slider Images (Enter 3 URLs, one per line)</label>
+                        <textarea id="sliderImages" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 input-highlight">https://images.unsplash.com/photo-1525507119021-c3c995a57578?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80
+https://images.unsplash.com/photo-1581044777550-4cfa60707c03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80
+https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80</textarea>
+                    </div>
+                    
+                    <!-- Product Description -->
+                    <div>
+                        <label for="productDescription" class="block text-sm font-medium text-gray-700 mb-1">Product Description</label>
+                        <textarea id="productDescription" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 input-highlight">Hijab segiempat premium dengan bahan voal berkualitas tinggi yang nyaman dipakai seharian. Desain elegan dengan finishing rapi yang membuat tampilan semakin anggun. Cocok untuk berbagai acara formal maupun casual.</textarea>
+                    </div>
+                    
+                    <!-- Product Specs -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label for="material" class="block text-sm font-medium text-gray-700 mb-1">Material</label>
+                            <input type="text" id="material" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 input-highlight" placeholder="e.g. Voal Premium" value="Voal Premium">
+                        </div>
+                        <div>
+                            <label for="size" class="block text-sm font-medium text-gray-700 mb-1">Size (cm)</label>
+                            <input type="text" id="size" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 input-highlight" placeholder="e.g. 115x115" value="115x115">
+                        </div>
+                        <div>
+                            <label for="weight" class="block text-sm font-medium text-gray-700 mb-1">Weight (gram)</label>
+                            <input type="text" id="weight" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 input-highlight" placeholder="e.g. 300" value="300">
+                        </div>
+                    </div>
+                    
+                    <!-- Color Variants -->
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="block text-sm font-medium text-gray-700">Color Variants</label>
+                            <button type="button" id="addColorBtn" class="text-sm bg-indigo-100 text-indigo-700 px-3 py-1 rounded-lg hover:bg-indigo-200 transition">+ Add Color</button>
+                        </div>
+                        
+                        <div id="colorVariantsContainer" class="space-y-4">
+                            <!-- Default color variants -->
+                            <div class="color-variant-card p-4 border border-gray-200 rounded-lg">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Color Name</label>
+                                        <input type="text" class="color-name w-full px-3 py-1 border border-gray-300 rounded-lg" placeholder="e.g. Rose Smoke" value="Rose Smoke">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Thumbnail URL</label>
+                                        <input type="url" class="color-thumbnail w-full px-3 py-1 border border-gray-300 rounded-lg" placeholder="Small image URL" value="https://images.unsplash.com/photo-1525507119021-c3c995a57578?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=60&q=80">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Main Image URL</label>
+                                        <input type="url" class="color-image w-full px-3 py-1 border border-gray-300 rounded-lg" placeholder="Large image URL" value="https://images.unsplash.com/photo-1525507119021-c3c995a57578?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80">
+                                    </div>
+                                </div>
+                                <button type="button" class="remove-color-btn mt-2 text-sm text-red-500 hover:text-red-700">Remove</button>
+                            </div>
+                            
+                            <div class="color-variant-card p-4 border border-gray-200 rounded-lg">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Color Name</label>
+                                        <input type="text" class="color-name w-full px-3 py-1 border border-gray-300 rounded-lg" placeholder="e.g. Sky Blue" value="Sky Blue">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Thumbnail URL</label>
+                                        <input type="url" class="color-thumbnail w-full px-3 py-1 border border-gray-300 rounded-lg" placeholder="Small image URL" value="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=60&q=80">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Main Image URL</label>
+                                        <input type="url" class="color-image w-full px-3 py-1 border border-gray-300 rounded-lg" placeholder="Large image URL" value="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80">
+                                    </div>
+                                </div>
+                                <button type="button" class="remove-color-btn mt-2 text-sm text-red-500 hover:text-red-700">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Generate Button -->
+                    <div class="pt-4">
+                        <button type="button" id="generateBtn" class="w-full py-3 px-6 bg-gray-900 text-white font-medium rounded-lg shadow-md hover:bg-gray-800 transition duration-300 border border-gray-700">
+                            Generate Landing Page
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Preview Section -->
+            <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+                <div class="flex flex-col items-center">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Live Preview</h2>
+                    
+                    <div class="phone-mockup mb-6">
+                        <div class="phone-notch"></div>
+                        <div class="phone-screen">
+                            <!-- Preview content will be inserted here -->
+                            <div id="previewContent" class="h-full">
+                                <!-- Default preview content -->
+                                <div class="h-full flex items-center justify-center text-gray-500">
+                                    <p>Preview will appear here</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="w-full max-w-md bg-white rounded-lg shadow-md p-4">
+                        <h3 class="font-medium text-gray-800 mb-2">Preview Controls</h3>
+                        <div class="flex space-x-2">
+                            <button id="refreshPreviewBtn" class="flex-1 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition">
+                                <i class="fas fa-sync-alt mr-2"></i> Refresh
+                            </button>
+                            <button id="autoUpdateToggle" class="flex-1 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+                                <i class="fas fa-bolt mr-2"></i> Auto-update
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Generated Code Section (Initially hidden) -->
+        <div id="generatedCodeSection" class="mt-12 hidden">
+            <div class="bg-white rounded-xl shadow-xl p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">Your Generated Landing Page</h2>
+                    <div class="flex space-x-3">
+                        <button id="copyCodeBtn" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+                            <i class="fas fa-copy mr-2"></i> Copy Code
+                        </button>
+                        <button id="downloadCodeBtn" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                            <i class="fas fa-download mr-2"></i> Download HTML
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <button id="copyCodeBtn" class="copy-btn">
+                        <i class="fas fa-copy mr-1"></i> Copy
+                    </button>
+                    <pre id="generatedCode" class="generated-code p-6 text-sm"></pre>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <span id="toastMessage">Copied to clipboard!</span>
     </div>
 
     <script>
-        // Update preview real-time
-        function updatePreview() {
-            const brandElement = document.getElementById('previewBrand');
-            const titleElement = document.getElementById('previewTitle');
-            const priceElement = document.getElementById('previewPrice');
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const form = document.getElementById('generatorForm');
+            const generateBtn = document.getElementById('generateBtn');
+            const refreshPreviewBtn = document.getElementById('refreshPreviewBtn');
+            const autoUpdateToggle = document.getElementById('autoUpdateToggle');
+            const previewContent = document.getElementById('previewContent');
+            const generatedCodeSection = document.getElementById('generatedCodeSection');
+            const generatedCode = document.getElementById('generatedCode');
+            const copyCodeBtn = document.querySelectorAll('#copyCodeBtn');
+            const downloadCodeBtn = document.getElementById('downloadCodeBtn');
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            const addColorBtn = document.getElementById('addColorBtn');
+            const colorVariantsContainer = document.getElementById('colorVariantsContainer');
             
-            if (brandElement) {
-                brandElement.textContent = document.getElementById('brandName').value || 'HIJAB PREMIUM';
+            // Auto-update state
+            let autoUpdateEnabled = true;
+            
+            // Initialize with default preview
+            updatePreview();
+            
+            // Form event listeners for auto-update
+            if (autoUpdateEnabled) {
+                form.addEventListener('input', function() {
+                    if (autoUpdateEnabled) {
+                        updatePreview();
+                    }
+                });
             }
             
-            if (titleElement) {
-                titleElement.textContent = document.getElementById('productName').value || 'Nama Produk';
+            // Add color variant
+            addColorBtn.addEventListener('click', function() {
+                const colorCard = document.createElement('div');
+                colorCard.className = 'color-variant-card p-4 border border-gray-200 rounded-lg animate-fade-in';
+                colorCard.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Color Name</label>
+                            <input type="text" class="color-name w-full px-3 py-1 border border-gray-300 rounded-lg" placeholder="e.g. Desert Sage">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Thumbnail URL</label>
+                            <input type="url" class="color-thumbnail w-full px-3 py-1 border border-gray-300 rounded-lg" placeholder="Small image URL">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Main Image URL</label>
+                            <input type="url" class="color-image w-full px-3 py-1 border border-gray-300 rounded-lg" placeholder="Large image URL">
+                        </div>
+                    </div>
+                    <button type="button" class="remove-color-btn mt-2 text-sm text-red-500 hover:text-red-700">Remove</button>
+                `;
+                
+                colorVariantsContainer.appendChild(colorCard);
+                
+                // Add event listener to the new remove button
+                const removeBtn = colorCard.querySelector('.remove-color-btn');
+                removeBtn.addEventListener('click', function() {
+                    colorCard.classList.add('opacity-0', 'h-0', 'overflow-hidden', 'transition-all', 'duration-300');
+                    setTimeout(() => {
+                        colorCard.remove();
+                        if (autoUpdateEnabled) updatePreview();
+                    }, 300);
+                });
+                
+                // Add input listeners for auto-update
+                if (autoUpdateEnabled) {
+                    const inputs = colorCard.querySelectorAll('input');
+                    inputs.forEach(input => {
+                        input.addEventListener('input', function() {
+                            if (autoUpdateEnabled) updatePreview();
+                        });
+                    });
+                }
+                
+                if (autoUpdateEnabled) updatePreview();
+            });
+            
+            // Remove color variant (for initial ones)
+            document.querySelectorAll('.remove-color-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const card = this.closest('.color-variant-card');
+                    card.classList.add('opacity-0', 'h-0', 'overflow-hidden', 'transition-all', 'duration-300');
+                    setTimeout(() => {
+                        card.remove();
+                        if (autoUpdateEnabled) updatePreview();
+                    }, 300);
+                });
+            });
+            
+            // Toggle auto-update
+            autoUpdateToggle.addEventListener('click', function() {
+                autoUpdateEnabled = !autoUpdateEnabled;
+                if (autoUpdateEnabled) {
+                    this.innerHTML = '<i class="fas fa-bolt mr-2"></i> Auto-update ON';
+                    this.classList.remove('bg-gray-600');
+                    this.classList.add('bg-indigo-600');
+                    updatePreview();
+                } else {
+                    this.innerHTML = '<i class="fas fa-bolt mr-2"></i> Auto-update OFF';
+                    this.classList.remove('bg-indigo-600');
+                    this.classList.add('bg-gray-600');
+                }
+            });
+            
+            // Refresh preview manually
+            refreshPreviewBtn.addEventListener('click', function() {
+                updatePreview();
+                showToast('Preview refreshed!');
+            });
+            
+            // Generate final code
+            generateBtn.addEventListener('click', function() {
+                updatePreview();
+                generateLandingPageCode();
+                generatedCodeSection.classList.remove('hidden');
+                generatedCodeSection.scrollIntoView({ behavior: 'smooth' });
+                showToast('Landing page generated successfully!');
+            });
+            
+            // Copy code to clipboard
+            copyCodeBtn.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    copyToClipboard();
+                });
+            });
+            
+            // Download code as HTML file
+            downloadCodeBtn.addEventListener('click', function() {
+                downloadHTML();
+            });
+            
+            // Update preview function
+            function updatePreview() {
+                // Get form values
+                const brandName = document.getElementById('brandName').value || 'HIJAB PREMIUM';
+                const productName = document.getElementById('productName').value || 'Eliza Scarf - Hijab Segiempat Premium';
+                const productPrice = document.getElementById('productPrice').value ? formatPrice(document.getElementById('productPrice').value) : 'Rp 300.000';
+                const orderLink = document.getElementById('orderLink').value || '#';
+                const sliderImages = document.getElementById('sliderImages').value.split('\n').filter(url => url.trim() !== '');
+                const productDescription = document.getElementById('productDescription').value || 'Hijab segiempat premium dengan bahan voal berkualitas tinggi yang nyaman dipakai seharian.';
+                const material = document.getElementById('material').value || 'Voal Premium';
+                const size = document.getElementById('size').value || '115x115';
+                const weight = document.getElementById('weight').value || '300';
+                
+                // Get color variants
+                const colorVariants = [];
+                document.querySelectorAll('.color-variant-card').forEach(card => {
+                    const name = card.querySelector('.color-name').value;
+                    const thumbnail = card.querySelector('.color-thumbnail').value;
+                    const image = card.querySelector('.color-image').value;
+                    
+                    if (name && thumbnail && image) {
+                        colorVariants.push({ name, thumbnail, image });
+                    }
+                });
+                
+                // Default color if none provided
+                if (colorVariants.length === 0 && sliderImages.length > 0) {
+                    colorVariants.push({
+                        name: 'Default',
+                        thumbnail: sliderImages[0],
+                        image: sliderImages[0]
+                    });
+                }
+                
+                // Generate preview HTML
+                let previewHTML = `
+                    <div class="h-full flex flex-col">
+                        <!-- Header -->
+                        <div class="sticky top-0 z-10 bg-white shadow-sm py-3 px-4 flex justify-between items-center">
+                            <h1 class="font-bold text-lg text-gray-800">${brandName}</h1>
+                            <button class="text-gray-600">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Image Slider -->
+                        <div class="relative overflow-hidden">
+                            <div class="preview-slider flex overflow-x-auto snap-x snap-mandatory no-scrollbar" style="scroll-snap-type: x mandatory;">
+                                ${sliderImages.slice(0, 3).map((img, index) => `
+                                    <div class="preview-slide w-full flex-shrink-0" style="scroll-snap-align: start;">
+                                        <img src="${img}" alt="${productName}" class="w-full h-64 object-cover">
+                                    </div>
+                                `).join('')}
+                            </div>
+                            
+                            <!-- Slider Dots -->
+                            <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+                                ${sliderImages.slice(0, 3).map((_, index) => `
+                                    <div class="slider-dot ${index === 0 ? 'active' : ''}"></div>
+                                `).join('')}
+                            </div>
+                            
+                            <!-- Badges -->
+                            <div class="absolute top-4 right-4 flex flex-col space-y-2">
+                                <span class="badge bg-gray-100 text-gray-800 border border-gray-200">Ada Stok</span>
+                                <span class="badge bg-gray-100 text-gray-800 border border-gray-200">New Arrival</span>
+                                <span class="badge bg-gray-100 text-gray-800 border border-gray-200">Premium</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Product Info -->
+                        <div class="p-4 flex-grow">
+                            <h2 class="text-xl font-bold text-gray-800 mb-1">${productName}</h2>
+                            <div class="text-2xl font-bold text-gray-900 mb-3">${productPrice}</div>
+                            
+                            <!-- Color Variants -->
+                            ${colorVariants.length > 0 ? `
+                                <div class="mb-4">
+                                    <h3 class="text-sm font-medium text-gray-700 mb-2">Warna:</h3>
+                                    <div class="flex flex-wrap gap-2">
+                                        ${colorVariants.map((color, index) => `
+                                            <div class="color-thumbnail ${index === 0 ? 'active' : ''}" style="background-image: url('${color.thumbnail}'); background-size: cover;" data-image="${color.image}"></div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            ` : ''}
+                            
+                            <!-- Description -->
+                            <div class="mb-4">
+                                <h3 class="text-sm font-medium text-gray-700 mb-1">Deskripsi:</h3>
+                                <p class="text-gray-600 text-sm">${productDescription}</p>
+                            </div>
+                            
+                            <!-- Specs Table -->
+                            <div class="mb-6">
+                                <h3 class="text-sm font-medium text-gray-700 mb-2">Spesifikasi:</h3>
+                                <table class="w-full text-sm text-gray-600">
+                                    <tbody>
+                                        <tr class="border-b border-gray-100">
+                                            <td class="py-2 font-medium">Material</td>
+                                            <td class="py-2 text-right">${material}</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-100">
+                                            <td class="py-2 font-medium">Ukuran</td>
+                                            <td class="py-2 text-right">${size} cm</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-100">
+                                            <td class="py-2 font-medium">Berat</td>
+                                            <td class="py-2 text-right">${weight} gram</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- CTA Footer -->
+                        <div class="sticky bottom-0 bg-white border-t border-gray-100 p-4">
+                            <a href="${orderLink}" class="block w-full py-3 px-6 bg-gray-900 text-white font-medium rounded-lg text-center shadow-md hover:bg-gray-800 transition duration-300">
+                                🛒 Order Sekarang
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                // Update preview content
+                previewContent.innerHTML = previewHTML;
+                
+                // Add click handlers for color thumbnails
+                previewContent.querySelectorAll('.color-thumbnail').forEach(thumb => {
+                    thumb.addEventListener('click', function() {
+                        // Remove active class from all thumbnails
+                        previewContent.querySelectorAll('.color-thumbnail').forEach(t => {
+                            t.classList.remove('active');
+                        });
+                        
+                        // Add active class to clicked thumbnail
+                        this.classList.add('active');
+                        
+                        // Update main image (simulated in preview)
+                        const mainImage = this.dataset.image;
+                        // In a real implementation, we would update the main image here
+                    });
+                });
             }
             
-            if (priceElement) {
-                const price = document.getElementById('productPrice').value;
-                priceElement.textContent = price ? `Rp ${parseInt(price).toLocaleString('id-ID')}` : 'Rp 0';
-            }
-        }
-
-        // Add color variant
-        function addColor() {
-            const container = document.getElementById('colorVariants');
-            const colorItem = document.createElement('div');
-            colorItem.className = 'color-item';
-            colorItem.innerHTML = `
-                <input type="text" class="form-input" placeholder="Nama Warna">
-                <input type="url" class="form-input" placeholder="URL Gambar Kecil">
-                <input type="url" class="form-input" placeholder="URL Gambar Besar">
-                <button class="remove-btn" onclick="removeColor(this)">×</button>
-            `;
-            container.appendChild(colorItem);
-        }
-
-        // Remove color variant
-        function removeColor(button) {
-            button.parentElement.remove();
-        }
-
-        // Generate landing page
-        function generateLandingPage() {
-            const brandName = document.getElementById('brandName').value;
-            const productName = document.getElementById('productName').value;
-            const productPrice = document.getElementById('productPrice').value;
-            const orderLink = document.getElementById('orderLink').value;
-            const sliderImages = document.getElementById('sliderImages').value.split('\n').filter(img => img.trim());
-            const productDescription = document.getElementById('productDescription').value;
-            const material = document.getElementById('material').value;
-            const size = document.getElementById('size').value;
-            const weight = document.getElementById('weight').value;
-
-            // Get color variants
-            const colorItems = document.querySelectorAll('#colorVariants .color-item');
-            const colors = Array.from(colorItems).map(item => {
-                const inputs = item.querySelectorAll('input');
-                return {
-                    name: inputs[0].value,
-                    smallImage: inputs[1].value,
-                    largeImage: inputs[2].value
-                };
-            }).filter(color => color.name && color.smallImage && color.largeImage);
-
-            const html = generateHTML(brandName, productName, productPrice, orderLink, sliderImages, colors, productDescription, material, size, weight);
-            
-            document.getElementById('codeOutput').textContent = html;
-            document.getElementById('codeOutput').style.display = 'block';
-            document.getElementById('copyBtn').style.display = 'block';
-            document.getElementById('codeOutput').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Generate HTML template
-        function generateHTML(brandName, productName, productPrice, orderLink, sliderImages, colors, productDescription, material, size, weight) {
-            const colorOptionsHTML = colors.map((color, index) => 
-                `<div class="color-option${index === 0 ? ' active' : ''}" onclick="selectColor(this, '${color.name}', '${color.largeImage}')">
-                    <img src="${color.smallImage}" alt="${color.name}">
-                </div>`
-            ).join('\n                    ');
-
-            const sliderHTML = sliderImages.map((img, index) => 
-                `<div class="slide">
-                    <img src="${img}" alt="Model ${index + 1}"${index === 0 ? ' id="mainImage"' : ''}>
-                </div>`
-            ).join('\n                ');
-
-            const dotsHTML = sliderImages.map((_, index) => 
-                `<div class="dot${index === 0 ? ' active' : ''}" onclick="goToSlide(${index})"></div>`
-            ).join('\n                ');
-
-            const colorNames = colors.map(color => color.name).join(', ');
-            const totalSlides = sliderImages.length;
-
-            return `<!DOCTYPE html>
+            // Generate complete landing page code
+            function generateLandingPageCode() {
+                // Get form values
+                const brandName = document.getElementById('brandName').value || 'HIJAB PREMIUM';
+                const productName = document.getElementById('productName').value || 'Eliza Scarf - Hijab Segiempat Premium';
+                const productPrice = document.getElementById('productPrice').value ? formatPrice(document.getElementById('productPrice').value) : 'Rp 300.000';
+                const orderLink = document.getElementById('orderLink').value || '#';
+                const sliderImages = document.getElementById('sliderImages').value.split('\n').filter(url => url.trim() !== '');
+                const productDescription = document.getElementById('productDescription').value || 'Hijab segiempat premium dengan bahan voal berkualitas tinggi yang nyaman dipakai seharian.';
+                const material = document.getElementById('material').value || 'Voal Premium';
+                const size = document.getElementById('size').value || '115x115';
+                const weight = document.getElementById('weight').value || '300';
+                
+                // Get color variants
+                const colorVariants = [];
+                document.querySelectorAll('.color-variant-card').forEach(card => {
+                    const name = card.querySelector('.color-name').value;
+                    const thumbnail = card.querySelector('.color-thumbnail').value;
+                    const image = card.querySelector('.color-image').value;
+                    
+                    if (name && thumbnail && image) {
+                        colorVariants.push({ name, thumbnail, image });
+                    }
+                });
+                
+                // Default color if none provided
+                if (colorVariants.length === 0 && sliderImages.length > 0) {
+                    colorVariants.push({
+                        name: 'Default',
+                        thumbnail: sliderImages[0],
+                        image: sliderImages[0]
+                    });
+                }
+                
+                // Generate the complete HTML code
+                const htmlCode = `<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${productName}</title>
+    <title>${productName} - ${brandName}</title>
+    <meta name="description" content="${productDescription.substring(0, 160)}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            --accent-color: #d4a574;
+            --dark-bg: #1e293b;
+            --light-bg: #f8fafc;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #fafafa;
-            color: #333;
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+            color: #1e293b;
+            line-height: 1.6;
         }
-
-        .header {
-            background: #fff;
-            padding: 15px 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        
+        .color-thumbnail {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
-
-        .header h1 {
-            font-size: 24px;
-            color: #3b82f6;
-            text-align: center;
-            font-weight: 700;
-            letter-spacing: 1px;
+        
+        .color-thumbnail:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-
-        .container {
-            max-width: 480px;
-            margin: 0 auto;
-            background: #fff;
-            min-height: 100vh;
+        
+        .color-thumbnail.active {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.3);
         }
-
-        .image-slider {
-            position: relative;
-            width: 100%;
-            height: 400px;
-            overflow: hidden;
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-
-        .slider-wrapper {
-            display: flex;
-            transition: transform 0.3s ease;
-            height: 100%;
-        }
-
-        .slide {
-            min-width: 100%;
-            height: 100%;
-        }
-
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .slider-dots {
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 8px;
-        }
-
-        .dot {
+        
+        .slider-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.5);
-            cursor: pointer;
-            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
         }
-
-        .dot.active {
-            background: #3b82f6;
-            transform: scale(1.2);
+        
+        .slider-dot.active {
+            width: 20px;
+            border-radius: 4px;
+            background: white;
         }
-
-        .badges {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
+        
+        .btn-gradient {
+            background: var(--primary-gradient);
+            transition: all 0.3s ease;
         }
-
-        .badge {
-            background: #3b82f6;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 10px;
-            font-weight: 500;
-        }
-
-        .product-info {
-            padding: 20px;
-        }
-
-        .product-title {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #2c2c2c;
-        }
-
-        .product-price {
-            font-size: 24px;
-            font-weight: 700;
-            color: #3b82f6;
-            margin-bottom: 15px;
-        }
-
-        .promo-banner {
-            background: linear-gradient(45deg, #3b82f6, #2563eb);
-            color: white;
-            padding: 12px 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .promo-icon {
-            font-size: 18px;
-        }
-
-        .promo-text {
-            font-size: 13px;
-            line-height: 1.3;
-        }
-
-        .color-section {
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: #2c2c2c;
-        }
-
-        .color-options {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .color-option {
-            border: 2px solid #eee;
-            border-radius: 8px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 60px;
-            height: 60px;
-        }
-
-        .color-option.active {
-            border-color: #3b82f6;
-            transform: scale(1.05);
-        }
-
-        .color-option img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .quantity-section {
-            margin-bottom: 25px;
-        }
-
-        .quantity-selector {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .qty-btn {
-            width: 35px;
-            height: 35px;
-            border: 1px solid #ddd;
-            background: #f8f8f8;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 18px;
-            transition: all 0.2s;
-        }
-
-        .qty-btn:hover {
-            background: #3b82f6;
-            color: white;
-            border-color: #3b82f6;
-        }
-
-        .qty-input {
-            width: 60px;
-            height: 35px;
-            text-align: center;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 16px;
-        }
-
-        .order-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            text-align: center;
-            display: block;
-        }
-
-        .btn-primary {
-            background: #3b82f6;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #2563eb;
+        
+        .btn-gradient:hover {
+            background: var(--secondary-gradient);
             transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(118, 75, 162, 0.3);
         }
-
-        .description {
-            padding: 20px;
-            background: #f8f9fa;
-            margin: 20px 0;
-            border-radius: 12px;
-        }
-
-        .description h3 {
-            font-size: 18px;
-            margin-bottom: 12px;
-            color: #2c2c2c;
-        }
-
-        .description p {
-            line-height: 1.6;
-            color: #666;
-            margin-bottom: 15px;
-        }
-
-        .specs {
-            list-style: none;
-        }
-
-        .specs li {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
+        
+        .preview-slider {
             display: flex;
-            justify-content: space-between;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
         }
-
-        .specs li:last-child {
-            border-bottom: none;
+        
+        .preview-slide {
+            flex: 0 0 100%;
+            scroll-snap-align: start;
         }
-
-        .spec-label {
-            font-weight: 600;
-            color: #333;
+        
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
-
-        .spec-value {
-            color: #666;
+        
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
         }
-
-        @media (min-width: 768px) {
-            .container {
-                max-width: 800px;
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 30px;
-                padding: 20px;
-            }
-
-            .image-slider {
-                height: 500px;
-            }
-
-            .product-info {
-                padding: 0;
-            }
-
-            .order-buttons {
-                flex-direction: row;
-            }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease forwards;
         }
     </style>
 </head>
-<body>
-    <div class="header">
-        <h1>${brandName}</h1>
-    </div>
-
-    <div class="container">
-        <div class="image-slider">
-            <div class="slider-wrapper" id="sliderWrapper">
-                ${sliderHTML}
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="sticky top-0 z-10 bg-white shadow-sm py-3 px-4 flex justify-between items-center">
+        <h1 class="font-bold text-lg text-gray-800">${brandName}</h1>
+        <button class="text-gray-600">
+            <i class="fas fa-search"></i>
+        </button>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="flex flex-col">
+        <!-- Image Slider -->
+        <div class="relative overflow-hidden">
+            <div class="preview-slider flex overflow-x-auto snap-x snap-mandatory no-scrollbar">
+                ${sliderImages.slice(0, 3).map((img, index) => `
+                    <div class="preview-slide w-full flex-shrink-0">
+                        <img src="${img}" alt="${productName}" class="w-full h-64 object-cover">
+                    </div>
+                `).join('')}
             </div>
             
-            <div class="slider-dots" id="sliderDots">
-                ${dotsHTML}
+            <!-- Slider Dots -->
+            <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+                ${sliderImages.slice(0, 3).map((_, index) => `
+                    <div class="slider-dot ${index === 0 ? 'active' : ''}"></div>
+                `).join('')}
             </div>
-
-            <div class="badges">
-                <span class="badge">Ada Stok</span>
-                <span class="badge">New Arrival</span>
-                <span class="badge">Premium</span>
-            </div>
-        </div>
-
-        <div class="product-info">
-            <h2 class="product-title">${productName}</h2>
-            <div class="product-price">Rp <span id="productPrice">${parseInt(productPrice).toLocaleString('id-ID')}</span></div>
-
-            <div class="promo-banner">
-                <span class="promo-icon">🎁</span>
-                <div class="promo-text">
-                    <strong>Kamu memiliki 2 Diskon tersedia</strong><br>
-                    Gunakan kupon sekarang untuk penawaran menarik!
-                </div>
-            </div>
-
-            <div class="color-section">
-                <h3 class="section-title">Pilih Warna</h3>
-                <div class="color-options">
-                    ${colorOptionsHTML}
-                </div>
-            </div>
-
-            <div class="quantity-section">
-                <h3 class="section-title">Jumlah</h3>
-                <div class="quantity-selector">
-                    <button class="qty-btn" onclick="decreaseQty()">-</button>
-                    <input type="number" class="qty-input" id="quantity" value="1" min="1">
-                    <button class="qty-btn" onclick="increaseQty()">+</button>
-                </div>
-            </div>
-
-            <div class="order-buttons">
-                <a href="${orderLink}" class="btn btn-primary" target="_blank">🛒 Order Sekarang</a>
-            </div>
-
-            <div class="description">
-                <h3>Deskripsi Produk</h3>
-                <p>${productDescription}</p>
-                
-                <ul class="specs">
-                    <li>
-                        <span class="spec-label">Material:</span>
-                        <span class="spec-value">${material}</span>
-                    </li>
-                    <li>
-                        <span class="spec-label">Ukuran:</span>
-                        <span class="spec-value">${size}</span>
-                    </li>
-                    <li>
-                        <span class="spec-label">Warna:</span>
-                        <span class="spec-value">${colorNames}</span>
-                    </li>
-                    <li>
-                        <span class="spec-label">Berat:</span>
-                        <span class="spec-value">${weight}</span>
-                    </li>
-                </ul>
+            
+            <!-- Badges -->
+            <div class="absolute top-4 right-4 flex flex-col space-y-2">
+                <span class="badge bg-green-100 text-green-800">Ada Stok</span>
+                <span class="badge bg-blue-100 text-blue-800">New Arrival</span>
+                <span class="badge bg-purple-100 text-purple-800">Premium</span>
             </div>
         </div>
+        
+        <!-- Product Info -->
+        <div class="p-4">
+            <h2 class="text-xl font-bold text-gray-800 mb-1">${productName}</h2>
+            <div class="text-2xl font-bold text-purple-600 mb-3">${productPrice}</div>
+            
+            <!-- Color Variants -->
+            ${colorVariants.length > 0 ? `
+                <div class="mb-4">
+                    <h3 class="text-sm font-medium text-gray-700 mb-2">Warna:</h3>
+                    <div class="flex flex-wrap gap-2" id="colorSelector">
+                        ${colorVariants.map((color, index) => `
+                            <div class="color-thumbnail ${index === 0 ? 'active' : ''}" 
+                                 style="background-image: url('${color.thumbnail}'); background-size: cover;" 
+                                 data-image="${color.image}"
+                                 onclick="changeMainImage(this, '${color.image}')">
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            ` : ''}
+            
+            <!-- Description -->
+            <div class="mb-4">
+                <h3 class="text-sm font-medium text-gray-700 mb-1">Deskripsi:</h3>
+                <p class="text-gray-600 text-sm">${productDescription}</p>
+            </div>
+            
+            <!-- Specs Table -->
+            <div class="mb-6">
+                <h3 class="text-sm font-medium text-gray-700 mb-2">Spesifikasi:</h3>
+                <table class="w-full text-sm text-gray-600">
+                    <tbody>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-2 font-medium">Material</td>
+                            <td class="py-2 text-right">${material}</td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-2 font-medium">Ukuran</td>
+                            <td class="py-2 text-right">${size} cm</td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-2 font-medium">Berat</td>
+                            <td class="py-2 text-right">${weight} gram</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    
+    <!-- CTA Footer -->
+    <div class="sticky bottom-0 bg-white border-t border-gray-100 p-4">
+        <a href="${orderLink}" class="block w-full py-3 px-6 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-medium rounded-lg text-center shadow-md btn-gradient">
+            🛒 Order Sekarang
+        </a>
     </div>
-
+    
     <script>
-        let currentSlide = 0;
-        let selectedColor = '${colors[0]?.name || 'Default'}';
-
-        // Slider functionality
-        function goToSlide(index) {
-            currentSlide = index;
-            const wrapper = document.getElementById('sliderWrapper');
-            wrapper.style.transform = \`translateX(-\${index * 100}%)\`;
+        // Change main image when color is selected
+        function changeMainImage(thumb, imageUrl) {
+            // Remove active class from all thumbnails
+            document.querySelectorAll('.color-thumbnail').forEach(t => {
+                t.classList.remove('active');
+            });
             
-            // Update dots
-            const dots = document.querySelectorAll('.dot');
+            // Add active class to clicked thumbnail
+            thumb.classList.add('active');
+            
+            // Update main image (first slide in preview)
+            const slides = document.querySelectorAll('.preview-slide');
+            if (slides.length > 0) {
+                slides[0].querySelector('img').src = imageUrl;
+            }
+        }
+        
+        // Auto-slide functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.preview-slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.style.transform = \`translateX(\${(i - index) * 100}%)\`;
+            });
+            
             dots.forEach((dot, i) => {
                 dot.classList.toggle('active', i === index);
             });
-        }
-
-        // Color selection
-        function selectColor(element, colorName, imageUrl) {
-            document.querySelectorAll('.color-option').forEach(option => {
-                option.classList.remove('active');
-            });
             
-            element.classList.add('active');
-            selectedColor = colorName;
+            currentSlide = index;
+        }
+        
+        // Initialize slider
+        if (slides.length > 0) {
+            showSlide(0);
             
-            const mainImage = document.querySelector('#sliderWrapper .slide:first-child img');
-            if (mainImage) {
-                mainImage.src = imageUrl;
-            }
-        }
-
-        // Quantity controls
-        function increaseQty() {
-            const qtyInput = document.getElementById('quantity');
-            qtyInput.value = parseInt(qtyInput.value) + 1;
-        }
-
-        function decreaseQty() {
-            const qtyInput = document.getElementById('quantity');
-            if (parseInt(qtyInput.value) > 1) {
-                qtyInput.value = parseInt(qtyInput.value) - 1;
-            }
-        }
-
-        // Auto slider
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % ${totalSlides};
-            goToSlide(currentSlide);
-        }, 5000);
-    </script>
-</body>
-</html>`;
-        }
-
-        // Copy to clipboard function
-        function copyToClipboard() {
-            const codeText = document.getElementById('codeOutput').textContent;
-            navigator.clipboard.writeText(codeText).then(() => {
-                const btn = document.getElementById('copyBtn');
-                const originalText = btn.textContent;
-                btn.textContent = '✅ Copied!';
-                btn.style.background = '#10b981';
-                
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                    btn.style.background = 'linear-gradient(45deg, #3b82f6, #2563eb)';
-                }, 2000);
-            });
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            const inputs = ['brandName', 'productName', 'productPrice'];
-            inputs.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.addEventListener('input', updatePreview);
+            // Auto-advance slides every 5 seconds
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }, 5000);
+            
+            // Touch/swipe support for mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            const slider = document.querySelector('.preview-slider');
+            
+            slider.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, {passive: true});
+            
+            slider.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, {passive: true});
+            
+            function handleSwipe() {
+                const diff = touchStartX - touchEndX;
+                if (diff > 50) {
+                    // Swipe left - next slide
+                    currentSlide = Math.min(currentSlide + 1, slides.length - 1);
+                } else if (diff < -50) {
+                    // Swipe right - previous slide
+                    currentSlide = Math.max(currentSlide - 1, 0);
                 }
-            });
-            
-            updatePreview();
-        });
+                showSlide(currentSlide);
+            }
+        }
     </script>
 </body>
 </html>
